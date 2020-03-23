@@ -7,6 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\AunirLogo.jpg" />
+    <None Remove="Images\Baseline.png" />
+    <None Remove="Images\NIR4MASTERLOGO.jpg" />
+    <None Remove="Images\Nir4Splash.jpg" />
+    <None Remove="Images\Scanning.jpg" />
+    <None Remove="Images\WooshNIR4Fixed.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="ViewModel\Controls\" />
     <Folder Include="View\Controls\" />
   </ItemGroup>
@@ -20,6 +29,28 @@
     <PackageReference Include="Serilog.Sinks.File" Version="4.1.0" />
     <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
     <PackageReference Include="Splat.Serilog" Version="9.3.11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\AunirLogo.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Baseline.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\NIR4MASTERLOGO.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Scanning.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\WooshNIR4Fixed.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <SplashScreen Include="Images\Nir4Splash.jpg" />
   </ItemGroup>
 
 </Project>
