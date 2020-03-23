@@ -1,0 +1,26 @@
+﻿<rxui:ReactiveUserControl
+    x:Class="SpectraCaptureApp.View.EnterSampleReferenceView"
+    x:TypeArguments="vm:EnterSampleReferenceViewModel"
+    xmlns:rxui="http://reactiveui.net"
+    xmlns:vm="clr-namespace:SpectraCaptureApp.ViewModel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    Background="WhiteSmoke"
+    mc:Ignorable="d">
+
+    <Grid>
+        <StackPanel>
+            <TextBlock x:Name="PathTextBlock" Foreground="Black" Margin="10" Text="THIS IS THE ENTER SAMPLE REF VIEW" />
+            <StackPanel Orientation="Horizontal">
+                <Label>Type sample reference</Label>
+                <TextBox x:Name="SampleReference" MinWidth="100" />
+                <Button x:Name="AutoRef" Content="AutoRef" />
+
+            </StackPanel>
+            <Button x:Name="NextButton" Content="Next" />
+        </StackPanel>        
+    </Grid>
+
+</rxui:ReactiveUserControl>
