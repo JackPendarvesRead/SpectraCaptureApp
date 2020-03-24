@@ -21,9 +21,16 @@ namespace SpectraCaptureApp
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            InitialiseConfiguration();
             RegisterDependencies();
             InitialiseMainWindow();
             base.OnStartup(e);
+        }
+
+        private void InitialiseConfiguration()
+        {
+            var settingsManager = new SettingsManager<AppSettings>("MySettings.json");
+            Locator.CurrentMutable.RegisterConstant<SettingsManager<AppSettings>>(settingsManager);
         }
 
         private void InitialiseMainWindow()

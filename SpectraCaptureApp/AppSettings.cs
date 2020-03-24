@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace SpectraCaptureApp
 {
-    internal static class AppSettings
+    internal class AppSettings
     {
-        public static string SpectrumSaveDirectory => ConfigurationManager.AppSettings["SpectrumSaveDirectory"];
+        public string SpectrumSaveDirectory { get; set; }
     }
 }
