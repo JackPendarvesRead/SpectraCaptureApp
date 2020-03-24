@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Splat;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,10 +12,16 @@ namespace SpectraCaptureApp.Model
     public class MockScanningWorkflow : IScanningWorkflow
     {
         private int pauseTime = 400;
+        private readonly AppSettings appSettings;
+
+        public MockScanningWorkflow()
+        {
+            appSettings = Locator.Current.GetService<>
+        }
 
         public void ScanReference()
         {
-            Thread.Sleep(pauseTime);
+            Thread.Sleep(pauseTime);            
         }
 
         public void ScanSubSample()
@@ -30,7 +37,7 @@ namespace SpectraCaptureApp.Model
         public void StoreSpectrum()
         {
             Thread.Sleep(pauseTime);
-            MessageBox.Show("File saved to " + AppSettings.SpectrumSaveDirectory);
+            MessageBox.Show("File saved!!!");
         }
 
         public void TurnOffLamp()

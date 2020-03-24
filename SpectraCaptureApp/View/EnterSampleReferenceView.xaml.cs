@@ -26,8 +26,8 @@ namespace SpectraCaptureApp.View
             this.WhenActivated(disposables =>
             {
                 this.Bind(ViewModel, vm => vm.Model.SampleReference, view => view.SampleReference.Text).DisposeWith(disposables);
-                this.BindCommand(ViewModel, vm => vm.AutoReferenceCommand, view => view.AutoRef);
-                this.BindCommand(ViewModel, vm => vm.SetSampleReferenceCommand, view => view.NextButton);
+                this.BindCommand(ViewModel, vm => vm.AutoReferenceCommand, view => view.AutoRef).DisposeWith(disposables);
+                this.BindCommand(ViewModel, vm => vm.SetSampleReferenceCommand, view => view.NextButton).DisposeWith(disposables);
             });
         }
     }
