@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SpectraCaptureApp
 {
-    internal class AppSettings
+    internal class UserSettings
     {
         public string SpectrumSaveDirectory { get; set; }
     }

@@ -8,27 +8,43 @@ using Splat;
 
 namespace SpectraCaptureApp.ViewModel
 {
-    public class SettingsViewModel : ReactiveObject
+    public class SettingsViewModel : ReactiveObject, IRoutableViewModel
     {
-        public SettingsViewModel()
-        {
-            ReactiveCommand.Create(SaveDirectoryBrowseCommandImpl);
-        }
-
-        private void SaveDirectoryBrowseCommandImpl()
-        {
-            using(var sfd = new SaveFileDialog())
-            {
-                if(sfd.ShowDialog() == DialogResult.OK)
-                {
-                    var manager = Locator.Current.GetService<SettingsManager<AppSettings>>();
-                   //manager.SaveSettings();
-                }
-            }
-        }
+        public string UrlPathSegment => "Settings";
+        public IScreen HostScreen { get; }
 
         public ReactiveCommand<Unit, Unit> SaveDirectoryBrowseCommand { get; set; }
 
         public string SaveDirectory { get; set; }
+
+        private readonly SettingsManager<UserSettings> settingsManager;
+        private readonly UserSettings appSettings;
+
+        public SettingsViewModel(IScreen screen = null)
+        {
+            HostScreen = screen ?? Locator.Current.GetService<IScreen>();
+            ReactiveCommand.Create(SaveDirectoryBrowseCommandImpl);
+
+            settingsManager = Locator.Current.GetService<SettingsManager<UserSettings>>();
+            appSettings = settingsManager.LoadSettings() ?? new UserSettings();
+        }
+
+        private void SaveDirectoryBrowseCommandImpl()
+        {
+            try
+            {
+                using var fbd = new FolderBrowserDialog();
+                if (fbd.ShowDialog() == DialogResult.OK)
+                {
+                    SaveDirectory = fbd.SelectedPath;
+                    appSettings.SpectrumSaveDirectory = SaveDirectory;
+                    settingsManager.SaveSettings(appSettings);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
     }
 }

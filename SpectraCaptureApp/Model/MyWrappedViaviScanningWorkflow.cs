@@ -11,7 +11,7 @@ namespace SpectraCaptureApp.Model
     {
 
         public MyWrappedViaviScanningWorkflow() 
-            : base(new FirstUsbDeviceConnectionFactory(), AppSettings.SpectrumSaveDirectory)
+            : base(new FirstUsbDeviceConnectionFactory(), "")
         {
         }
 

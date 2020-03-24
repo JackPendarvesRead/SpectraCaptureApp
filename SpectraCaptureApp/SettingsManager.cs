@@ -18,7 +18,7 @@ namespace SpectraCaptureApp
 
         private string GetLocalFilePath(string fileName)
         {
-            string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string appData = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
             return Path.Combine(appData, "SpectraCaptureApp", fileName);
         }
 

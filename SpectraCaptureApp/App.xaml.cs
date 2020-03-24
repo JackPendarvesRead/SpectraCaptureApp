@@ -29,8 +29,8 @@ namespace SpectraCaptureApp
 
         private void InitialiseConfiguration()
         {
-            var settingsManager = new SettingsManager<AppSettings>("MySettings.json");
-            Locator.CurrentMutable.RegisterConstant<SettingsManager<AppSettings>>(settingsManager);
+            var settingsManager = new SettingsManager<UserSettings>("MySettings.json");
+            Locator.CurrentMutable.RegisterConstant<SettingsManager<UserSettings>>(settingsManager);
         }
 
         private void InitialiseMainWindow()

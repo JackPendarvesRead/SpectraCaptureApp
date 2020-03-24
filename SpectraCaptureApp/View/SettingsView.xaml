@@ -9,12 +9,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     Background="WhiteSmoke"
     mc:Ignorable="d">
-    <Grid>
+    <StackPanel
+        VerticalAlignment="Top"
+        HorizontalAlignment="Left">
         <StackPanel Orientation="Horizontal">
             <Label>Save Directory: </Label>
             <TextBlock x:Name="SaveDirectory" />
             <Button x:Name="SaveDirectoryBrowse" Content="Browse" />
-
         </StackPanel>
-    </Grid>
+    </StackPanel>
 </rxui:ReactiveUserControl>

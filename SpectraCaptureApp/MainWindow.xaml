@@ -38,8 +38,8 @@
             Orientation="Horizontal"
             HorizontalAlignment="Left" 
             VerticalAlignment="Center">
-            <Button x:Name="HomeButton" Content="Home" />
             <Button x:Name="RestartButton" Content="New Scan" />
+            <Button x:Name="SettingsButton" Content="Settings" />
         </StackPanel>
     </Grid>
 </rxui:ReactiveWindow>

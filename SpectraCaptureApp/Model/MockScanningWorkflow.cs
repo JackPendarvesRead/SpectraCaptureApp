@@ -12,11 +12,11 @@ namespace SpectraCaptureApp.Model
     public class MockScanningWorkflow : IScanningWorkflow
     {
         private int pauseTime = 400;
-        private readonly AppSettings appSettings;
+        private readonly UserSettings appSettings;
 
         public MockScanningWorkflow()
         {
-            appSettings = Locator.Current.GetService<>
+            
         }
 
         public void ScanReference()
