@@ -27,6 +27,8 @@ namespace SpectraCaptureApp.ViewModel
 
             settingsManager = Locator.Current.GetService<SettingsManager<UserSettings>>();
             appSettings = settingsManager.LoadSettings() ?? new UserSettings();
+
+            SaveDirectoryBrowseCommand = ReactiveCommand.Create(SaveDirectoryBrowseCommandImpl);
         }
 
         private void SaveDirectoryBrowseCommandImpl()

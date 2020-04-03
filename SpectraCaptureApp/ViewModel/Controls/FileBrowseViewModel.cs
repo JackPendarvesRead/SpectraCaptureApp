@@ -7,5 +7,6 @@ namespace SpectraCaptureApp.ViewModel.Controls
 {
     public class FileBrowseViewModel : ReactiveObject
     {
+        public string TextBlockText { get; set; }
     }
 }

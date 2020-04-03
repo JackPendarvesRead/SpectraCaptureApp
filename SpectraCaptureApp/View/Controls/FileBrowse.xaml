@@ -15,12 +15,12 @@
             <ColumnDefinition  Width="*"/>
             <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
-        <Label x:Name="FileBrowseLabel" 
+        <Label Name="FileBrowseLabel" 
                Grid.Column="0"/>
         <TextBlock x:Name="FileBrowseTextBlock" 
                    Grid.Column="1"/>
         <Button x:Name="FileBrowseButton" 
                 Grid.Column="2"
                 Content="Browse" />
-    </Grid>>
+    </Grid>
 </rxui:ReactiveUserControl>
