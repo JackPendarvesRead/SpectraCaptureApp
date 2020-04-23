@@ -10,7 +10,6 @@
     <None Remove="Images\AunirLogo.jpg" />
     <None Remove="Images\Baseline.png" />
     <None Remove="Images\NIR4MASTERLOGO.jpg" />
-    <None Remove="Images\Nir4Splash.jpg" />
     <None Remove="Images\Scanning.jpg" />
     <None Remove="Images\WooshNIR4Fixed.jpg" />
   </ItemGroup>
@@ -42,10 +41,6 @@
     <Resource Include="Images\WooshNIR4Fixed.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <SplashScreen Include="Images\Nir4Splash.jpg" />
   </ItemGroup>
 
 </Project>

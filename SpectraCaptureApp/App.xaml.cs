@@ -35,7 +35,6 @@ namespace SpectraCaptureApp
 
         private void InitialiseMainWindow()
         {
-            Thread.Sleep(2000);
             var window = new MainWindow();
             window.Show();
         }
