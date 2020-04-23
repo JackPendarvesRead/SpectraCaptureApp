@@ -31,9 +31,11 @@ namespace SpectraCaptureApp.View
                     view => view.SaveDirectoryFileBrowse.FileBrowseButton)
                 .DisposeWith(disposables);
 
-                this.SaveDirectoryFileBrowse.FileBrowseLabel.Content = "Bla bla bla bla";
 
-
+                this.OneWayBind(ViewModel,
+                    vm => vm.SaveDirectory,
+                    view => view.SaveDirectoryFileBrowse.FileBrowseTextBlock.Text)
+                .DisposeWith(disposables);
             });
         }
     }

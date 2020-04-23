@@ -15,7 +15,12 @@ namespace SpectraCaptureApp.ViewModel
 
         public ReactiveCommand<Unit, Unit> SaveDirectoryBrowseCommand { get; set; }
 
-        public string SaveDirectory { get; set; }
+        private string saveDirectory;
+        public string SaveDirectory
+        {
+            get => saveDirectory;
+            set => this.RaiseAndSetIfChanged(ref saveDirectory, value);
+        }
 
         private readonly SettingsManager<UserSettings> settingsManager;
         private readonly UserSettings appSettings;
@@ -27,6 +32,8 @@ namespace SpectraCaptureApp.ViewModel
 
             settingsManager = Locator.Current.GetService<SettingsManager<UserSettings>>();
             appSettings = settingsManager.LoadSettings() ?? new UserSettings();
+
+            SaveDirectory = appSettings.SpectrumSaveDirectory ?? "<No Directory Set>";
 
             SaveDirectoryBrowseCommand = ReactiveCommand.Create(SaveDirectoryBrowseCommandImpl);
         }
