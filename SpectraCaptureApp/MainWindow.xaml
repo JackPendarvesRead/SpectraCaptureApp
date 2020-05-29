@@ -8,38 +8,16 @@
     Title="NIR4 Scanning Application" Height="500" Width="800">
     <Grid Background="LightGoldenrodYellow">
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="100" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="50" />
         </Grid.ColumnDefinitions>
-        <Image Grid.Column="1"             
-               Grid.Row="2" 
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"  
-               Width="100">
-            <Image.Source>
-                <BitmapImage DecodePixelWidth="100" UriSource="/Images/NIR4MASTERLOGO.jpg" />
-            </Image.Source>
-        </Image>
         <rxui:RoutedViewHost 
             Grid.Row="1"
             Grid.Column="1"
             x:Name="RoutedViewHost"
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch" />
-        <StackPanel 
-            Grid.Row="0" 
-            Grid.Column="1" 
-            Orientation="Horizontal"
-            HorizontalAlignment="Left" 
-            VerticalAlignment="Center">
-            <Button x:Name="RestartButton" Content="New Scan" />
-            <Button x:Name="SettingsButton" Content="Settings" />
-        </StackPanel>
     </Grid>
 </rxui:ReactiveWindow>
