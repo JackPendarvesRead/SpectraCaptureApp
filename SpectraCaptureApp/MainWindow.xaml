@@ -1,6 +1,7 @@
 ﻿<rxui:ReactiveWindow
     xmlns:rxui="http://reactiveui.net" 
     x:Class="SpectraCaptureApp.MainWindow"
+    xmlns:control="clr-namespace:SpectraCaptureApp.View.Controls"
     x:TypeArguments="vm:MainViewModel"
     xmlns:vm="clr-namespace:SpectraCaptureApp.ViewModel"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -8,14 +9,16 @@
     Title="NIR4 Scanning Application" Height="500" Width="800">
     <Grid Background="LightGoldenrodYellow">
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+
+        <control:TopBar Grid.Row="0" />
         <rxui:RoutedViewHost 
             Grid.Row="1"
-            Grid.Column="1"
             x:Name="RoutedViewHost"
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch" />
