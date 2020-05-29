@@ -26,6 +26,7 @@ namespace SpectraCaptureApp.View
             this.WhenActivated(disposables =>
             {
                 this.Bind(ViewModel, vm => vm.Model.SampleReference, view => view.SampleReference.Text).DisposeWith(disposables);
+                this.OneWayBind(ViewModel, vm => vm.CalibrationSets, view => view.CalibrationSetComboBox.ItemsSource).DisposeWith(disposables);
                 this.BindCommand(ViewModel, vm => vm.AutoReferenceCommand, view => view.AutoRef).DisposeWith(disposables);
                 this.BindCommand(ViewModel, vm => vm.SetSampleReferenceCommand, view => view.NextButton).DisposeWith(disposables);
             });

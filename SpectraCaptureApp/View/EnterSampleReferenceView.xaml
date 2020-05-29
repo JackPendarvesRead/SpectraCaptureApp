@@ -12,14 +12,16 @@
 
     <Grid>
         <StackPanel>
-            <TextBlock x:Name="PathTextBlock" Foreground="Black" Margin="10" Text="THIS IS THE ENTER SAMPLE REF VIEW" />
+            <Label>Sample Reference</Label>
             <StackPanel Orientation="Horizontal">
-                <Label>Type sample reference</Label>
                 <TextBox x:Name="SampleReference" MinWidth="100" />
                 <Button x:Name="AutoRef" Content="AutoRef" />
-
             </StackPanel>
-            <Button x:Name="NextButton" Content="Next" />
+            <Label>Calibration Set</Label>
+            <StackPanel Orientation="Horizontal">
+                <ComboBox x:Name="CalibrationSetComboBox" MinWidth="100" />
+            </StackPanel>
+            <Button x:Name="NextButton" Content="Scan" />
         </StackPanel>        
     </Grid>
 
