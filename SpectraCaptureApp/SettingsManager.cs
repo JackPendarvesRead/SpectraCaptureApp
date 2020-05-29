@@ -13,18 +13,15 @@ namespace SpectraCaptureApp
 
         public SettingsManager(string fileName)
         {
-            filePath = GetLocalFilePath(fileName);
+            var directory = GetOrCreateDirectory("SpectraCaptureApp");
+            filePath = Path.Combine(directory.FullName, fileName);
         }
 
-        private string GetLocalFilePath(string fileName)
+        private DirectoryInfo GetOrCreateDirectory(string folderName)
         {
             string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            var directory = Path.Combine(appData, "SpectraCaptureApp");
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-            return Path.Combine(directory, fileName);
+            string directoryPath = Path.Combine(appData, folderName);
+            return Directory.CreateDirectory(directoryPath);
         }
 
         public T LoadSettings()
