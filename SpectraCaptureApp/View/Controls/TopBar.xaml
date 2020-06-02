@@ -9,7 +9,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     Background="WhiteSmoke"
     mc:Ignorable="d">
-    <Grid>
+    <Grid Background="Gold">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
