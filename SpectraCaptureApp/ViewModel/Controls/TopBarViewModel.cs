@@ -15,7 +15,15 @@ namespace SpectraCaptureApp.ViewModel.Controls
         public ImageSource SpectrometerConnectedImageUri => new BitmapImage(new Uri("/Images/tick.png"));
         public ImageSource BatteryImage => new BitmapImage(new Uri("/Images/100.png"));
 
-        public Visibility HomeButtonVisible { get; set; }
+
+
+        private Visibility homeButtonVisible;
+        public Visibility HomeButtonVisible
+        {
+            get => homeButtonVisible;
+            set => this.RaiseAndSetIfChanged(ref this.homeButtonVisible, value);
+        }
+
         public Visibility SettingsButtonVisible { get; set; }
         public Visibility BatteryImageVisible { get; set; }
         public Visibility BaselineOkImageVisible { get; set; }
