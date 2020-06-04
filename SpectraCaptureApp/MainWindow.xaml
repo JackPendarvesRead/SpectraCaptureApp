@@ -11,12 +11,13 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <control:TopBar Grid.Row="0" />
+        <control:TopBar x:Name="TopBar" Grid.Row="0" />
         <rxui:RoutedViewHost 
             Grid.Row="1"
             x:Name="RoutedViewHost"

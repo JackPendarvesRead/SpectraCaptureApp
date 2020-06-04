@@ -26,13 +26,25 @@
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
 
-            <Image Height="64" Width="64" x:Name="BaselineOkImage" />
+            <Image Height="64" Width="64" x:Name="BaselineOkImage">
+                <Image.Source>
+                    <BitmapImage UriSource="/Images/tick.png" DecodePixelWidth="64" />
+                </Image.Source>
+            </Image>
             <Label>Baseline</Label>
-            
-            <Image Height="64" Width="64" x:Name="SpectrometerConnectedImage" />
+
+            <Image Height="64" Width="64" x:Name="SpectrometerConnectedImage">
+                <Image.Source>
+                    <BitmapImage UriSource="/Images/tick.png" DecodePixelWidth="64" />
+                </Image.Source>
+            </Image>
             <Label>Spectrometer</Label>
 
-            <Image Height="64" Width="64" x:Name="BatteryImage" />
+            <Image Height="64" Width="64" x:Name="BatteryImage">
+                <Image.Source>
+                    <BitmapImage UriSource="/Images/100.png" DecodePixelWidth="64" />
+                </Image.Source>
+            </Image>
         </StackPanel>
     </Grid>
     

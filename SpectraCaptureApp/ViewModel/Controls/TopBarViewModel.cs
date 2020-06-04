@@ -11,14 +11,17 @@ namespace SpectraCaptureApp.ViewModel.Controls
 {
     public class TopBarViewModel : ReactiveObject
     {
-        public ImageSource BaselineOkImageUri => new BitmapImage(new Uri("/Images/tick.png"));
-        public ImageSource SpectrometerConnectedImageUri => new BitmapImage(new Uri("/Images/tick.png"));
-        public ImageSource BatteryImage => new BitmapImage(new Uri("/Images/100.png"));
+        public string BaselineOkImageUri => "/Images/tick.png";
+        public string SpectrometerConnectedImageUri => "/Images/tick.png";
+        public string BatteryImage => "/Images/100.png";
+        //public ImageSource BaselineOkImageUri => new BitmapImage(new Uri("/Images/tick.png"));
+        //public ImageSource SpectrometerConnectedImageUri => new BitmapImage(new Uri("/Images/tick.png"));
+        //public ImageSource BatteryImage => new BitmapImage(new Uri("/Images/100.png"));
 
 
 
-        private Visibility homeButtonVisible;
-        public Visibility HomeButtonVisible
+        private bool homeButtonVisible;
+        public bool HomeButtonVisible
         {
             get => homeButtonVisible;
             set => this.RaiseAndSetIfChanged(ref this.homeButtonVisible, value);
@@ -34,7 +37,7 @@ namespace SpectraCaptureApp.ViewModel.Controls
 
         public TopBarViewModel()
         {
-            HomeButtonVisible = Visibility.Collapsed;
+            HomeButtonVisible = false;
             SettingsButtonVisible = Visibility.Visible;
             BatteryImageVisible = Visibility.Visible;
             BaselineOkImageVisible = Visibility.Visible;
