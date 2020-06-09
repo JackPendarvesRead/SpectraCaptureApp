@@ -35,7 +35,7 @@ namespace SpectraCaptureApp.View.Controls
 
                 this.Bind(ViewModel, vm => vm.HomeButtonVisible, view => view.HomeButton.Visibility, VMToView ,ViewToVM).DisposeWith(disposables);
                 this.OneWayBind(ViewModel, vm => vm.SettingsButtonVisible, view => view.SettingsButton.Visibility).DisposeWith(disposables);
-                this.OneWayBind(ViewModel, vm => vm.BaselineOkImageVisible, view => view.BaselineOkImage.Visibility).DisposeWith(disposables);
+                //this.OneWayBind(ViewModel, vm => vm.BaselineOkImageVisible, view => view.BaselineOkImage.Visibility).DisposeWith(disposables);
                 this.OneWayBind(ViewModel, vm => vm.BatteryImageVisible, view => view.BatteryImage.Visibility).DisposeWith(disposables);
                 this.OneWayBind(ViewModel, vm => vm.SpectrometerConnectedImageVisible, view => view.SpectrometerConnectedImage.Visibility).DisposeWith(disposables);
             });

@@ -16,7 +16,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-
+        
         <control:TopBar x:Name="TopBar" Grid.Row="0" />
         <rxui:RoutedViewHost 
             Grid.Row="1"

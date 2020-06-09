@@ -7,10 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\100.PNG" />
     <None Remove="Images\AunirLogo.jpg" />
     <None Remove="Images\Baseline.png" />
     <None Remove="Images\NIR4MASTERLOGO.jpg" />
     <None Remove="Images\Scanning.jpg" />
+    <None Remove="Images\tick.png" />
+    <None Remove="Images\wifi.png" />
     <None Remove="Images\WooshNIR4Fixed.jpg" />
   </ItemGroup>
 
@@ -26,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\100.PNG" />
     <Resource Include="Images\AunirLogo.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -38,6 +42,8 @@
     <Resource Include="Images\Scanning.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\tick.png" />
+    <Resource Include="Images\wifi.png" />
     <Resource Include="Images\WooshNIR4Fixed.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

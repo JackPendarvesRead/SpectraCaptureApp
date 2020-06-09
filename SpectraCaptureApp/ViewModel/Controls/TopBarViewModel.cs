@@ -11,14 +11,18 @@ namespace SpectraCaptureApp.ViewModel.Controls
 {
     public class TopBarViewModel : ReactiveObject
     {
-        public string BaselineOkImageUri => "/Images/tick.png";
+        //public string BaselineOkImageUri => "/Images/tick.png";
+        public string BaselineOkImageUri => GetURIString("Images/tick.png");
         public string SpectrometerConnectedImageUri => "/Images/tick.png";
         public string BatteryImage => "/Images/100.png";
         //public ImageSource BaselineOkImageUri => new BitmapImage(new Uri("/Images/tick.png"));
         //public ImageSource SpectrometerConnectedImageUri => new BitmapImage(new Uri("/Images/tick.png"));
         //public ImageSource BatteryImage => new BitmapImage(new Uri("/Images/100.png"));
 
-
+        private string GetURIString(string path)
+        {
+            return "pack://application:,,,/" + path;
+        }
 
         private bool homeButtonVisible;
         public bool HomeButtonVisible
