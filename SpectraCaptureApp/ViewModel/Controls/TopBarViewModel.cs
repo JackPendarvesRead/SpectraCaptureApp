@@ -1,6 +1,7 @@
 ﻿using ReactiveUI;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Reactive;
 using System.Text;
 using System.Windows;
@@ -12,12 +13,18 @@ namespace SpectraCaptureApp.ViewModel.Controls
     public class TopBarViewModel : ReactiveObject
     {
         #region ImageUri
-
         private string baselineOkImageUri;
         public string BaselineOkImageUri
         {
             get => baselineOkImageUri;
             set => this.RaiseAndSetIfChanged(ref baselineOkImageUri, value);
+        }
+
+        private bool baselineIsOk;
+        public bool BaselineIsOk
+        {
+            get => baselineIsOk;
+            set => this.RaiseAndSetIfChanged(ref baselineIsOk, value);
         }
 
         private string spectrometerConnectedImageUri;
@@ -32,11 +39,6 @@ namespace SpectraCaptureApp.ViewModel.Controls
         {
             get => spectrometerIsConnected;
             set => this.RaiseAndSetIfChanged(ref spectrometerIsConnected, value);
-        }
-
-        private string GetURIString(string path)
-        {
-            return "pack://application:,,,/" + path;
         }
         #endregion
 
@@ -77,19 +79,32 @@ namespace SpectraCaptureApp.ViewModel.Controls
 
         public TopBarViewModel()
         {
-            BaselineOkImageUri = "pack://application:,,,/Images/tick.png";
-            SpectrometerConnectedImageUri = "pack://application:,,,/Images/tick.png";
+            BaselineOkImageUri = ImagePaths.SolidGreen;
+            SpectrometerConnectedImageUri = ImagePaths.SolidRed;
 
-            this.WhenAnyValue(x => x.SpectrometerIsConnected)
+            this.WhenAnyValue(vm => vm.SpectrometerIsConnected)
                 .Subscribe(connected =>
                 {
                     if (connected)
                     {
-                        SpectrometerConnectedImageUri = "pack://application:,,,/Images/tick.png";
+                        SpectrometerConnectedImageUri = ImagePaths.SolidGreen;
                     }
                     else
                     {
-                        SpectrometerConnectedImageUri = "pack://application:,,,/Images/cross.png";
+                        SpectrometerConnectedImageUri = ImagePaths.SolidRed;
+                    }
+                });
+
+            this.WhenAnyValue(vm => vm.BaselineIsOk)
+                .Subscribe(connected =>
+                {
+                    if (connected)
+                    {
+                        BaselineOkImageUri = ImagePaths.SolidGreen;
+                    }
+                    else
+                    {
+                        BaselineOkImageUri = ImagePaths.SolidRed;
                     }
                 });
         }

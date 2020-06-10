@@ -23,6 +23,12 @@
             x:Name="RoutedViewHost"
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch" />
-        <CheckBox Grid.Row="2" x:Name="TestCheck" Content="This is the test button" />
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" >
+            <CheckBox x:Name="SpecConnectedCheck" Content="Spectrometer Connected" VerticalAlignment="Center" HorizontalAlignment="Left" />
+            <CheckBox x:Name="BaselineCheck" Content="Baseline is good" VerticalAlignment="Center" HorizontalAlignment="Left" />
+        </StackPanel>
+        
+        
     </Grid>
 </rxui:ReactiveWindow>
