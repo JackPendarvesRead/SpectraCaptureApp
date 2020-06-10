@@ -40,7 +40,8 @@ namespace SpectraCaptureApp.ViewModel
                 Log.Debug("Sample reference set to: {SampleReference}", Model.SampleReference);
                 return HostScreen.Router.Navigate.Execute(new ScanReferenceViewModel(Model, HostScreen));
             },
-            this.WhenAnyValue(x => x.Model.SampleReference, sr => !string.IsNullOrWhiteSpace(sr)));
+            this.WhenAnyValue(x => x.Model.SampleReference, sr => !string.IsNullOrWhiteSpace(sr))
+            );
             SetSampleReferenceCommand.ThrownExceptions.Subscribe((error) =>
             {
                 MessageBox.Show(error.Message);

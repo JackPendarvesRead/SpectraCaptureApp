@@ -20,14 +20,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aunir.SpectrumAnalysis2.DotNetStandard" Version="5.0.1" />
+    <PackageReference Include="Aunir.SpectrumAnalysis2.DotNetStandard" Version="5.0.3" />
     <PackageReference Include="NIR4.ViaviCapture.Model" Version="1.0.2" />
-    <PackageReference Include="ReactiveUI" Version="11.3.1" />
-    <PackageReference Include="ReactiveUI.WPF" Version="11.3.1" />
+    <PackageReference Include="ReactiveUI" Version="11.4.17" />
+    <PackageReference Include="ReactiveUI.WPF" Version="11.4.17" />
     <PackageReference Include="Serilog" Version="2.9.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="4.1.0" />
     <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
-    <PackageReference Include="Splat.Serilog" Version="9.4.1" />
+    <PackageReference Include="Splat.Serilog" Version="9.4.5" />
   </ItemGroup>
 
   <ItemGroup>
