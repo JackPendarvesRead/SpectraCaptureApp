@@ -1,5 +1,4 @@
-﻿using SpectraCaptureApp.Logic;
-using SpectraCaptureApp.Model;
+﻿using SpectraCaptureApp.Model;
 using ReactiveUI;
 using Serilog;
 using Splat;
@@ -10,6 +9,7 @@ using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using SpectraCaptureApp.Extension;
 
 namespace SpectraCaptureApp.ViewModel
 {

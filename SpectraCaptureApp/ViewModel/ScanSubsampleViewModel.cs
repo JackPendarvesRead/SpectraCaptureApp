@@ -1,5 +1,4 @@
 ﻿using SpectraCaptureApp.Extension;
-using SpectraCaptureApp.Logic;
 using SpectraCaptureApp.Model;
 using ReactiveUI;
 using Serilog;

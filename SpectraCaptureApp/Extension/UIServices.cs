@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Threading;
 
-namespace SpectraCaptureApp.Logic
+namespace SpectraCaptureApp.Extension
 {
     /// <summary>
     ///   Contains helper methods for UI

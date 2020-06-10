@@ -15,8 +15,7 @@ namespace SpectraCaptureApp.Model
         private readonly UserSettings appSettings;
 
         public MockScanningWorkflow()
-        {
-            
+        {            
         }
 
         public void ScanReference()
