@@ -23,8 +23,6 @@ namespace SpectraCaptureApp.ViewModel
         public ReactiveCommand<Unit, IRoutableViewModel> SetSampleReferenceCommand { get; }
         public ReactiveCommand<Unit, Unit> AutoReferenceCommand { get; }
 
-        public List<string> CalibrationSets { get; set; } = new List<string> { "Corn", "Wheat", "Pig" };
-
         public EnterSampleReferenceViewModel(ScanCaptureModel model, IScreen screen = null)
         {
             Model = model;
