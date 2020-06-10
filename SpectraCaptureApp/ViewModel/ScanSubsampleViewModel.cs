@@ -25,7 +25,6 @@ namespace SpectraCaptureApp.ViewModel
         public ScanCaptureModel Model { get; }
         public IScreen HostScreen { get; }
 
-        private readonly IObservable<bool> canSave;       
 
         readonly ObservableAsPropertyHelper<bool> _scanInProgress;
         public bool ScanInProgress
@@ -35,7 +34,7 @@ namespace SpectraCaptureApp.ViewModel
 
         public ReactiveCommand<Unit, Unit> CaptureScan { get; }
         public ReactiveCommand<Unit, IRoutableViewModel> Save { get; }
-
+        
         public ScanSubsampleViewModel(ScanCaptureModel model, IScreen screen = null)
         {
             Model = model;
@@ -57,13 +56,6 @@ namespace SpectraCaptureApp.ViewModel
                    Model.ScanNumber++;
                });
 
-            canSave = this.WhenAnyValue(
-             x => x.Model.ScanNumber,
-             x => x.ScanInProgress,
-             (scanNumber, isLoading) =>
-             {
-                 return scanNumber >= model.MinimumScanCount && !ScanInProgress;
-             });
             Save = ReactiveCommand.CreateFromObservable(
                 () => 
                 {
@@ -74,7 +66,14 @@ namespace SpectraCaptureApp.ViewModel
                     Log.Debug("Spectrum stored");
                     return HostScreen.Router.NavigateAndReset.Execute(new EnterSampleReferenceViewModel(new ScanCaptureModel(), HostScreen));
                 },
-                canSave);
+                this.WhenAnyValue(
+                    x => x.Model.ScanNumber,
+                    x => x.ScanInProgress,                 
+                    (scanNumber, isLoading) => 
+                    {
+                        return scanNumber >= model.MinimumScanCount && !ScanInProgress; 
+                    })
+                );
 
             this.WhenAnyValue(x => x.ScanInProgress).SetBusyCursor();           
         }

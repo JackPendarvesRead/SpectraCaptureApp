@@ -9,7 +9,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     Background="WhiteSmoke"
     mc:Ignorable="d">
-    <Grid Background="Gold">
+    <Grid Background="Gold"
+          MinHeight="100">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
@@ -18,33 +19,33 @@
         <StackPanel Grid.Column="0" 
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
-            <Button x:Name="HomeButton" Content="Home" />
-            <Button x:Name="SettingsButton" Content="Settings"/>
+            <Button x:Name="NewScanButton" Content="New Scan" />
+            <Button x:Name="SettingsButton" Content="Settings" />
         </StackPanel>
 
         <StackPanel Grid.Column="1" 
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
-
+            
             <Image Height="64" Width="64" x:Name="BaselineOkImage" >
                 <Image.Source>
                     <BitmapImage UriSource="/Images/tick.png" DecodePixelWidth="64" />
                 </Image.Source>
             </Image>
-            <Label>Baseline</Label>
-
+            <TextBlock x:Name="BaselineOkText" VerticalAlignment="Center" Margin="5,5,5,5">
+                <Run Text="Baseline"/>
+            </TextBlock>
+            
             <Image Height="64" Width="64" x:Name="SpectrometerConnectedImage" >
                 <Image.Source>
                     <BitmapImage UriSource="/Images/tick.png" DecodePixelWidth="64" />
                 </Image.Source>
             </Image>
-            <Label>Spectrometer</Label>
-
-            <Image Height="64" Width="64" x:Name="BatteryImage" >
-                <Image.Source>
-                    <BitmapImage UriSource="/Images/100.png" DecodePixelWidth="64" />
-                </Image.Source>
-            </Image>
+            <TextBlock x:Name="SpectrometerConnectedText" VerticalAlignment="Center" Margin="5,5,5,5">
+                <Run Text="Spectrometer"/>
+                <LineBreak />
+                <Run Text="Connected"/>
+            </TextBlock>
         </StackPanel>
     </Grid>
     

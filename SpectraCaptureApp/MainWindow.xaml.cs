@@ -14,8 +14,10 @@ namespace SpectraCaptureApp
             {
                 this.OneWayBind(ViewModel, vm => vm.Router, view => view.RoutedViewHost.Router).DisposeWith(disposables);
 
+                this.Bind(ViewModel, vm => vm.TopBarViewModel, view => view.TopBar.ViewModel).DisposeWith(disposables);
+                
                 this.BindCommand(ViewModel, vm => vm.SettingsNavigateCommand, view => view.TopBar.SettingsButton).DisposeWith(disposables);
-                this.BindCommand(ViewModel, vm => vm.NewScan, view => view.TopBar.HomeButton).DisposeWith(disposables);
+                this.BindCommand(ViewModel, vm => vm.NewScan, view => view.TopBar.NewScanButton).DisposeWith(disposables);
             });
         }
     }

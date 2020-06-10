@@ -11,41 +11,94 @@ namespace SpectraCaptureApp.ViewModel.Controls
 {
     public class TopBarViewModel : ReactiveObject
     {
+        #region ImageUri
         //public string BaselineOkImageUri => "/Images/tick.png";
         public string BaselineOkImageUri => GetURIString("Images/tick.png");
         public string SpectrometerConnectedImageUri => "/Images/tick.png";
-        public string BatteryImage => "/Images/100.png";
         //public ImageSource BaselineOkImageUri => new BitmapImage(new Uri("/Images/tick.png"));
         //public ImageSource SpectrometerConnectedImageUri => new BitmapImage(new Uri("/Images/tick.png"));
-        //public ImageSource BatteryImage => new BitmapImage(new Uri("/Images/100.png"));
 
         private string GetURIString(string path)
         {
             return "pack://application:,,,/" + path;
         }
+        #endregion
 
-        private bool homeButtonVisible;
-        public bool HomeButtonVisible
+        #region Visability
+        private Visibility homeButtonVisible;
+        public Visibility NewScanButtonVisible 
         {
             get => homeButtonVisible;
-            set => this.RaiseAndSetIfChanged(ref this.homeButtonVisible, value);
+            set => this.RaiseAndSetIfChanged(ref homeButtonVisible, value);
         }
 
-        public Visibility SettingsButtonVisible { get; set; }
-        public Visibility BatteryImageVisible { get; set; }
-        public Visibility BaselineOkImageVisible { get; set; }
-        public Visibility SpectrometerConnectedImageVisible { get; set; }
+        private Visibility settingsButtonVisible;
+        public Visibility SettingsButtonVisible
+        {
+            get => settingsButtonVisible;
+            set => this.RaiseAndSetIfChanged(ref settingsButtonVisible, value);
+        }
 
+        private Visibility baselineOkImageVisible;
+        public Visibility BaselineOkImageVisible
+        {
+            get => baselineOkImageVisible;
+            set => this.RaiseAndSetIfChanged(ref baselineOkImageVisible, value);
+        }
+
+        private Visibility spectrometerConnectedImageVisible;
+        public Visibility SpectrometerConnectedImageVisible
+        {
+            get => spectrometerConnectedImageVisible;
+            set => this.RaiseAndSetIfChanged(ref spectrometerConnectedImageVisible, value);
+        }
+        #endregion
+
+        #region Commands
         public ReactiveCommand<Unit, IRoutableViewModel> SettingsNavigateCommand { get; }
-        public ReactiveCommand<Unit, IRoutableViewModel> HomeNavigateCommand { get; }
+        public ReactiveCommand<Unit, IRoutableViewModel> NewScanNavigateCommand { get; }
+        #endregion
 
         public TopBarViewModel()
         {
-            HomeButtonVisible = false;
+            NewScanButtonVisible = Visibility.Visible;
             SettingsButtonVisible = Visibility.Visible;
-            BatteryImageVisible = Visibility.Visible;
             BaselineOkImageVisible = Visibility.Visible;
             SpectrometerConnectedImageVisible = Visibility.Visible;
+        }
+
+        public void SetVisibilities(IRoutableViewModel currentViewModel)
+        {
+            switch (currentViewModel)
+            {
+                default:
+                    NewScanButtonVisible = Visibility.Visible;
+                    SettingsButtonVisible = Visibility.Visible;
+                    BaselineOkImageVisible = Visibility.Collapsed;
+                    SpectrometerConnectedImageVisible = Visibility.Collapsed;
+                    break;
+
+                case ScanReferenceViewModel _:
+                    NewScanButtonVisible = Visibility.Visible;
+                    SettingsButtonVisible = Visibility.Collapsed;
+                    BaselineOkImageVisible = Visibility.Collapsed;
+                    SpectrometerConnectedImageVisible = Visibility.Visible;
+                    break;
+
+                case ScanSubsampleViewModel _:
+                    NewScanButtonVisible = Visibility.Visible;
+                    SettingsButtonVisible = Visibility.Collapsed;
+                    BaselineOkImageVisible = Visibility.Visible;
+                    SpectrometerConnectedImageVisible = Visibility.Visible;
+                    break;
+
+                case SettingsViewModel _:
+                    NewScanButtonVisible = Visibility.Visible;
+                    SettingsButtonVisible = Visibility.Collapsed;
+                    BaselineOkImageVisible = Visibility.Collapsed;
+                    SpectrometerConnectedImageVisible = Visibility.Visible;
+                    break;
+            }
         }
     }
 }
