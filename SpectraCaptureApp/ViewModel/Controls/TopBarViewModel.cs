@@ -12,11 +12,27 @@ namespace SpectraCaptureApp.ViewModel.Controls
     public class TopBarViewModel : ReactiveObject
     {
         #region ImageUri
-        //public string BaselineOkImageUri => "/Images/tick.png";
-        public string BaselineOkImageUri => GetURIString("Images/tick.png");
-        public string SpectrometerConnectedImageUri => "/Images/tick.png";
-        //public ImageSource BaselineOkImageUri => new BitmapImage(new Uri("/Images/tick.png"));
-        //public ImageSource SpectrometerConnectedImageUri => new BitmapImage(new Uri("/Images/tick.png"));
+
+        private string baselineOkImageUri;
+        public string BaselineOkImageUri
+        {
+            get => baselineOkImageUri;
+            set => this.RaiseAndSetIfChanged(ref baselineOkImageUri, value);
+        }
+
+        private string spectrometerConnectedImageUri;
+        public string SpectrometerConnectedImageUri
+        {
+            get => spectrometerConnectedImageUri;
+            set => this.RaiseAndSetIfChanged(ref spectrometerConnectedImageUri, value);
+        }
+
+        private bool spectrometerIsConnected;
+        public bool SpectrometerIsConnected
+        {
+            get => spectrometerIsConnected;
+            set => this.RaiseAndSetIfChanged(ref spectrometerIsConnected, value);
+        }
 
         private string GetURIString(string path)
         {
@@ -61,10 +77,21 @@ namespace SpectraCaptureApp.ViewModel.Controls
 
         public TopBarViewModel()
         {
-            NewScanButtonVisible = Visibility.Visible;
-            SettingsButtonVisible = Visibility.Visible;
-            BaselineOkImageVisible = Visibility.Visible;
-            SpectrometerConnectedImageVisible = Visibility.Visible;
+            BaselineOkImageUri = "pack://application:,,,/Images/tick.png";
+            SpectrometerConnectedImageUri = "pack://application:,,,/Images/tick.png";
+
+            this.WhenAnyValue(x => x.SpectrometerIsConnected)
+                .Subscribe(connected =>
+                {
+                    if (connected)
+                    {
+                        SpectrometerConnectedImageUri = "pack://application:,,,/Images/tick.png";
+                    }
+                    else
+                    {
+                        SpectrometerConnectedImageUri = "pack://application:,,,/Images/cross.png";
+                    }
+                });
         }
 
         public void SetVisibilities(IRoutableViewModel currentViewModel)
@@ -75,7 +102,7 @@ namespace SpectraCaptureApp.ViewModel.Controls
                     NewScanButtonVisible = Visibility.Visible;
                     SettingsButtonVisible = Visibility.Visible;
                     BaselineOkImageVisible = Visibility.Collapsed;
-                    SpectrometerConnectedImageVisible = Visibility.Collapsed;
+                    SpectrometerConnectedImageVisible = Visibility.Visible;
                     break;
 
                 case ScanReferenceViewModel _:

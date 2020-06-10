@@ -18,6 +18,8 @@ namespace SpectraCaptureApp
                 
                 this.BindCommand(ViewModel, vm => vm.SettingsNavigateCommand, view => view.TopBar.SettingsButton).DisposeWith(disposables);
                 this.BindCommand(ViewModel, vm => vm.NewScan, view => view.TopBar.NewScanButton).DisposeWith(disposables);
+
+                this.Bind(ViewModel, vm => vm.TopBarViewModel.SpectrometerIsConnected, view => view.TestCheck.IsChecked).DisposeWith(disposables);
             });
         }
     }

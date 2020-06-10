@@ -10,7 +10,7 @@
     Background="WhiteSmoke"
     mc:Ignorable="d">
     <Grid Background="Gold"
-          MinHeight="100">
+          MinHeight="80">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
@@ -27,25 +27,28 @@
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
             
-            <Image Height="64" Width="64" x:Name="BaselineOkImage" >
-                <Image.Source>
-                    <BitmapImage UriSource="/Images/tick.png" DecodePixelWidth="64" />
-                </Image.Source>
-            </Image>
+           
             <TextBlock x:Name="BaselineOkText" VerticalAlignment="Center" Margin="5,5,5,5">
                 <Run Text="Baseline"/>
-            </TextBlock>
-            
-            <Image Height="64" Width="64" x:Name="SpectrometerConnectedImage" >
+            </TextBlock>            
+            <Image Height="64" Width="64" x:Name="BaselineOkImage" />
+
+            <!--<Image Height="64" Width="64" x:Name="BaselineOkImage" >
                 <Image.Source>
                     <BitmapImage UriSource="/Images/tick.png" DecodePixelWidth="64" />
                 </Image.Source>
-            </Image>
+            </Image>-->
+
             <TextBlock x:Name="SpectrometerConnectedText" VerticalAlignment="Center" Margin="5,5,5,5">
                 <Run Text="Spectrometer"/>
                 <LineBreak />
                 <Run Text="Connected"/>
             </TextBlock>
+            <Image Height="64" Width="64" x:Name="SpectrometerConnectedImage" >
+                <Image.Source>
+                    <BitmapImage UriSource="/Images/tick.png" DecodePixelWidth="64" />
+                </Image.Source>
+            </Image>
         </StackPanel>
     </Grid>
     

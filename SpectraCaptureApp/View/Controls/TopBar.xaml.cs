@@ -30,8 +30,8 @@ namespace SpectraCaptureApp.View.Controls
             this.WhenActivated(disposables =>
             {
                 // Images
-                //this.OneWayBind(ViewModel, vm => vm.SpectrometerConnectedImageUri, view => view.SpectrometerConnectedImage.Source).DisposeWith(disposables);
-                //this.OneWayBind(ViewModel, vm => vm.BaselineOkImageUri, view => view.BaselineOkImage.Source).DisposeWith(disposables);
+                this.OneWayBind(ViewModel, vm => vm.SpectrometerConnectedImageUri, view => view.SpectrometerConnectedImage.Source, GetImageSource).DisposeWith(disposables);
+                this.OneWayBind(ViewModel, vm => vm.BaselineOkImageUri, view => view.BaselineOkImage.Source, GetImageSource).DisposeWith(disposables);
 
                 // Visibility
                 this.OneWayBind(ViewModel, vm => vm.NewScanButtonVisible, view => view.NewScanButton.Visibility).DisposeWith(disposables);
@@ -41,6 +41,11 @@ namespace SpectraCaptureApp.View.Controls
                 this.OneWayBind(ViewModel, vm => vm.SpectrometerConnectedImageVisible, view => view.SpectrometerConnectedImage.Visibility).DisposeWith(disposables);
                 this.OneWayBind(ViewModel, vm => vm.SpectrometerConnectedImageVisible, view => view.SpectrometerConnectedText.Visibility).DisposeWith(disposables);
             });
-        }        
+        }
+
+        private ImageSource GetImageSource(string uriString)
+        {
+            return new BitmapImage(new Uri(uriString));
+        }
     }
 }
