@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace SpectraCaptureApp.Model
 {
-    public class MyWrappedViaviScanningWorkflow : ViaviScanningWorkflow, IScanningWorkflow
+    public class MyWrappedViaviScanningWorkflow : ViaviScanningWorkflow
     {
 
         public MyWrappedViaviScanningWorkflow() 
-            : base(new FirstUsbDeviceConnectionFactory(), "")
+            : base(new MicroNirUsbDeviceConnectionFactory(), "")
         {
         }
 

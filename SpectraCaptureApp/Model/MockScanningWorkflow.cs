@@ -1,4 +1,5 @@
-﻿using Splat;
+﻿using NIR4.ViaviCapture.Model;
+using Splat;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,10 @@ namespace SpectraCaptureApp.Model
         }
 
         public void TurnOffLamp()
+        {
+            Thread.Sleep(pauseTime);
+        }
+        public void TurnOnLamp()
         {
             Thread.Sleep(pauseTime);
         }
