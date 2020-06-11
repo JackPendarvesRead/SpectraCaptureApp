@@ -1,6 +1,8 @@
-﻿using ReactiveUI;
+﻿using NIR4.ViaviCapture.Model;
+using ReactiveUI;
 using Serilog;
 using SpectraCaptureApp.Model;
+using SpectraCaptureApp.View;
 using SpectraCaptureApp.ViewModel;
 using Splat;
 using Splat.Serilog;
@@ -64,7 +66,7 @@ namespace SpectraCaptureApp
 
         private void RegisterMisc()
         {
-            Locator.CurrentMutable.Register(() => new MainViewModel(), typeof(IScreen));
+            Locator.CurrentMutable.Register(() => new MainWindowViewModel(), typeof(IScreen));
 
 #if DEBUG
             Locator.CurrentMutable.Register(() => new MockScanningWorkflow(), typeof(IScanningWorkflow));

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SpectraCaptureApp.Logic
 {
-    class ScanWorkflowImplementation
+    public static class ScanWorkflowImplementation
     {
     }
 }

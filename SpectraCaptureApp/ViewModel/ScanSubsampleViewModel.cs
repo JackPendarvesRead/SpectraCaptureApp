@@ -41,10 +41,14 @@ namespace SpectraCaptureApp.ViewModel
 
             CaptureScan = ReactiveCommand.CreateFromObservable(CaptureScanImpl);
             CaptureScan.IsExecuting.ToProperty(this, x => x.ScanInProgress, out _scanInProgress);
+            this.WhenAnyValue(x => x.ScanInProgress).SetBusyCursor();
             CaptureScan.ThrownExceptions.Subscribe(
                 (error) =>
                 {
-                    MessageBox.Show(error.Message);
+                    MessageBox.Show(error.Message,
+                    "Scan Capture Method Failed",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
                     Save.Execute();
                 });
             CaptureScan.IsExecuting
@@ -73,8 +77,11 @@ namespace SpectraCaptureApp.ViewModel
                         return scanNumber >= model.MinimumScanCount && !ScanInProgress; 
                     })
                 );
-
-            this.WhenAnyValue(x => x.ScanInProgress).SetBusyCursor();           
+            Save.ThrownExceptions.Subscribe((error) =>
+            {
+                Log.Error(error, "Save method failed");
+                MessageBox.Show("Failed to save spectra");
+            });
         }
 
         public IObservable<Unit> CaptureScanImpl()

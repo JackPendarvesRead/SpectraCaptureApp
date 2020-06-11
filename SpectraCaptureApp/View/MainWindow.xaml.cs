@@ -2,14 +2,14 @@
 using SpectraCaptureApp.ViewModel;
 using System.Reactive.Disposables;
 
-namespace SpectraCaptureApp
+namespace SpectraCaptureApp.View
 {
-    public partial class MainWindow : ReactiveWindow<MainViewModel>
+    public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
     {
         public MainWindow()
         {
             InitializeComponent();
-            ViewModel = new MainViewModel();
+            ViewModel = new MainWindowViewModel();
             this.WhenActivated(disposables =>
             {
                 this.OneWayBind(ViewModel, vm => vm.Router, view => view.RoutedViewHost.Router).DisposeWith(disposables);

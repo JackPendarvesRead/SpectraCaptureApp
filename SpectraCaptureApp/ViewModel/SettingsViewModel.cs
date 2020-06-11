@@ -3,8 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Reactive;
 using System.Text;
-using System.Windows.Forms;
 using Splat;
+using System.Windows;
+using Serilog;
 
 namespace SpectraCaptureApp.ViewModel
 {
@@ -28,32 +29,31 @@ namespace SpectraCaptureApp.ViewModel
         public SettingsViewModel(IScreen screen = null)
         {
             HostScreen = screen ?? Locator.Current.GetService<IScreen>();
-            ReactiveCommand.Create(SaveDirectoryBrowseCommandImpl);
 
             settingsManager = Locator.Current.GetService<SettingsManager<UserSettings>>();
             appSettings = settingsManager.LoadSettings() ?? new UserSettings();
 
             SaveDirectory = appSettings.SpectrumSaveDirectory ?? "<No Directory Set>";
 
-            SaveDirectoryBrowseCommand = ReactiveCommand.Create(SaveDirectoryBrowseCommandImpl);
-        }
-
-        private void SaveDirectoryBrowseCommandImpl()
-        {
-            try
+            SaveDirectoryBrowseCommand = ReactiveCommand.Create(() => 
             {
-                using var fbd = new FolderBrowserDialog();
-                if (fbd.ShowDialog() == DialogResult.OK)
+                using var fbd = new System.Windows.Forms.FolderBrowserDialog();
+                if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     SaveDirectory = fbd.SelectedPath;
                     appSettings.SpectrumSaveDirectory = SaveDirectory;
                     settingsManager.SaveSettings(appSettings);
+                    Log.Debug("SaveDirector was set to - {SaveDirectory}", SaveDirectory);
                 }
-            }
-            catch (Exception e)
+            });
+            SaveDirectoryBrowseCommand.ThrownExceptions.Subscribe((error) =>
             {
-                MessageBox.Show(e.Message);
-            }
+                Log.Error(error, "Failed to set save directory");
+                MessageBox.Show(error.Message,
+                   "Set sample reference method failed",
+                   MessageBoxButton.OK,
+                   MessageBoxImage.Error);
+            });
         }
     }
 }

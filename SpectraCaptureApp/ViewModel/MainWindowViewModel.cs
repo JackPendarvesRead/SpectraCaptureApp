@@ -15,7 +15,7 @@ using System.Reactive.Linq;
 
 namespace SpectraCaptureApp.ViewModel
 {
-    public class MainViewModel : ReactiveObject, IScreen
+    public class MainWindowViewModel : ReactiveObject, IScreen
     {
         public TopBarViewModel TopBarViewModel { get; set; }
         public RoutingState Router { get; }
@@ -24,7 +24,7 @@ namespace SpectraCaptureApp.ViewModel
 
         IRoutableViewModel CurrentViewModel { get; }
 
-        public MainViewModel(RoutingState testRouter = null)
+        public MainWindowViewModel(RoutingState testRouter = null)
         {
             Router = testRouter ?? new RoutingState();
             TopBarViewModel = new TopBarViewModel();

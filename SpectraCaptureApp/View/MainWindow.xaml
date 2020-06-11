@@ -1,8 +1,8 @@
 ﻿<rxui:ReactiveWindow
     xmlns:rxui="http://reactiveui.net" 
-    x:Class="SpectraCaptureApp.MainWindow"
+    x:Class="SpectraCaptureApp.View.MainWindow"
     xmlns:control="clr-namespace:SpectraCaptureApp.View.Controls"
-    x:TypeArguments="vm:MainViewModel"
+    x:TypeArguments="vm:MainWindowViewModel"
     xmlns:vm="clr-namespace:SpectraCaptureApp.ViewModel"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
