@@ -22,8 +22,6 @@ namespace SpectraCaptureApp.ViewModel
         public ReactiveCommand<Unit, IRoutableViewModel> SettingsNavigateCommand { get; }
         public ReactiveCommand<Unit, IRoutableViewModel> NewScan { get; }
 
-        IRoutableViewModel CurrentViewModel { get; }
-
         public MainWindowViewModel(RoutingState testRouter = null)
         {
             Router = testRouter ?? new RoutingState();

@@ -39,7 +39,8 @@ namespace SpectraCaptureApp.ViewModel
             Model = model;
             HostScreen = screen ?? Locator.Current.GetService<IScreen>();
 
-            CaptureScan = ReactiveCommand.CreateFromObservable(CaptureScanImpl);
+            CaptureScan = ReactiveCommand.CreateFromObservable(CaptureScanImpl, 
+                this.WhenAnyValue(x => x.Model.ScanNumber, x => x < 5));
             CaptureScan.IsExecuting.ToProperty(this, x => x.ScanInProgress, out _scanInProgress);
             this.WhenAnyValue(x => x.ScanInProgress).SetBusyCursor();
             CaptureScan.ThrownExceptions.Subscribe(
@@ -80,7 +81,10 @@ namespace SpectraCaptureApp.ViewModel
             Save.ThrownExceptions.Subscribe((error) =>
             {
                 Log.Error(error, "Save method failed");
-                MessageBox.Show("Failed to save spectra");
+                MessageBox.Show(error.Message,
+                   "Save Failed",
+                   MessageBoxButton.OK,
+                   MessageBoxImage.Error);
             });
         }
 

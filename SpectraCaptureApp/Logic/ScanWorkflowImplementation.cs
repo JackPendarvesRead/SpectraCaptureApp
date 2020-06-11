@@ -6,5 +6,9 @@ namespace SpectraCaptureApp.Logic
 {
     public static class ScanWorkflowImplementation
     {
+        public static void ASFD()
+        {
+            var wf = new SpectraCaptureApp.Model.MyWrappedViaviScanningWorkflow();
+        }
     }
 }
