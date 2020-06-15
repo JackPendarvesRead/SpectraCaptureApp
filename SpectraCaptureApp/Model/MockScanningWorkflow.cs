@@ -1,4 +1,5 @@
-﻿using NIR4.ViaviCapture.Model;
+﻿using Aunir.SpectrumAnalysis2.Interfaces;
+using NIR4.ViaviCapture.Model;
 using Splat;
 using System;
 using System.Collections.Generic;
@@ -49,5 +50,25 @@ namespace SpectraCaptureApp.Model
         {
             Thread.Sleep(pauseTime);
         }
+
+        //protected override ValidationResult ValidateDarkReferenceScan(List<float> darkReferenceScan)
+        //{
+        //    if(darkReferenceScan.Where(x => x > 100).Any())
+        //    {
+        //        return new ValidationResult.;
+        //    }
+        //    return true;
+        //}
+
+        //protected override ValidationResult ValidateCumulativeSubSampeScans(
+        //    List<float> darkScan, 
+        //    List<float> lightScan, 
+        //    List<ISpectrumData> previousSubSampleScans, 
+        //    ISpectrumData newSubSampleScan)
+        //{
+        //    // Do the PCA validation
+
+        //    return new ValidationResult();
+        //}
     }
 }

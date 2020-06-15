@@ -114,7 +114,7 @@ namespace SpectraCaptureApp.ViewModel.Controls
             switch (currentViewModel)
             {
                 default:
-                    NewScanButtonVisible = Visibility.Visible;
+                    NewScanButtonVisible = Visibility.Collapsed;
                     SettingsButtonVisible = Visibility.Visible;
                     BaselineOkImageVisible = Visibility.Collapsed;
                     SpectrometerConnectedImageVisible = Visibility.Visible;
