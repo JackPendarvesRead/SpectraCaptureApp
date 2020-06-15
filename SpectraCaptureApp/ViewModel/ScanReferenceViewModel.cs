@@ -31,9 +31,18 @@ namespace SpectraCaptureApp.ViewModel
             ScanReferenceCommand = ReactiveCommand.CreateFromObservable(() =>
             {
                 UIServices.SetBusyState();
-                Model.ScanningWorkflow.ScanReference();
-                Log.Debug("Reference scan taken successfully");
-                return HostScreen.Router.Navigate.Execute(new ScanSubsampleViewModel(Model, HostScreen));
+                var result = Model.ScanningWorkflow.ScanReference();
+                if (result.IsValid)
+                {
+                    Log.Debug("Reference scan taken successfully");
+                    return HostScreen.Router.Navigate.Execute(new ScanSubsampleViewModel(Model, HostScreen));
+                }
+                else
+                {
+                    MessageBox.Show("Baseline scan was invalid. Please try again.");
+                    return null;
+                }
+                
             });
             ScanReferenceCommand.ThrownExceptions.Subscribe((error) =>
             {

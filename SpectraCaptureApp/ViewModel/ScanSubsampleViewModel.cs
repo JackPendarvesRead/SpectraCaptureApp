@@ -8,12 +8,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
+using Aunir.SpectrumAnalysis2.Interfaces;
+using NIR4.ViaviCapture.Model;
 
 namespace SpectraCaptureApp.ViewModel
 {
@@ -38,6 +41,12 @@ namespace SpectraCaptureApp.ViewModel
         {
             Model = model;
             HostScreen = screen ?? Locator.Current.GetService<IScreen>();
+
+            if(Model.ScanningWorkflow is MyWrappedViaviScanningWorkflow)
+            {
+                var spectraField = typeof(NIR4.ViaviCapture.Model.ViaviScanningWorkflow).GetField("spectra", BindingFlags.NonPublic | BindingFlags.Instance);
+                var spectra = (List<ISpectrumData>)spectraField.GetValue(Model.ScanningWorkflow);
+            }
 
             CaptureScan = ReactiveCommand.CreateFromObservable(CaptureScanImpl, 
                 this.WhenAnyValue(x => x.Model.ScanNumber, x => x < 5));
@@ -92,8 +101,16 @@ namespace SpectraCaptureApp.ViewModel
         {
             return Observable.Start(() =>
             {
-                Model.ScanningWorkflow.ScanSubSample();
-                Log.Debug("Successfully scanned subsample. Scan number = {ScanNumber}", this.Model.ScanNumber);
+                var result = Model.ScanningWorkflow.ScanSubSample();
+                if (result.IsValid)
+                {
+                    Log.Debug("Successfully scanned subsample. Scan number = {ScanNumber}", this.Model.ScanNumber);
+                    
+                }
+                else
+                {
+                    Log.Warning("Invalid subsample scan.");
+                }
             });
         }
     }

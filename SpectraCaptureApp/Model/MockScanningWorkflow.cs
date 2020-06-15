@@ -18,14 +18,16 @@ namespace SpectraCaptureApp.Model
         {            
         }
 
-        public void ScanReference()
+        public ValidationResult ScanReference()
         {
             Thread.Sleep(pauseTime);            
+            return ValidationResult.Valid();
         }
 
-        public void ScanSubSample()
+        public ValidationResult ScanSubSample()
         {
             Thread.Sleep(pauseTime);
+            return ValidationResult.Valid();
         }
 
         public void SetSampleReference(string sampleReference)
