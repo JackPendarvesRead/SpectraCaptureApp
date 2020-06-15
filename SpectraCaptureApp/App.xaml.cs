@@ -38,6 +38,7 @@ namespace SpectraCaptureApp
         private void InitialiseMainWindow()
         {
             var window = new MainWindow();
+            window.SizeToContent = SizeToContent.WidthAndHeight;
             window.Show();
         }
 

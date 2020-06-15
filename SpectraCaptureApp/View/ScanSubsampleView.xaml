@@ -11,13 +11,24 @@
     mc:Ignorable="d">
     <Grid>
         <StackPanel>
-            <TextBlock x:Name="PathTextBlock" Foreground="Black" Margin="10" Text="THIS IS THE SCANCAPTURE VIEW" />
+            <Label>Capture Subsample Spectra</Label>
+            <TextBlock>
+                <Run Text="1) Remove the white reference block from the spectrometer" />
+                <LineBreak />
+                <Run Text="2) Place the spectrometer on the sample" />
+                <LineBreak />
+                <Run Text="3) Click 'Scan' to capture a spectrum. Keep spectrometer in place until scan is finished." />
+                <LineBreak />
+                <Run Text="4) Move spectrometer to another part of your sample and repeat step 3 to capture second spectrum." />
+                <LineBreak />
+                <Run Text="5) Repeat step 5 until you have captured five spectra. Once finished click 'Save' to save your spectra." />
+            </TextBlock>
             <StackPanel Orientation="Horizontal">
                 <Label>Scan Number: </Label>
                 <TextBlock x:Name="ScanNumber" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Label>Scan in progress:</Label>
+                <Label>Spectrometer Status:</Label>
                 <TextBlock x:Name="IsLoading"/>
             </StackPanel>
             <Image Width="200">

@@ -11,13 +11,21 @@
     mc:Ignorable="d">
     <Grid>
         <StackPanel>
+            <Label>Capture Spectrum Reference</Label>
             <StackPanel Orientation="Horizontal">
-                <Label>SampleRefence = </Label>
-                <TextBlock x:Name="SampleReference" />
+                <TextBlock>
+                    <Run Text="Sample Reference = " />
+                    <Run x:Name="SampleReference" />
+                </TextBlock>
             </StackPanel>
             <TextBlock x:Name="PathTextBlock" 
-                       TextWrapping="Wrap" 
-                       Text="This is where you might type some instructions about scanning reference or preparing sample or whatever whatever before going to the next screen to take the capture" />
+                       TextWrapping="Wrap">
+                <Run Text="1) Place the white reference cap onto spectrometer" />
+                <LineBreak />
+                <Run Text="2) Press 'Scan Reference' to capture the baseline spectrum." />
+                <LineBreak />
+                <Run Text="3) If reference is captured correctly continue to next step, if reference fails you may need to clean the spectrometer and/or reference cap and try again." />
+            </TextBlock>
             <Image Width="250">
                 <Image.Source>
                     <BitmapImage DecodePixelWidth="250" 
