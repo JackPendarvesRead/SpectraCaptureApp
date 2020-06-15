@@ -22,22 +22,25 @@
                 <Run Text="4) Move spectrometer to another part of your sample and repeat step 3 to capture second spectrum." />
                 <LineBreak />
                 <Run Text="5) Repeat step 5 until you have captured five spectra. Once finished click 'Save' to save your spectra." />
-            </TextBlock>
-            <StackPanel Orientation="Horizontal">
-                <Label>Scan Number: </Label>
-                <TextBlock x:Name="ScanNumber" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Label>Spectrometer Status:</Label>
-                <TextBlock x:Name="IsLoading"/>
-            </StackPanel>
+            </TextBlock>            
             <Image Width="200">
                 <Image.Source>
                     <BitmapImage DecodePixelWidth="200" UriSource="/Images/Scanning.jpg" />
                 </Image.Source>
             </Image>
+            <StackPanel Orientation="Horizontal">
+                <Label>Scan Number:</Label>
+                <TextBlock x:Name="ScanNumber" />
+            </StackPanel>            
+
+            <StackPanel Orientation="Horizontal" Grid.Column="0">
+                <Label>Spectrometer Status:</Label>
+                <TextBlock x:Name="IsLoading"/>
+            </StackPanel>
+                
             <Button x:Name="ScanButton" Content="Scan Sample" />
             <Button x:Name="SaveButton" Content="Save" />
+            
         </StackPanel>
     </Grid>
 </rxui:ReactiveUserControl>
