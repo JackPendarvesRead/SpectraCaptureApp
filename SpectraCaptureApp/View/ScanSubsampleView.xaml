@@ -37,7 +37,10 @@
                 <Label>Spectrometer Status:</Label>
                 <TextBlock x:Name="IsLoading"/>
             </StackPanel>
-                
+            <StackPanel Orientation="Horizontal" Grid.Column="0">
+                <Label>Spectrometer Status:</Label>
+                <TextBlock x:Name="Status"/>
+            </StackPanel>
             <Button x:Name="ScanButton" Content="Scan Sample" />
             <Button x:Name="SaveButton" Content="Save" />
             

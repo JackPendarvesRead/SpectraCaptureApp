@@ -11,6 +11,8 @@ using System.Threading;
 using System.Windows;
 using System.Threading.Tasks;
 using System.Windows.Threading;
+using System.Reactive.Concurrency;
+using System.Reactive.Disposables;
 
 namespace SpectraCaptureApp.ViewModel
 {
@@ -30,6 +32,20 @@ namespace SpectraCaptureApp.ViewModel
             set => this.RaiseAndSetIfChanged(ref scansCompleted, value);
         }
 
+        private ScanState scanState;
+        public ScanState ScanState
+        {
+            get => scanState;
+            set => this.RaiseAndSetIfChanged(ref scanState, value);
+        }
+
+        private string scanStateString;
+        public string ScanStateString
+        {
+            get => scanStateString;
+            set => this.RaiseAndSetIfChanged(ref scanStateString, value);
+        }
+
         readonly ObservableAsPropertyHelper<bool> scanInProgress;
         public bool ScanInProgress => scanInProgress.Value;
 
@@ -39,18 +55,28 @@ namespace SpectraCaptureApp.ViewModel
         public ScanSubsampleViewModel(ScanCaptureModel model, IScreen screen = null)
         {
             Model = model;
-            HostScreen = screen ?? Locator.Current.GetService<IScreen>();           
+            HostScreen = screen ?? Locator.Current.GetService<IScreen>();
+            scanState = ScanState.Ready;
 
-            StartSubSampleScan = ReactiveCommand.CreateFromObservable(StartSubSampleScanImpl, this.WhenAnyValue(x => x.ScansCompleted, x => x < MaximumScans));
+            StartSubSampleScan = ReactiveCommand.CreateFromObservable(StartSubSampleScanImpl, this.WhenAnyValue(x => x.ScansCompleted, x => x < MaximumScans));            
             StartSubSampleScan.IsExecuting.ToProperty(this, x => x.ScanInProgress, out scanInProgress);
             StartSubSampleScan.Subscribe(x =>
             {
                 ScansCompleted += 1;
+                scanState = ScanState.Ready;
                 if(AppSettings.AutomaticLoop && ScansCompleted < MaximumScans)
                 {
                     StartSubSampleScan.Execute().Subscribe();
                 }
             });
+
+            this.WhenAnyValue(vm => vm.ScanState)
+                .ObserveOn(Scheduler.CurrentThread)
+                .SubscribeOn(RxApp.MainThreadScheduler)
+                .Subscribe(state => 
+                {
+                    ScanStateString = state.ToString(); 
+                });
 
             Save = ReactiveCommand.CreateFromObservable(
                 () => 
@@ -88,7 +114,10 @@ namespace SpectraCaptureApp.ViewModel
         {
             return Observable.Start(() =>
             {
+                Dispatcher.CurrentDispatcher.Invoke(() => { this.scanState = ScanState.Pause; });
+                this.scanState = ScanState.Pause;
                 Thread.Sleep(TimeSpan.FromSeconds(AppSettings.LoopPauseTime));
+                this.scanState = ScanState.Busy;
                 if (Model.ScanningWorkflow.ScanSubSample().IsValid)
                 {
                     Log.Debug("Successfully scanned subsample. Scan number = {ScanNumber}/{MaximumScansScan}", this.ScansCompleted + 1, MaximumScans);
@@ -102,7 +131,7 @@ namespace SpectraCaptureApp.ViewModel
                         //Navtigate to error view
                     }
                 }
-            });
+            });            
         }
     }
 }
