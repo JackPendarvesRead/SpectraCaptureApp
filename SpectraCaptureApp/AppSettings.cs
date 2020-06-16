@@ -11,6 +11,7 @@ namespace SpectraCaptureApp
         public int RetryAttempts { get; set; }
         public int LoopPauseTime { get; set; }
         public bool AutomaticLoop { get; set; }
+        public AutoReferenceSettings AutoReferenceSetting { get; set; }
     }
 
     internal static class AppSettings
@@ -66,6 +67,19 @@ namespace SpectraCaptureApp
             set
             {
                 Settings.AutomaticLoop = value;
+                SettingsManager.SaveSettings(Settings);
+            }
+        }
+
+        public static AutoReferenceSettings AutoReferenceSetting
+        {
+            get
+            {
+                return Settings.AutoReferenceSetting;
+            }
+            set
+            {
+                Settings.AutoReferenceSetting = value;
                 SettingsManager.SaveSettings(Settings);
             }
         }

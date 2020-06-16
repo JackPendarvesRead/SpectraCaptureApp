@@ -58,6 +58,15 @@ namespace SpectraCaptureApp.View
                     view => view.LoopDelay.ViewModel)
                 .DisposeWith(disposables);
 
+                this.OneWayBind(ViewModel,
+                    vm => vm.AutoReferenceSettingsList,
+                    view => view.AutoreferenceSettingsComboBox.ItemsSource)
+                .DisposeWith(disposables);
+
+                this.Bind(ViewModel,
+                    vm => vm.AutoReferenceSetting,
+                    view => view.AutoreferenceSettingsComboBox.SelectedItem)
+                .DisposeWith(disposables);
             });
         }
     }

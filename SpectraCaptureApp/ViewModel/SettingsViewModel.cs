@@ -36,12 +36,22 @@ namespace SpectraCaptureApp.ViewModel
         public NumberInputViewModel RetryAttemptsViewModel { get; set; }
         public NumberInputViewModel LoopDelayViewModel { get; set; }
 
+
+        private AutoReferenceSettings autoReferenceSetting;
+        public AutoReferenceSettings AutoReferenceSetting 
+        {
+            get => autoReferenceSetting;
+            set => this.RaiseAndSetIfChanged(ref autoReferenceSetting, value);
+        }
+        public Array AutoReferenceSettingsList => Enum.GetValues(typeof(AutoReferenceSettings));
+
         public SettingsViewModel(IScreen screen = null)
         {
             HostScreen = screen ?? Locator.Current.GetService<IScreen>();
 
             AutomaticLoop = AppSettings.AutomaticLoop;
             SaveDirectory = AppSettings.SpectrumSaveDirectory;
+            AutoReferenceSetting = AppSettings.AutoReferenceSetting;
             RetryAttemptsViewModel = new NumberInputViewModel("Retry Attempts", AppSettings.RetryAttempts, 1, 5);
             LoopDelayViewModel = new NumberInputViewModel("Loop pause time (s)", AppSettings.LoopPauseTime, 1, 99);
 
@@ -55,7 +65,11 @@ namespace SpectraCaptureApp.ViewModel
                 {
                     AppSettings.LoopPauseTime = newValue;
                 });
-
+            this.WhenAnyValue(vm => vm.AutoReferenceSetting)
+                .Subscribe((newValue) =>
+                {
+                    AppSettings.AutoReferenceSetting = newValue;
+                });
 
 
             BackCommand = ReactiveCommand.CreateFromObservable(()
