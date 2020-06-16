@@ -30,7 +30,26 @@ namespace SpectraCaptureApp.ViewModel
 
             AutoReferenceCommand = ReactiveCommand.Create(() =>
             {
-                Model.SampleReference = DateTime.UtcNow.ToString();
+                switch (AppSettings.AutoReferenceSetting)
+                {
+                    case AutoReferenceSettings.DateTime:
+                        Model.SampleReference = DateTime.UtcNow.ToString("yyyyMMdd_HHmm");
+                        break;
+
+                    case AutoReferenceSettings.Increment:
+                        Model.SampleReference = AppSettings.CurrentAutoRefIncrement.ToString("0000");
+                        AppSettings.CurrentAutoRefIncrement += 1;
+                        break;
+
+                    case AutoReferenceSettings.DateTime_Increment:
+                        Model.SampleReference = $"{DateTime.UtcNow.ToString("yyyyMMdd_HHmm")}_{AppSettings.CurrentAutoRefIncrement.ToString("0000")}";
+                        AppSettings.CurrentAutoRefIncrement += 1;
+                        break;
+
+                    default:
+                        throw new Exception("AutoReferenceSetting not recognised.");
+                }
+
             });
 
             SetSampleReferenceCommand = ReactiveCommand.CreateFromObservable(() => 

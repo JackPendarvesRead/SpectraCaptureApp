@@ -45,6 +45,8 @@ namespace SpectraCaptureApp.ViewModel
         }
         public Array AutoReferenceSettingsList => Enum.GetValues(typeof(AutoReferenceSettings));
 
+        public string CurrentAutoIncrement => AppSettings.CurrentAutoRefIncrement.ToString("0000");
+
         public SettingsViewModel(IScreen screen = null)
         {
             HostScreen = screen ?? Locator.Current.GetService<IScreen>();

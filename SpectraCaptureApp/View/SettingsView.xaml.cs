@@ -67,6 +67,11 @@ namespace SpectraCaptureApp.View
                     vm => vm.AutoReferenceSetting,
                     view => view.AutoreferenceSettingsComboBox.SelectedItem)
                 .DisposeWith(disposables);
+
+                this.OneWayBind(ViewModel,
+                    vm => vm.CurrentAutoIncrement,
+                    view => view.AutoincrementValueText.Text)
+                .DisposeWith(disposables);
             });
         }
     }

@@ -11,6 +11,7 @@ namespace SpectraCaptureApp
         public int RetryAttempts { get; set; }
         public int LoopPauseTime { get; set; }
         public bool AutomaticLoop { get; set; }
+        public int CurrentAutoRefIncrement { get; set; }
         public AutoReferenceSettings AutoReferenceSetting { get; set; }
     }
 
@@ -83,5 +84,20 @@ namespace SpectraCaptureApp
                 SettingsManager.SaveSettings(Settings);
             }
         }
+
+        public static int CurrentAutoRefIncrement
+        {
+            get
+            {
+                return Settings.CurrentAutoRefIncrement;
+            }
+            set
+            {
+                Settings.CurrentAutoRefIncrement = value;
+                SettingsManager.SaveSettings(Settings);
+            }
+        }
     }
+
+    
 }
