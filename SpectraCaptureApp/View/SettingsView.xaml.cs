@@ -44,8 +44,13 @@ namespace SpectraCaptureApp.View
                 .DisposeWith(disposables);
 
                 this.OneWayBind(ViewModel,
-                    vm => vm.RetryAttempts,
+                    vm => vm.RetryAttemptsViewModel,
                     view => view.RetryAttempts.ViewModel)
+                .DisposeWith(disposables);
+
+                this.OneWayBind(ViewModel,
+                    vm => vm.LoopDelayViewModel,
+                    view => view.LoopDelay.ViewModel)
                 .DisposeWith(disposables);
 
             });

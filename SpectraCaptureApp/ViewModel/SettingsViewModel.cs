@@ -26,7 +26,8 @@ namespace SpectraCaptureApp.ViewModel
             set => this.RaiseAndSetIfChanged(ref saveDirectory, value);
         }
 
-        public NumberInputViewModel RetryAttempts { get; set; }
+        public NumberInputViewModel RetryAttemptsViewModel { get; set; }
+        public NumberInputViewModel LoopDelayViewModel { get; set; }
 
         public SettingsViewModel(IScreen screen = null)
         {
@@ -35,14 +36,20 @@ namespace SpectraCaptureApp.ViewModel
             BackCommand = ReactiveCommand.CreateFromObservable(()
                 => HostScreen.Router.NavigateAndReset.Execute(new EnterSampleReferenceViewModel(new ScanCaptureModel(), HostScreen)));
 
-            SaveDirectory = AppSettings.SpectrumSaveDirectory ?? "<No Directory Set>";
-            var currentRetryValue = AppSettings.RetryAttempts == default ? 3 : AppSettings.RetryAttempts;
-            RetryAttempts = new NumberInputViewModel("Retry Attempts = ", currentRetryValue, 1, 5);
+            SaveDirectory = AppSettings.SpectrumSaveDirectory;
+            RetryAttemptsViewModel = new NumberInputViewModel("Retry Attempts", AppSettings.RetryAttempts, 1, 5);
+            LoopDelayViewModel = new NumberInputViewModel("Loop pause time (s)", AppSettings.LoopPauseTime, 1, 99);
 
-            RetryAttempts.CurrentValue.WhenAnyValue(x => x).Subscribe((x) =>
-            {
-                AppSettings.RetryAttempts = x;
-            });
+            this.WhenAnyValue(vm => vm.RetryAttemptsViewModel.CurrentValue)
+                .Subscribe(newValue =>
+                {
+                    AppSettings.RetryAttempts = newValue;
+                });
+            this.WhenAnyValue(vm => vm.LoopDelayViewModel.CurrentValue)
+                .Subscribe(newValue =>
+                {
+                    AppSettings.LoopPauseTime = newValue;
+                });
 
             SaveDirectoryBrowseCommand = ReactiveCommand.Create(() => 
             {
