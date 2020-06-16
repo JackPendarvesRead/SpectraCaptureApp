@@ -1,0 +1,30 @@
+﻿<rxui:ReactiveUserControl
+    x:Class="SpectraCaptureApp.View.Controls.NumberInput"
+    x:TypeArguments="vm:NumberInputViewModel"
+    xmlns:rxui="http://reactiveui.net"
+    xmlns:vm="clr-namespace:SpectraCaptureApp.ViewModel.Controls"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    Background="WhiteSmoke"
+    mc:Ignorable="d">
+    <Grid Margin="1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+
+        <Label Name="LabelText" Content="Label" />
+        <TextBlock Name="TextBlockValue" TextAlignment="Right" Grid.Column="1" Text="Test" />
+        <StackPanel Orientation="Vertical" Grid.Column="2" VerticalAlignment="Center">
+            <Button x:Name="Increase"  Style="{StaticResource NumberButton}" >
+                <Image Source="pack://application:,,,/Images/up.png" Height="8" Width="8"  />
+            </Button>
+            <Button x:Name="Decrease" Style="{StaticResource NumberButton}" >
+                <Image Source="pack://application:,,,/Images/down.png" Height="8" Width="8" />
+            </Button>
+        </StackPanel>
+    </Grid>
+</rxui:ReactiveUserControl>

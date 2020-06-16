@@ -97,6 +97,7 @@ namespace SpectraCaptureApp.ViewModel
             });
         }
 
+        private int failedAttempts = 0;
         public IObservable<Unit> CaptureScanImpl()
         {
             return Observable.Start(() =>
@@ -109,7 +110,12 @@ namespace SpectraCaptureApp.ViewModel
                 }
                 else
                 {
+                    failedAttempts++;
                     Log.Warning("Invalid subsample scan.");
+                    if (failedAttempts < AppSettings.RetryAttempts)
+                    {
+
+                    }
                 }
             });
         }

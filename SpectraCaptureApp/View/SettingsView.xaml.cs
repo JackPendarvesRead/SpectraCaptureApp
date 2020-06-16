@@ -3,7 +3,9 @@ using SpectraCaptureApp.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Reactive.Disposables;
+using System.Reactive.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -31,11 +33,21 @@ namespace SpectraCaptureApp.View
                     view => view.SaveDirectoryFileBrowse.FileBrowseButton)
                 .DisposeWith(disposables);
 
+                this.BindCommand(ViewModel,
+                    vm => vm.BackCommand,
+                    view => view.BackButton)
+                .DisposeWith(disposables);
 
                 this.OneWayBind(ViewModel,
                     vm => vm.SaveDirectory,
                     view => view.SaveDirectoryFileBrowse.FileBrowseTextBlock.Text)
                 .DisposeWith(disposables);
+
+                this.OneWayBind(ViewModel,
+                    vm => vm.RetryAttempts,
+                    view => view.RetryAttempts.ViewModel)
+                .DisposeWith(disposables);
+
             });
         }
     }

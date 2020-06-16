@@ -10,8 +10,8 @@ namespace SpectraCaptureApp.Model
     public class MyWrappedViaviScanningWorkflow : ViaviScanningWorkflow
     {
 
-        public MyWrappedViaviScanningWorkflow() 
-            : base(new MicroNirUsbDeviceConnectionFactory(), "")
+        public MyWrappedViaviScanningWorkflow(string storageDirectory) 
+            : base(new MicroNirUsbDeviceConnectionFactory(), "storageDirectory")
         {
         }
 

@@ -53,4 +53,10 @@
     </Resource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Page Update="View\ErrorContactView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
 </Project>

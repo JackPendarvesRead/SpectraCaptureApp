@@ -6,6 +6,8 @@ using System.Text;
 using Splat;
 using System.Windows;
 using Serilog;
+using SpectraCaptureApp.ViewModel.Controls;
+using SpectraCaptureApp.Model;
 
 namespace SpectraCaptureApp.ViewModel
 {
@@ -15,6 +17,7 @@ namespace SpectraCaptureApp.ViewModel
         public IScreen HostScreen { get; }
 
         public ReactiveCommand<Unit, Unit> SaveDirectoryBrowseCommand { get; set; }
+        public ReactiveCommand<Unit, IRoutableViewModel> BackCommand { get; set; }
 
         private string saveDirectory;
         public string SaveDirectory
@@ -23,17 +26,23 @@ namespace SpectraCaptureApp.ViewModel
             set => this.RaiseAndSetIfChanged(ref saveDirectory, value);
         }
 
-        private readonly SettingsManager<UserSettings> settingsManager;
-        private readonly UserSettings appSettings;
+        public NumberInputViewModel RetryAttempts { get; set; }
 
         public SettingsViewModel(IScreen screen = null)
         {
             HostScreen = screen ?? Locator.Current.GetService<IScreen>();
 
-            settingsManager = Locator.Current.GetService<SettingsManager<UserSettings>>();
-            appSettings = settingsManager.LoadSettings() ?? new UserSettings();
+            BackCommand = ReactiveCommand.CreateFromObservable(()
+                => HostScreen.Router.NavigateAndReset.Execute(new EnterSampleReferenceViewModel(new ScanCaptureModel(), HostScreen)));
 
-            SaveDirectory = appSettings.SpectrumSaveDirectory ?? "<No Directory Set>";
+            SaveDirectory = AppSettings.SpectrumSaveDirectory ?? "<No Directory Set>";
+            var currentRetryValue = AppSettings.RetryAttempts == default ? 3 : AppSettings.RetryAttempts;
+            RetryAttempts = new NumberInputViewModel("Retry Attempts = ", currentRetryValue, 1, 5);
+
+            RetryAttempts.CurrentValue.WhenAnyValue(x => x).Subscribe((x) =>
+            {
+                AppSettings.RetryAttempts = x;
+            });
 
             SaveDirectoryBrowseCommand = ReactiveCommand.Create(() => 
             {
@@ -41,8 +50,7 @@ namespace SpectraCaptureApp.ViewModel
                 if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     SaveDirectory = fbd.SelectedPath;
-                    appSettings.SpectrumSaveDirectory = SaveDirectory;
-                    settingsManager.SaveSettings(appSettings);
+                    AppSettings.SpectrumSaveDirectory = SaveDirectory;
                     Log.Debug("SaveDirector was set to - {SaveDirectory}", SaveDirectory);
                 }
             });

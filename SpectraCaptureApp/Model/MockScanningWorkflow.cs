@@ -13,10 +13,12 @@ namespace SpectraCaptureApp.Model
 {
     public class MockScanningWorkflow : IScanningWorkflow
     {
+        private readonly string saveDirectory;
         private int pauseTime = 400;
 
-        public MockScanningWorkflow()
-        {            
+        public MockScanningWorkflow(string saveDirectory)
+        {
+            this.saveDirectory = saveDirectory;
         }
 
         public ValidationResult ScanReference()
@@ -39,7 +41,7 @@ namespace SpectraCaptureApp.Model
         public void StoreSpectrum()
         {
             Thread.Sleep(pauseTime);
-            MessageBox.Show("File saved!!!");
+            MessageBox.Show($"File saved saved to: {saveDirectory}");
         }
 
         public void TurnOffLamp()

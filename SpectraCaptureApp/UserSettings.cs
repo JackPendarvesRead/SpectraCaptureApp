@@ -10,5 +10,6 @@ namespace SpectraCaptureApp
     internal class UserSettings
     {
         public string SpectrumSaveDirectory { get; set; }
+        public int FailedAttemptTries { get; set; }
     }
 }

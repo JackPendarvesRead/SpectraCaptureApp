@@ -44,7 +44,7 @@ namespace SpectraCaptureApp.ViewModel.Controls
 
         #region Visability
         private Visibility homeButtonVisible;
-        public Visibility NewScanButtonVisible 
+        public Visibility AbortButtonVisible 
         {
             get => homeButtonVisible;
             set => this.RaiseAndSetIfChanged(ref homeButtonVisible, value);
@@ -74,7 +74,7 @@ namespace SpectraCaptureApp.ViewModel.Controls
 
         #region Commands
         public ReactiveCommand<Unit, IRoutableViewModel> SettingsNavigateCommand { get; }
-        public ReactiveCommand<Unit, IRoutableViewModel> NewScanNavigateCommand { get; }
+        public ReactiveCommand<Unit, IRoutableViewModel> AbortCommand { get; }
         #endregion
 
         public TopBarViewModel()
@@ -114,28 +114,28 @@ namespace SpectraCaptureApp.ViewModel.Controls
             switch (currentViewModel)
             {
                 default:
-                    NewScanButtonVisible = Visibility.Collapsed;
+                    AbortButtonVisible = Visibility.Collapsed;
                     SettingsButtonVisible = Visibility.Visible;
                     BaselineOkImageVisible = Visibility.Collapsed;
                     SpectrometerConnectedImageVisible = Visibility.Visible;
                     break;
 
                 case ScanReferenceViewModel _:
-                    NewScanButtonVisible = Visibility.Visible;
+                    AbortButtonVisible = Visibility.Visible;
                     SettingsButtonVisible = Visibility.Collapsed;
                     BaselineOkImageVisible = Visibility.Collapsed;
                     SpectrometerConnectedImageVisible = Visibility.Visible;
                     break;
 
                 case ScanSubsampleViewModel _:
-                    NewScanButtonVisible = Visibility.Visible;
+                    AbortButtonVisible = Visibility.Visible;
                     SettingsButtonVisible = Visibility.Collapsed;
                     BaselineOkImageVisible = Visibility.Visible;
                     SpectrometerConnectedImageVisible = Visibility.Visible;
                     break;
 
                 case SettingsViewModel _:
-                    NewScanButtonVisible = Visibility.Visible;
+                    AbortButtonVisible = Visibility.Collapsed;
                     SettingsButtonVisible = Visibility.Collapsed;
                     BaselineOkImageVisible = Visibility.Collapsed;
                     SpectrometerConnectedImageVisible = Visibility.Visible;

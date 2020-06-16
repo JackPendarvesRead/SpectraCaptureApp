@@ -8,7 +8,6 @@ namespace SpectraCaptureApp.Logic
     {
         public static void ASFD()
         {
-            var wf = new SpectraCaptureApp.Model.MyWrappedViaviScanningWorkflow();
         }
     }
 }
