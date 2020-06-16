@@ -18,20 +18,11 @@ namespace SpectraCaptureApp.Model
 
         public IScanningWorkflow ScanningWorkflow { get; }
 
-        public int MinimumScanCount => 5;
-
         private string _sampleReference;
         public string SampleReference
         {
             get => _sampleReference;
             set => this.RaiseAndSetIfChanged(ref _sampleReference, value);
-        }
-
-        private int _scanNumber;
-        public int ScanNumber
-        {
-            get => _scanNumber;
-            set => this.RaiseAndSetIfChanged(ref _scanNumber, value);
         }
     }
 }

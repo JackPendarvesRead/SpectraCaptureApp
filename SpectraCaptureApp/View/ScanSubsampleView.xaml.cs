@@ -26,9 +26,9 @@ namespace SpectraCaptureApp.View
             this.WhenActivated(disposables =>
             {
                 //this.OneWayBind(ViewModel, vm => vm.UrlPathSegment, view => view..Text).DisposeWith(disposables);
-                this.OneWayBind(ViewModel, vm => vm.Model.ScanNumber, view => view.ScanNumber.Text).DisposeWith(disposables);
+                this.OneWayBind(ViewModel, vm => vm.ScansCompleted, view => view.ScansCompleted.Text).DisposeWith(disposables);
                 this.OneWayBind(ViewModel, vm => vm.ScanInProgress, view => view.IsLoading.Text, ScanInProgressToStringVmToView).DisposeWith(disposables);
-                this.BindCommand(ViewModel, vm => vm.CaptureScan, view => view.ScanButton).DisposeWith(disposables);
+                this.BindCommand(ViewModel, vm => vm.StartSubSampleScan, view => view.ScanButton).DisposeWith(disposables);
                 this.BindCommand(ViewModel, vm => vm.Save, view => view.SaveButton).DisposeWith(disposables);
             });
         }

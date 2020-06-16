@@ -4,19 +4,13 @@ using ReactiveUI;
 using Serilog;
 using Splat;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
+using System.Threading.Tasks;
 using System.Windows.Threading;
-using Aunir.SpectrumAnalysis2.Interfaces;
-using NIR4.ViaviCapture.Model;
 
 namespace SpectraCaptureApp.ViewModel
 {
@@ -27,47 +21,29 @@ namespace SpectraCaptureApp.ViewModel
         public ScanCaptureModel Model { get; }
         public IScreen HostScreen { get; }
 
+        public int MaximumScans => 5;
 
-        readonly ObservableAsPropertyHelper<bool> _scanInProgress;
-        public bool ScanInProgress
+        private int scansCompleted;
+        public int ScansCompleted
         {
-            get => _scanInProgress.Value;
+            get => scansCompleted;
+            set => this.RaiseAndSetIfChanged(ref scansCompleted, value);
         }
 
-        public ReactiveCommand<Unit, Unit> CaptureScan { get; }
+        readonly ObservableAsPropertyHelper<bool> scanInProgress;
+        public bool ScanInProgress => scanInProgress.Value;
+
+        public ReactiveCommand<Unit, Unit> StartSubSampleScan { get; }
         public ReactiveCommand<Unit, IRoutableViewModel> Save { get; }
-        
+
         public ScanSubsampleViewModel(ScanCaptureModel model, IScreen screen = null)
         {
             Model = model;
             HostScreen = screen ?? Locator.Current.GetService<IScreen>();
 
-            if(Model.ScanningWorkflow is MyWrappedViaviScanningWorkflow)
-            {
-                var spectraField = typeof(NIR4.ViaviCapture.Model.ViaviScanningWorkflow).GetField("spectra", BindingFlags.NonPublic | BindingFlags.Instance);
-                var spectra = (List<ISpectrumData>)spectraField.GetValue(Model.ScanningWorkflow);
-            }
-
-            CaptureScan = ReactiveCommand.CreateFromObservable(CaptureScanImpl, 
-                this.WhenAnyValue(x => x.Model.ScanNumber, x => x < 5));
-            CaptureScan.IsExecuting.ToProperty(this, x => x.ScanInProgress, out _scanInProgress);
-            this.WhenAnyValue(x => x.ScanInProgress).SetBusyCursor();
-            CaptureScan.ThrownExceptions.Subscribe(
-                (error) =>
-                {
-                    MessageBox.Show(error.Message,
-                    "Scan Capture Method Failed",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-                    Save.Execute();
-                });
-            CaptureScan.IsExecuting
-               .Skip(1)
-               .Where(isExecuting => !isExecuting)
-               .Subscribe(x =>
-               {
-                   Model.ScanNumber++;
-               });
+            StartSubSampleScan = ReactiveCommand.CreateFromObservable(StartSubSampleScanImpl, this.WhenAnyValue(x => x.ScansCompleted, x => x < MaximumScans));
+            StartSubSampleScan.IsExecuting.ToProperty(this, x => x.ScanInProgress, out scanInProgress);
+            StartSubSampleScan.Subscribe(_ => ScansCompleted++);
 
             Save = ReactiveCommand.CreateFromObservable(
                 () => 
@@ -80,11 +56,11 @@ namespace SpectraCaptureApp.ViewModel
                     return HostScreen.Router.NavigateAndReset.Execute(new EnterSampleReferenceViewModel(new ScanCaptureModel(), HostScreen));
                 },
                 this.WhenAnyValue(
-                    x => x.Model.ScanNumber,
+                    x => x.ScansCompleted,
                     x => x.ScanInProgress,                 
                     (scanNumber, isLoading) => 
                     {
-                        return scanNumber >= model.MinimumScanCount && !ScanInProgress; 
+                        return scanNumber >= MaximumScans && !ScanInProgress; 
                     })
                 );
             Save.ThrownExceptions.Subscribe((error) =>
@@ -94,19 +70,20 @@ namespace SpectraCaptureApp.ViewModel
                    "Save Failed",
                    MessageBoxButton.OK,
                    MessageBoxImage.Error);
+                //Navigate to error view?
             });
+
+            this.WhenAnyValue(x => x.ScanInProgress).SetBusyCursor();
         }
 
         private int failedAttempts = 0;
-        public IObservable<Unit> CaptureScanImpl()
+        private IObservable<Unit> StartSubSampleScanImpl()
         {
             return Observable.Start(() =>
             {
-                var result = Model.ScanningWorkflow.ScanSubSample();
-                if (result.IsValid)
+                if (Model.ScanningWorkflow.ScanSubSample().IsValid)
                 {
-                    Log.Debug("Successfully scanned subsample. Scan number = {ScanNumber}", this.Model.ScanNumber);
-                    
+                    Log.Debug("Successfully scanned subsample. Scan number = {ScanNumber}/{MaximumScansScan}", this.ScansCompleted + 1, MaximumScans);
                 }
                 else
                 {

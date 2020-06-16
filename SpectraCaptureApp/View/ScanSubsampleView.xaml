@@ -29,8 +29,8 @@
                 </Image.Source>
             </Image>
             <StackPanel Orientation="Horizontal">
-                <Label>Scan Number:</Label>
-                <TextBlock x:Name="ScanNumber" />
+                <Label>Scans Completed:</Label>
+                <TextBlock x:Name="ScansCompleted" />
             </StackPanel>            
 
             <StackPanel Orientation="Horizontal" Grid.Column="0">

@@ -51,7 +51,7 @@ namespace SpectraCaptureApp
 
         private void RegisterLoggers()
         {
-            Locator.CurrentMutable.UseSerilogFullLogger();
+            //Locator.CurrentMutable.UseSerilogFullLogger();
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .WriteTo.RollingFile(@"Logs\MyLogs.log")

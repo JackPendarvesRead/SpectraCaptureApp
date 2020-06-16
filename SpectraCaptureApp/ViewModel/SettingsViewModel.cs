@@ -72,6 +72,11 @@ namespace SpectraCaptureApp.ViewModel
                 {
                     AppSettings.AutoReferenceSetting = newValue;
                 });
+            this.WhenAnyValue(vm => vm.AutomaticLoop)
+                .Subscribe((newValue) =>
+                {
+                    AppSettings.AutomaticLoop = newValue;
+                });
 
 
             BackCommand = ReactiveCommand.CreateFromObservable(()
