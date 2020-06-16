@@ -39,11 +39,18 @@ namespace SpectraCaptureApp.ViewModel
         public ScanSubsampleViewModel(ScanCaptureModel model, IScreen screen = null)
         {
             Model = model;
-            HostScreen = screen ?? Locator.Current.GetService<IScreen>();
+            HostScreen = screen ?? Locator.Current.GetService<IScreen>();           
 
             StartSubSampleScan = ReactiveCommand.CreateFromObservable(StartSubSampleScanImpl, this.WhenAnyValue(x => x.ScansCompleted, x => x < MaximumScans));
             StartSubSampleScan.IsExecuting.ToProperty(this, x => x.ScanInProgress, out scanInProgress);
-            StartSubSampleScan.Subscribe(_ => ScansCompleted++);
+            StartSubSampleScan.Subscribe(x =>
+            {
+                ScansCompleted += 1;
+                if(AppSettings.AutomaticLoop && ScansCompleted < MaximumScans)
+                {
+                    StartSubSampleScan.Execute().Subscribe();
+                }
+            });
 
             Save = ReactiveCommand.CreateFromObservable(
                 () => 
@@ -81,6 +88,7 @@ namespace SpectraCaptureApp.ViewModel
         {
             return Observable.Start(() =>
             {
+                Thread.Sleep(TimeSpan.FromSeconds(AppSettings.LoopPauseTime));
                 if (Model.ScanningWorkflow.ScanSubSample().IsValid)
                 {
                     Log.Debug("Successfully scanned subsample. Scan number = {ScanNumber}/{MaximumScansScan}", this.ScansCompleted + 1, MaximumScans);
@@ -91,7 +99,7 @@ namespace SpectraCaptureApp.ViewModel
                     Log.Warning("Invalid subsample scan.");
                     if (failedAttempts < AppSettings.RetryAttempts)
                     {
-
+                        //Navtigate to error view
                     }
                 }
             });

@@ -1,5 +1,6 @@
 ﻿using Aunir.SpectrumAnalysis2.Interfaces;
 using NIR4.ViaviCapture.Model;
+using Serilog;
 using Splat;
 using System;
 using System.Collections.Generic;
@@ -23,33 +24,39 @@ namespace SpectraCaptureApp.Model
 
         public ValidationResult ScanReference()
         {
+            Log.Debug($"Scanning reference");
             Thread.Sleep(pauseTime);            
             return ValidationResult.Valid();
         }
 
         public ValidationResult ScanSubSample()
         {
+            Log.Debug($"Scanning subsample");
             Thread.Sleep(pauseTime);
             return ValidationResult.Valid();
         }
 
         public void SetSampleReference(string sampleReference)
         {
+            Log.Debug($"Set sample reference to {sampleReference}");
             Thread.Sleep(pauseTime);
         }
 
         public void StoreSpectrum()
         {
+            Log.Debug($"File saved saved to: {saveDirectory}");
             Thread.Sleep(pauseTime);
             MessageBox.Show($"File saved saved to: {saveDirectory}");
         }
 
         public void TurnOffLamp()
         {
+            Log.Debug("Turning off lamp");
             Thread.Sleep(pauseTime);
         }
         public void TurnOnLamp()
         {
+            Log.Debug("Turning on lamp");
             Thread.Sleep(pauseTime);
         }
 
