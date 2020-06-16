@@ -19,25 +19,13 @@ namespace SpectraCaptureApp.ViewModel
     {
         public TopBarViewModel TopBarViewModel { get; set; }
         public RoutingState Router { get; }
-        public ReactiveCommand<Unit, IRoutableViewModel> SettingsNavigateCommand { get; }
-        public ReactiveCommand<Unit, IRoutableViewModel> NewScan { get; }
 
         public MainWindowViewModel(RoutingState testRouter = null)
         {
             Router = testRouter ?? new RoutingState();
-            TopBarViewModel = new TopBarViewModel();
+            TopBarViewModel = new TopBarViewModel(this);
 
-            SettingsNavigateCommand = ReactiveCommand.CreateFromObservable(() 
-                => Router.NavigateAndReset.Execute(new SettingsViewModel(this)));
-            NewScan = ReactiveCommand.CreateFromObservable(() 
-                => Router.NavigateAndReset.Execute(new EnterSampleReferenceViewModel(new ScanCaptureModel(), this)));
-
-            NewScan.Execute();
-
-            Router.NavigationChanged.Subscribe(x =>
-            {
-                this.TopBarViewModel.SetVisibilities(Observable.Latest(Router.CurrentViewModel).First());
-            });
+            TopBarViewModel.AbortCommand.Execute();
         }
     }
 }

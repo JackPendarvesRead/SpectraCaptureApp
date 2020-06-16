@@ -21,10 +21,14 @@
             <TextBlock Name="TextBlockValue" TextAlignment="Right" Grid.Column="1" Text="Test" />
             <StackPanel Orientation="Vertical" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left">
                 <Button x:Name="Increase"  Style="{StaticResource NumberButton}" >
-                    <Image Source="pack://application:,,,/Images/up.png" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <Button.Background>
+                        <ImageBrush ImageSource="pack://application:,,,/Images/up.png" Stretch="Fill" TileMode="None" />
+                    </Button.Background>
                 </Button>
                 <Button x:Name="Decrease" Style="{StaticResource NumberButton}" >
-                    <Image Source="pack://application:,,,/Images/down.png" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <Button.Background>
+                        <ImageBrush ImageSource="pack://application:,,,/Images/down.png" Stretch="Fill" TileMode="None" />
+                    </Button.Background>
                 </Button>
             </StackPanel>
         </Grid>

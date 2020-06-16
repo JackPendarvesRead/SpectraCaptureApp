@@ -33,9 +33,6 @@ namespace SpectraCaptureApp.ViewModel
         {
             HostScreen = screen ?? Locator.Current.GetService<IScreen>();
 
-            BackCommand = ReactiveCommand.CreateFromObservable(()
-                => HostScreen.Router.NavigateAndReset.Execute(new EnterSampleReferenceViewModel(new ScanCaptureModel(), HostScreen)));
-
             SaveDirectory = AppSettings.SpectrumSaveDirectory;
             RetryAttemptsViewModel = new NumberInputViewModel("Retry Attempts", AppSettings.RetryAttempts, 1, 5);
             LoopDelayViewModel = new NumberInputViewModel("Loop pause time (s)", AppSettings.LoopPauseTime, 1, 99);
@@ -51,6 +48,11 @@ namespace SpectraCaptureApp.ViewModel
                     AppSettings.LoopPauseTime = newValue;
                 });
 
+
+
+            BackCommand = ReactiveCommand.CreateFromObservable(()
+                => HostScreen.Router.NavigateAndReset.Execute(new EnterSampleReferenceViewModel(new ScanCaptureModel(), HostScreen)));
+            
             SaveDirectoryBrowseCommand = ReactiveCommand.Create(() => 
             {
                 using var fbd = new System.Windows.Forms.FolderBrowserDialog();

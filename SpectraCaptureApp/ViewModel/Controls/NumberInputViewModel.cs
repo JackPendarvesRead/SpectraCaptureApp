@@ -42,7 +42,7 @@ namespace SpectraCaptureApp.ViewModel.Controls
         public NumberInputViewModel(string label, int startValue, int min, int max)
         {
             this.Label = label;
-            this.CurrentValue = startValue;
+            this.CurrentValue = Math.Clamp(startValue, min, max);
             this.MinimumValue = min;
             this.MaximumValue = max;
 

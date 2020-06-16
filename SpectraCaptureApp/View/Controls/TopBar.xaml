@@ -19,7 +19,7 @@
         <StackPanel Grid.Column="0" 
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
-            <Button x:Name="NewScanButton" Content="Abort" />
+            <Button x:Name="AbortButton" Content="Abort" />
             <Button x:Name="SettingsButton" Content="Settings" />
         </StackPanel>
 

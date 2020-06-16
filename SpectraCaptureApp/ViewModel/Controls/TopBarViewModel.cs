@@ -1,8 +1,11 @@
 ﻿using ReactiveUI;
+using SpectraCaptureApp.Model;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Reactive;
+using System.Reactive.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Media;
@@ -77,10 +80,18 @@ namespace SpectraCaptureApp.ViewModel.Controls
         public ReactiveCommand<Unit, IRoutableViewModel> AbortCommand { get; }
         #endregion
 
-        public TopBarViewModel()
+        private readonly IScreen HostScreen;
+
+        public TopBarViewModel(IScreen screen)
         {
+            HostScreen = screen;
             BaselineOkImageUri = ImagePaths.SolidGreen;
             SpectrometerConnectedImageUri = ImagePaths.SolidRed;
+
+            SettingsNavigateCommand = ReactiveCommand.CreateFromObservable(()
+                => HostScreen.Router.NavigateAndReset.Execute(new SettingsViewModel(HostScreen)));
+            AbortCommand = ReactiveCommand.CreateFromObservable(()
+                => HostScreen.Router.NavigateAndReset.Execute(new EnterSampleReferenceViewModel(new ScanCaptureModel(), HostScreen)));
 
             this.WhenAnyValue(vm => vm.SpectrometerIsConnected)
                 .Subscribe(connected =>
@@ -107,6 +118,11 @@ namespace SpectraCaptureApp.ViewModel.Controls
                         BaselineOkImageUri = ImagePaths.SolidRed;
                     }
                 });
+
+            HostScreen.Router.NavigationChanged.Subscribe(x =>
+            {
+                this.SetVisibilities(Observable.Latest(HostScreen.Router.CurrentViewModel).First());
+            });
         }
 
         public void SetVisibilities(IRoutableViewModel currentViewModel)
