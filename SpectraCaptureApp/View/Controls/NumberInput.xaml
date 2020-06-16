@@ -15,7 +15,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
             <Label Name="LabelText" Content="Label" />
             <TextBlock Name="TextBlockValue" TextAlignment="Right" Grid.Column="1" Text="Test" />

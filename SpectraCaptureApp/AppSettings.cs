@@ -5,10 +5,18 @@ using System.Text;
 
 namespace SpectraCaptureApp
 {
+    internal class UserSettings
+    {
+        public string SpectrumSaveDirectory { get; set; }
+        public int RetryAttempts { get; set; }
+        public int LoopPauseTime { get; set; }
+        public bool AutomaticLoop { get; set; }
+    }
+
     internal static class AppSettings
     {
-        private static SettingsManager<UserSettings> SettingsManager = Locator.Current.GetService<SettingsManager<UserSettings>>();
-        private static UserSettings Settings = SettingsManager.LoadSettings();
+        private static readonly SettingsManager<UserSettings> SettingsManager = Locator.Current.GetService<SettingsManager<UserSettings>>();
+        private static readonly UserSettings Settings = SettingsManager.LoadSettings();
 
         public static string SpectrumSaveDirectory
         {
@@ -45,6 +53,19 @@ namespace SpectraCaptureApp
             set
             {
                 Settings.LoopPauseTime = value;
+                SettingsManager.SaveSettings(Settings);
+            }
+        }
+
+        public static bool AutomaticLoop
+        {
+            get
+            {
+                return Settings.AutomaticLoop;
+            }
+            set
+            {
+                Settings.AutomaticLoop = value;
                 SettingsManager.SaveSettings(Settings);
             }
         }

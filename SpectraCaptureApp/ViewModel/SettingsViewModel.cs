@@ -26,6 +26,13 @@ namespace SpectraCaptureApp.ViewModel
             set => this.RaiseAndSetIfChanged(ref saveDirectory, value);
         }
 
+        private bool automaticLoop;
+        public bool AutomaticLoop
+        {
+            get => automaticLoop;
+            set => this.RaiseAndSetIfChanged(ref automaticLoop, value);
+        }
+
         public NumberInputViewModel RetryAttemptsViewModel { get; set; }
         public NumberInputViewModel LoopDelayViewModel { get; set; }
 
@@ -33,6 +40,7 @@ namespace SpectraCaptureApp.ViewModel
         {
             HostScreen = screen ?? Locator.Current.GetService<IScreen>();
 
+            AutomaticLoop = AppSettings.AutomaticLoop;
             SaveDirectory = AppSettings.SpectrumSaveDirectory;
             RetryAttemptsViewModel = new NumberInputViewModel("Retry Attempts", AppSettings.RetryAttempts, 1, 5);
             LoopDelayViewModel = new NumberInputViewModel("Loop pause time (s)", AppSettings.LoopPauseTime, 1, 99);

@@ -23,7 +23,7 @@
             <Label Style="{StaticResource Title}" Content="Error Settings" /> 
             <control:NumberInput x:Name="RetryAttempts" />
             <Label Style="{StaticResource Title}" Content="Workflow Settings" /> 
-            <CheckBox Content="Automatic Loop Scans" />
+            <CheckBox x:Name="AutomaticLoopCheckbox" Content="Automatic Loop Scans" />
             <control:NumberInput x:Name="LoopDelay" />
         </StackPanel>
         <Button Grid.Row="1" x:Name="BackButton" Content="Back" HorizontalAlignment="Right" />
