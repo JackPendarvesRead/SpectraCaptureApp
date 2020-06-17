@@ -25,7 +25,6 @@ namespace SpectraCaptureApp.Model
             set => this.RaiseAndSetIfChanged(ref _sampleReference, value);
         }
 
-
         public List<Exception> WorkflowExceptions = new List<Exception>();
     }
 }

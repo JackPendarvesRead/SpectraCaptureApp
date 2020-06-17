@@ -26,7 +26,7 @@ namespace SpectraCaptureApp.Model
         public ValidationResult ScanReference()
         {
             if (ThrowErrors)
-                throw new Exception("This is a test throw.");
+                throw new Exception("ScanReference method failed");
 
             Log.Debug($"Scanning reference");
             Thread.Sleep(pauseTime);            
@@ -36,7 +36,7 @@ namespace SpectraCaptureApp.Model
         public ValidationResult ScanSubSample()
         {
             if (ThrowErrors)
-                throw new Exception("This is a test throw."); 
+                throw new Exception("ScanSubSample method failed"); 
             
             Log.Debug($"Scanning subsample");
             Thread.Sleep(pauseTime);
@@ -46,7 +46,7 @@ namespace SpectraCaptureApp.Model
         public void SetSampleReference(string sampleReference)
         {
             if (ThrowErrors)
-                throw new Exception("This is a test throw."); 
+                throw new Exception("SetSampleReference method failed"); 
            
             Log.Debug($"Set sample reference to {sampleReference}");
             Thread.Sleep(pauseTime);
@@ -55,7 +55,7 @@ namespace SpectraCaptureApp.Model
         public void StoreSpectrum()
         {
             if (ThrowErrors)
-                throw new Exception("This is a test throw.");
+                throw new Exception("StoreSpectrum method failed");
             
             Log.Debug($"File saved saved to: {saveDirectory}");
 
@@ -66,7 +66,7 @@ namespace SpectraCaptureApp.Model
         public void TurnOffLamp()
         {
             if (ThrowErrors)
-                throw new Exception("This is a test throw."); 
+                throw new Exception("TurnOffLamp method failed"); 
             
             Log.Debug("Turning off lamp");
             Thread.Sleep(pauseTime);
@@ -74,7 +74,7 @@ namespace SpectraCaptureApp.Model
         public void TurnOnLamp()
         {
             if (ThrowErrors)
-                throw new Exception("This is a test throw."); 
+                throw new Exception("TurnOnLamp method failed"); 
             
             
             Log.Debug("Turning on lamp");
