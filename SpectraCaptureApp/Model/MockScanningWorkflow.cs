@@ -15,7 +15,7 @@ namespace SpectraCaptureApp.Model
     public class MockScanningWorkflow : IScanningWorkflow
     {
         private readonly string saveDirectory;
-        private int pauseTime = 400;
+        private int pauseTime = 1000;
 
         public MockScanningWorkflow(string saveDirectory)
         {

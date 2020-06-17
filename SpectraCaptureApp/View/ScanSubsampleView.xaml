@@ -38,7 +38,11 @@
                 <TextBlock x:Name="IsLoading"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Column="0">
-                <Label>Spectrometer Status:</Label>
+                <Label>Paused:</Label>
+                <TextBlock x:Name="Paused"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Column="0">
+                <Label>Status enum:</Label>
                 <TextBlock x:Name="Status"/>
             </StackPanel>
             <Button x:Name="ScanButton" Content="Scan Sample" />
