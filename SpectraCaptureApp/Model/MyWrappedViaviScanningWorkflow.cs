@@ -14,7 +14,7 @@ namespace SpectraCaptureApp.Model
         public List<ISpectrumData> InvalidSpectra { get; set; } = new List<ISpectrumData>();
 
         public MyWrappedViaviScanningWorkflow(string storageDirectory) 
-            : base(new MicroNirUsbDeviceConnectionFactory(), "storageDirectory")
+            : base(new MicroNirUsbDeviceConnectionFactory(), storageDirectory)
         {
         }
 
