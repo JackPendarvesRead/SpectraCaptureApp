@@ -28,6 +28,7 @@ namespace SpectraCaptureApp.ViewModel
         {
             Model = model;
             HostScreen = screen ?? Locator.Current.GetService<IScreen>();
+
             ScanReferenceCommand = ReactiveCommand.Create(() =>
             {
                 UIServices.SetBusyState();
@@ -48,13 +49,16 @@ namespace SpectraCaptureApp.ViewModel
             });
             ScanReferenceCommand.ThrownExceptions.Subscribe((error) =>
             {
-                Log.Error(error, "ScanReferenceCommand Failed");
-                error.HandleWorkflowException(HostScreen, Model);
+                error.HandleWorkflowException(HostScreen, Model, nameof(ScanReferenceCommand));
             });
 
             SubSambleScanNavigateCommand = ReactiveCommand.CreateFromObservable(() =>
             {
                 return HostScreen.Router.Navigate.Execute(new ScanSubsampleViewModel(Model, HostScreen));
+            });
+            SubSambleScanNavigateCommand.ThrownExceptions.Subscribe((error) =>
+            {
+                error.HandleWorkflowException(HostScreen, Model, nameof(SubSambleScanNavigateCommand));
             });
         }
     }

@@ -1,4 +1,5 @@
 ﻿using ReactiveUI;
+using Serilog;
 using SpectraCaptureApp.Model;
 using SpectraCaptureApp.ViewModel;
 using System;
@@ -10,16 +11,18 @@ namespace SpectraCaptureApp.Extension
 {
     public static class ExceptionExtension
     {
-        public static void HandleWorkflowException(this Exception ex, IScreen hostScreen, ScanCaptureModel model)
+        public static void HandleWorkflowException(this Exception ex, IScreen hostScreen, ScanCaptureModel model, string methodName)
         {
+            string message = $"{methodName} method failed";
+            Log.Error(ex, message);
             model.WorkflowExceptions.Add(ex);
             if(model.WorkflowExceptions.Count >= AppSettings.RetryAttempts)
             {
                 hostScreen.Router.Navigate.Execute(new ErrorContactViewModel(model, hostScreen));
             }
             else
-            {
-                MessageBox.Show(ex.Message, "Error occurred in Scanning Workflow", MessageBoxButton.OK, MessageBoxImage.Error);
+            {                
+                MessageBox.Show(ex.Message, message, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

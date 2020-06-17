@@ -94,10 +94,11 @@ namespace SpectraCaptureApp.ViewModel
             SaveDirectoryBrowseCommand.ThrownExceptions.Subscribe((error) =>
             {
                 Log.Error(error, "Failed to set save directory");
-                MessageBox.Show(error.Message,
-                   "Set sample reference method failed",
-                   MessageBoxButton.OK,
-                   MessageBoxImage.Error);
+                MessageBox.Show(
+                    error.Message,                   
+                    "Set sample reference method failed",                   
+                    MessageBoxButton.OK,                   
+                    MessageBoxImage.Error);
             });
         }
     }

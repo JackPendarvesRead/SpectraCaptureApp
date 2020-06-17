@@ -61,8 +61,7 @@ namespace SpectraCaptureApp.ViewModel
             StartSubSampleScan.IsExecuting.ToProperty(this, vm => vm.ScanInProgress, out scanInProgress);
             StartSubSampleScan.ThrownExceptions.Subscribe((ex) =>
             {
-                Log.Error(ex, "Exception thrown in StartSubSampleScan: " + ex.Message);
-                ex.HandleWorkflowException(HostScreen, Model);
+                ex.HandleWorkflowException(HostScreen, Model, nameof(StartSubSampleScan));
             });
             StartSubSampleScan.Subscribe(x =>
             {
@@ -77,6 +76,7 @@ namespace SpectraCaptureApp.ViewModel
                 () => 
                 {
                     UIServices.SetBusyState();
+                    Log.Debug("Starting save process");
                     Model.ScanningWorkflow.TurnOffLamp();
                     Log.Debug("Lamp turned off");
                     Model.ScanningWorkflow.StoreSpectrum();
@@ -93,12 +93,7 @@ namespace SpectraCaptureApp.ViewModel
                 );
             SaveCommand.ThrownExceptions.Subscribe((error) =>
             {
-                Log.Error(error, "Save method failed");
-                MessageBox.Show(error.Message,
-                   "Save Failed",
-                   MessageBoxButton.OK,
-                   MessageBoxImage.Error);
-                //Navigate to error view?
+                error.HandleWorkflowException(HostScreen, Model, nameof(SaveCommand));
             });
 
             this.WhenAnyValue(x => x.ScanInProgress).SetBusyCursor();
