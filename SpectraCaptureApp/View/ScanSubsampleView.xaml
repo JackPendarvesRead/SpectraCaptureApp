@@ -11,7 +11,7 @@
     mc:Ignorable="d">
     <Grid>
         <StackPanel>
-            <Label>Capture Subsample Spectra</Label>
+            <Label Style="{StaticResource Title}">Capture Subsample Spectra</Label>
             <TextBlock>
                 <Run Text="1) Remove the white reference block from the spectrometer" />
                 <LineBreak />

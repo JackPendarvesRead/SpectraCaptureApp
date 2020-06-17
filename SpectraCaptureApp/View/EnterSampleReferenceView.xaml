@@ -12,7 +12,7 @@
 
     <Grid>
         <StackPanel>
-            <Label>Enter Sample Reference</Label>
+            <Label Style="{StaticResource Title}">Enter Sample Reference</Label>
             <TextBlock>Enter sample reference and click "Start" to begin scan process.</TextBlock>
             <StackPanel Orientation="Horizontal">
                 <TextBox x:Name="SampleReference" MinWidth="300" />

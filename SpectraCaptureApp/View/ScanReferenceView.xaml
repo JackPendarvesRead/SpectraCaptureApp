@@ -11,7 +11,7 @@
     mc:Ignorable="d">
     <Grid>
         <StackPanel>
-            <Label>Capture Spectrum Reference</Label>
+            <Label Style="{StaticResource Title}">Capture Spectrum Reference</Label>
             <StackPanel Orientation="Horizontal">
                 <TextBlock>
                     <Run Text="Sample Reference = " />
