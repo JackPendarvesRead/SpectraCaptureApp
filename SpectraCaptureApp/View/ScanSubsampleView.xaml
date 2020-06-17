@@ -42,7 +42,7 @@
                 <TextBlock x:Name="Paused"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Column="0">
-                <Label>Status enum:</Label>
+                <Label>Scan Status:</Label>
                 <TextBlock x:Name="Status"/>
             </StackPanel>
             <Button x:Name="ScanButton" Content="Scan Sample" />

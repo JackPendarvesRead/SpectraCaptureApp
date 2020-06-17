@@ -32,6 +32,8 @@ namespace SpectraCaptureApp.ViewModel
             Router = testRouter ?? new RoutingState();
             TopBarViewModel = new TopBarViewModel(this);
 
+            TopBarViewModel.SpectrometerIsConnected = true;
+
             TopBarViewModel.AbortCommand.Execute();
 
             this.WhenAnyValue(vm => vm.ThrowErrors).Subscribe((throwError) => TestSettings.ThrowErrors = throwError);

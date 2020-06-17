@@ -72,7 +72,7 @@ namespace SpectraCaptureApp
 #if DEBUG
             Locator.CurrentMutable.Register(() => new MockScanningWorkflow(AppSettings.SpectrumSaveDirectory), typeof(IScanningWorkflow));
 #else
-            Locator.CurrentMutable.Register(() => new MyWrappedViaviScanningWorkflow(AppSettings.Settings.SpectrumSaveDirectory), typeof(IScanningWorkflow));                                
+            Locator.CurrentMutable.Register(() => new MyWrappedViaviScanningWorkflow(AppSettings.SpectrumSaveDirectory), typeof(IScanningWorkflow));                                
 #endif
 
         }
