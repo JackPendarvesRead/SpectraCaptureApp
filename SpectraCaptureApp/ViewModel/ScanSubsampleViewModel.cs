@@ -32,28 +32,6 @@ namespace SpectraCaptureApp.ViewModel
             set => this.RaiseAndSetIfChanged(ref scansCompleted, value);
         }
 
-        //private ScanState scanState;
-        //public ScanState ScanState
-        //{
-        //    get => scanState;
-        //    set => this.RaiseAndSetIfChanged(ref scanState, value);
-        //}
-        ////public ScanState ScanStatus
-        //{
-        //    get
-        //    {
-        //        if (Paused)
-        //        {
-        //            return ScanState.Pause;
-        //        }
-        //        if (ScanInProgress)
-        //        {
-        //            return ScanState.Busy;
-        //        }
-        //        return ScanState.Ready;
-        //    }
-        //}
-
         readonly ObservableAsPropertyHelper<ScanState> scanState;
         public ScanState ScanStatus => scanState.Value;
 
@@ -88,16 +66,7 @@ namespace SpectraCaptureApp.ViewModel
             StartSubSampleScan.ThrownExceptions.Subscribe((ex) =>
             {
                 Log.Error(ex, "Exception thrown in StartSubSampleScan: " + ex.Message);
-                Model.WorkflowExceptions.Add(ex);
-                if(Model.WorkflowExceptions.Count >= AppSettings.RetryAttempts)
-                {                    
-                    HostScreen.Router.Navigate.Execute(new ErrorContactViewModel(Model, HostScreen));
-                }
-                else
-                {
-                    MessageBox.Show($"Error occurred in Scanning Subsample - {ex.Message}");
-                }
-
+                ex.HandleWorkflowException(HostScreen, Model);
             });
             StartSubSampleScan.Subscribe(x =>
             {

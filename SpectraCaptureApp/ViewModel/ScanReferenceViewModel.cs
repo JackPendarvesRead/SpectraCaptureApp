@@ -47,10 +47,7 @@ namespace SpectraCaptureApp.ViewModel
             ScanReferenceCommand.ThrownExceptions.Subscribe((error) =>
             {
                 Log.Error(error, "ScanReferenceCommand Failed");
-                MessageBox.Show(error.Message, 
-                    "ScanReferenceCommand Failed", 
-                    MessageBoxButton.OK, 
-                    MessageBoxImage.Error);
+                error.HandleWorkflowException(HostScreen, Model);
             });
         }
     }

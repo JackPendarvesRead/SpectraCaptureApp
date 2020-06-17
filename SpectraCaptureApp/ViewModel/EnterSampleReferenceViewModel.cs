@@ -64,10 +64,7 @@ namespace SpectraCaptureApp.ViewModel
             SetSampleReferenceCommand.ThrownExceptions.Subscribe((error) =>
             {
                 Log.Error(error, "Sample Reference set method failed");
-                MessageBox.Show(error.Message,
-                    "Set sample reference method failed",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                error.HandleWorkflowException(HostScreen, Model);
             });
         }
     }
