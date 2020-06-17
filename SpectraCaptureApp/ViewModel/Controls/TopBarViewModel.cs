@@ -156,6 +156,13 @@ namespace SpectraCaptureApp.ViewModel.Controls
                     BaselineOkImageVisible = Visibility.Collapsed;
                     SpectrometerConnectedImageVisible = Visibility.Visible;
                     break;
+
+                case ErrorContactViewModel _:
+                    AbortButtonVisible = Visibility.Visible;
+                    SettingsButtonVisible = Visibility.Collapsed;
+                    BaselineOkImageVisible = Visibility.Collapsed;
+                    SpectrometerConnectedImageVisible = Visibility.Collapsed;
+                    break;
             }
         }
     }

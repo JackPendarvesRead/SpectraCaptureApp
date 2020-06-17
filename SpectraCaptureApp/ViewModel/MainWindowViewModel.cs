@@ -20,12 +20,21 @@ namespace SpectraCaptureApp.ViewModel
         public TopBarViewModel TopBarViewModel { get; set; }
         public RoutingState Router { get; }
 
+        private bool throwErrors;
+        public bool ThrowErrors
+        {
+            get => throwErrors;
+            set => this.RaiseAndSetIfChanged(ref throwErrors, value);
+        }
+
         public MainWindowViewModel(RoutingState testRouter = null)
         {
             Router = testRouter ?? new RoutingState();
             TopBarViewModel = new TopBarViewModel(this);
 
             TopBarViewModel.AbortCommand.Execute();
+
+            this.WhenAnyValue(vm => vm.ThrowErrors).Subscribe((throwError) => TestSettings.ThrowErrors = throwError);
         }
     }
 }

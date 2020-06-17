@@ -27,8 +27,7 @@
         <StackPanel Grid.Row="2" Orientation="Horizontal" >
             <CheckBox x:Name="SpecConnectedCheck" Content="Spectrometer Connected" VerticalAlignment="Center" HorizontalAlignment="Left" />
             <CheckBox x:Name="BaselineCheck" Content="Baseline is good" VerticalAlignment="Center" HorizontalAlignment="Left" />
+            <CheckBox x:Name="ThrowErrorCheck" Content="Throw Errors" VerticalAlignment="Center" HorizontalAlignment="Left" />
         </StackPanel>
-        
-        
     </Grid>
 </rxui:ReactiveWindow>

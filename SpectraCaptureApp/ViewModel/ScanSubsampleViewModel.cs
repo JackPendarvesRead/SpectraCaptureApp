@@ -85,6 +85,20 @@ namespace SpectraCaptureApp.ViewModel
 
             StartSubSampleScan = ReactiveCommand.CreateFromObservable(StartSubSampleScanImpl, this.WhenAnyValue(x => x.ScansCompleted, x => x < MaximumScans));
             StartSubSampleScan.IsExecuting.ToProperty(this, vm => vm.ScanInProgress, out scanInProgress);
+            StartSubSampleScan.ThrownExceptions.Subscribe((ex) =>
+            {
+                Log.Error(ex, "Exception thrown in StartSubSampleScan: " + ex.Message);
+                Model.WorkflowExceptions.Add(ex);
+                if(Model.WorkflowExceptions.Count >= AppSettings.RetryAttempts)
+                {                    
+                    HostScreen.Router.Navigate.Execute(new ErrorContactViewModel(Model, HostScreen));
+                }
+                else
+                {
+                    MessageBox.Show($"Error occurred in Scanning Subsample - {ex.Message}");
+                }
+
+            });
             StartSubSampleScan.Subscribe(x =>
             {
                 ScansCompleted += 1;
@@ -152,33 +166,6 @@ namespace SpectraCaptureApp.ViewModel
 
             }).ObserveOn(RxApp.MainThreadScheduler)
             .TakeUntil(HostScreen.Router.NavigateAndReset);
-        }
-
-        private IObservable<Unit> LoopScanImpl()
-        {
-            return Observable.Generate<int, Unit>(
-                this.ScansCompleted, 
-                i => i < this.MaximumScans, 
-                i => i + 1, 
-                (i) => 
-                {
-                    CaptureSubSampleScan();
-                    return Unit.Default; 
-                }).SubscribeOn(Scheduler.Default).ObserveOn(RxApp.MainThreadScheduler);
-        }
-
-        private IObservable<bool> GetPauseObservable()
-        {
-            return Observable.Create<bool>((observer) =>
-            {
-                Log.Debug("Starting pause obervable");
-                observer.OnNext(true);
-                Log.Debug("Starting pause for {Time}", AppSettings.LoopPauseTime);
-                Thread.Sleep(AppSettings.LoopPauseTime);
-                Log.Debug("Resuming");
-                observer.OnNext(false);
-                return Disposable.Empty;
-            });
         }
 
         private int failedAttempts = 0;

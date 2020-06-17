@@ -25,7 +25,7 @@ namespace SpectraCaptureApp.View
             InitializeComponent();
             this.WhenActivated(disposables =>
             {
-               
+                this.Bind(ViewModel, vm => vm.Model.SampleReference, view => view.SampleReferenceText.Text).DisposeWith(disposables);
             });
         }
     }

@@ -15,7 +15,8 @@ namespace SpectraCaptureApp.Model
     public class MockScanningWorkflow : IScanningWorkflow
     {
         private readonly string saveDirectory;
-        private int pauseTime = 1000;
+        private bool ThrowErrors => TestSettings.ThrowErrors;
+        private readonly int pauseTime = 1000;
 
         public MockScanningWorkflow(string saveDirectory)
         {
@@ -24,6 +25,9 @@ namespace SpectraCaptureApp.Model
 
         public ValidationResult ScanReference()
         {
+            if (ThrowErrors)
+                throw new Exception("This is a test throw.");
+
             Log.Debug($"Scanning reference");
             Thread.Sleep(pauseTime);            
             return ValidationResult.Valid();
@@ -31,6 +35,9 @@ namespace SpectraCaptureApp.Model
 
         public ValidationResult ScanSubSample()
         {
+            if (ThrowErrors)
+                throw new Exception("This is a test throw."); 
+            
             Log.Debug($"Scanning subsample");
             Thread.Sleep(pauseTime);
             return ValidationResult.Valid();
@@ -38,24 +45,38 @@ namespace SpectraCaptureApp.Model
 
         public void SetSampleReference(string sampleReference)
         {
+            if (ThrowErrors)
+                throw new Exception("This is a test throw."); 
+           
             Log.Debug($"Set sample reference to {sampleReference}");
             Thread.Sleep(pauseTime);
         }
 
         public void StoreSpectrum()
         {
+            if (ThrowErrors)
+                throw new Exception("This is a test throw.");
+            
             Log.Debug($"File saved saved to: {saveDirectory}");
+
             Thread.Sleep(pauseTime);
             MessageBox.Show($"File saved saved to: {saveDirectory}");
         }
 
         public void TurnOffLamp()
         {
+            if (ThrowErrors)
+                throw new Exception("This is a test throw."); 
+            
             Log.Debug("Turning off lamp");
             Thread.Sleep(pauseTime);
         }
         public void TurnOnLamp()
         {
+            if (ThrowErrors)
+                throw new Exception("This is a test throw."); 
+            
+            
             Log.Debug("Turning on lamp");
             Thread.Sleep(pauseTime);
         }

@@ -18,6 +18,7 @@ namespace SpectraCaptureApp.View
 
                 this.Bind(ViewModel, vm => vm.TopBarViewModel.SpectrometerIsConnected, view => view.SpecConnectedCheck.IsChecked).DisposeWith(disposables);
                 this.Bind(ViewModel, vm => vm.TopBarViewModel.BaselineIsOk, view => view.BaselineCheck.IsChecked).DisposeWith(disposables);
+                this.Bind(ViewModel, vm => vm.ThrowErrors, view => view.ThrowErrorCheck.IsChecked).DisposeWith(disposables);
             });
         }
     }
