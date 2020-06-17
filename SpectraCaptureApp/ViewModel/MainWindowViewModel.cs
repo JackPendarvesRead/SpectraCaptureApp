@@ -35,6 +35,7 @@ namespace SpectraCaptureApp.ViewModel
             TopBarViewModel.AbortCommand.Execute();
 
             this.WhenAnyValue(vm => vm.ThrowErrors).Subscribe((throwError) => TestSettings.ThrowErrors = throwError);
+            this.WhenAnyValue(vm => vm.TopBarViewModel.BaselineIsOk).Subscribe((baselineOk) => TestSettings.BaselineOk = baselineOk);
         }
     }
 }

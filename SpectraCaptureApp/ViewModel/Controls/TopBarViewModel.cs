@@ -94,11 +94,11 @@ namespace SpectraCaptureApp.ViewModel.Controls
                 {
                     if (connected)
                     {
-                        SpectrometerConnectedImageUri = ImagePaths.SolidGreen;
+                        SpectrometerConnectedImageUri = ImagePaths.Tick;
                     }
                     else
                     {
-                        SpectrometerConnectedImageUri = ImagePaths.SolidRed;
+                        SpectrometerConnectedImageUri = ImagePaths.Cross;
                     }
                 });
 
@@ -107,11 +107,11 @@ namespace SpectraCaptureApp.ViewModel.Controls
                 {
                     if (connected)
                     {
-                        BaselineOkImageUri = ImagePaths.SolidGreen;
+                        BaselineOkImageUri = ImagePaths.Tick;
                     }
                     else
                     {
-                        BaselineOkImageUri = ImagePaths.SolidRed;
+                        BaselineOkImageUri = ImagePaths.Cross;
                     }
                 });
 

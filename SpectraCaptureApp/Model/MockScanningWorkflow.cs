@@ -29,8 +29,13 @@ namespace SpectraCaptureApp.Model
                 throw new Exception("ScanReference method failed");
 
             Log.Debug($"Scanning reference");
-            Thread.Sleep(pauseTime);            
-            return ValidationResult.Valid();
+            Thread.Sleep(pauseTime);
+
+            if (TestSettings.BaselineOk)
+            {
+                return ValidationResult.Valid();
+            }
+            return ValidationResult.NotValid();
         }
 
         public ValidationResult ScanSubSample()

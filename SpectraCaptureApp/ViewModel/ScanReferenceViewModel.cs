@@ -39,7 +39,11 @@ namespace SpectraCaptureApp.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("Baseline scan was invalid. Please try again.");
+                    var ignoreWarning = MessageBox.Show("Baseline scan was invalid. Continue?", "Baseline was invalid", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    if(ignoreWarning == MessageBoxResult.Yes)
+                    {
+                        return HostScreen.Router.Navigate.Execute(new ScanSubsampleViewModel(Model, HostScreen));
+                    }
                     return null;
                 }
                 
