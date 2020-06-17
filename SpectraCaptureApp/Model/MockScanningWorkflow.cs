@@ -80,25 +80,5 @@ namespace SpectraCaptureApp.Model
             Log.Debug("Turning on lamp");
             Thread.Sleep(pauseTime);
         }
-
-        //protected override ValidationResult ValidateDarkReferenceScan(List<float> darkReferenceScan)
-        //{
-        //    if(darkReferenceScan.Where(x => x > 100).Any())
-        //    {
-        //        return new ValidationResult.;
-        //    }
-        //    return true;
-        //}
-
-        //protected override ValidationResult ValidateCumulativeSubSampeScans(
-        //    List<float> darkScan, 
-        //    List<float> lightScan, 
-        //    List<ISpectrumData> previousSubSampleScans, 
-        //    ISpectrumData newSubSampleScan)
-        //{
-        //    // Do the PCA validation
-
-        //    return new ValidationResult();
-        //}
     }
 }

@@ -19,7 +19,7 @@ namespace SpectraCaptureApp.Extension
             }
             else
             {
-                MessageBox.Show($"Error occurred in Scanning Workflow : {ex.Message}");
+                MessageBox.Show(ex.Message, "Error occurred in Scanning Workflow", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
