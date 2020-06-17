@@ -131,7 +131,7 @@ namespace SpectraCaptureApp.ViewModel
                         //Navtigate to error view
                     }
                 }
-            });            
+            }).TakeUntil(HostScreen.Router.NavigateAndReset);
         }
     }
 }
