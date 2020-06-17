@@ -36,6 +36,19 @@ namespace SpectraCaptureApp.ViewModel
 
             this.WhenAnyValue(vm => vm.ThrowErrors).Subscribe((throwError) => TestSettings.ThrowErrors = throwError);
             this.WhenAnyValue(vm => vm.TopBarViewModel.BaselineIsOk).Subscribe((baselineOk) => TestSettings.BaselineOk = baselineOk);
+            this.WhenAnyValue(vm => vm.TopBarViewModel.SpectrometerIsConnected).Subscribe((specConnected) 
+                =>
+            {
+                TestSettings.SpectrometerConnected = specConnected;
+                if (!specConnected)
+                {
+                    MessageBox.Show(
+                        "Spectrometer was disconnected. Please reconnect before continuing scanning.",
+                        "Spectrometer Disconnected",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                }
+            });
         }
     }
 }

@@ -7,7 +7,7 @@ namespace SpectraCaptureApp
     public static class TestSettings
     {
         public static bool ThrowErrors { get; set; }
-        public static bool SpectraIsValid { get; set; }
+        public static bool SpectrometerConnected { get; set; }
         public static bool BaselineOk { get; set; }
 
         public static int MaximumDarkCount => 100;

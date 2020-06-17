@@ -21,37 +21,40 @@ namespace SpectraCaptureApp.ViewModel
         public ScanCaptureModel Model { get; }
         public IScreen HostScreen { get; }
 
-        public ReactiveCommand<Unit, IRoutableViewModel> ScanReferenceCommand { get; }
+        public ReactiveCommand<Unit, Unit> ScanReferenceCommand { get; }
+        public ReactiveCommand<Unit, IRoutableViewModel> SubSambleScanNavigateCommand { get; }
 
         public ScanReferenceViewModel(ScanCaptureModel model, IScreen screen = null)
         {
             Model = model;
             HostScreen = screen ?? Locator.Current.GetService<IScreen>();
-
-            ScanReferenceCommand = ReactiveCommand.CreateFromObservable(() =>
+            ScanReferenceCommand = ReactiveCommand.Create(() =>
             {
                 UIServices.SetBusyState();
-                var result = Model.ScanningWorkflow.ScanReference();
-                if (result.IsValid)
+                if (Model.ScanningWorkflow.ScanReference().IsValid)
                 {
                     Log.Debug("Reference scan taken successfully");
-                    return HostScreen.Router.Navigate.Execute(new ScanSubsampleViewModel(Model, HostScreen));
+                    SubSambleScanNavigateCommand.Execute();
                 }
                 else
                 {
                     var ignoreWarning = MessageBox.Show("Baseline scan was invalid. Continue?", "Baseline was invalid", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                    if(ignoreWarning == MessageBoxResult.Yes)
+                    if (ignoreWarning == MessageBoxResult.Yes)
                     {
-                        return HostScreen.Router.Navigate.Execute(new ScanSubsampleViewModel(Model, HostScreen));
+                        SubSambleScanNavigateCommand.Execute();
                     }
-                    return null;
                 }
-                
+
             });
             ScanReferenceCommand.ThrownExceptions.Subscribe((error) =>
             {
                 Log.Error(error, "ScanReferenceCommand Failed");
                 error.HandleWorkflowException(HostScreen, Model);
+            });
+
+            SubSambleScanNavigateCommand = ReactiveCommand.CreateFromObservable(() =>
+            {
+                return HostScreen.Router.Navigate.Execute(new ScanSubsampleViewModel(Model, HostScreen));
             });
         }
     }
