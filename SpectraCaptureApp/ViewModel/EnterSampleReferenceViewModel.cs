@@ -3,13 +3,9 @@ using ReactiveUI;
 using Serilog;
 using Splat;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reactive;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using SpectraCaptureApp.Extension;
+using SpectraCaptureApp.Infrastructure;
 
 namespace SpectraCaptureApp.ViewModel
 {

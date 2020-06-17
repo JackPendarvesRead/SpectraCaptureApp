@@ -1,15 +1,11 @@
 ﻿using ReactiveUI;
+using SpectraCaptureApp.Infrastructure;
 using SpectraCaptureApp.Model;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace SpectraCaptureApp.ViewModel.Controls
 {

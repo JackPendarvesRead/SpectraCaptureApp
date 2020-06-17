@@ -4,15 +4,11 @@ using ReactiveUI;
 using Serilog;
 using Splat;
 using System;
-using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading;
 using System.Windows;
-using System.Threading.Tasks;
-using System.Windows.Threading;
-using System.Reactive.Concurrency;
-using System.Reactive.Disposables;
+using SpectraCaptureApp.Infrastructure;
 
 namespace SpectraCaptureApp.ViewModel
 {

@@ -1,7 +1,5 @@
-﻿using Splat;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using SpectraCaptureApp.Infrastructure;
+using Splat;
 
 namespace SpectraCaptureApp
 {

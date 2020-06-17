@@ -1,13 +1,12 @@
 ﻿using ReactiveUI;
 using System;
-using System.Collections.Generic;
 using System.Reactive;
-using System.Text;
 using Splat;
 using System.Windows;
 using Serilog;
 using SpectraCaptureApp.ViewModel.Controls;
 using SpectraCaptureApp.Model;
+using SpectraCaptureApp.Infrastructure;
 
 namespace SpectraCaptureApp.ViewModel
 {

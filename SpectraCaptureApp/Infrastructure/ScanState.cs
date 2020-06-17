@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SpectraCaptureApp
+namespace SpectraCaptureApp.Infrastructure
 {
     public enum ScanState
     {
