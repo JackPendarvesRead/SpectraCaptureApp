@@ -14,6 +14,7 @@
     <None Remove="Images\MyTick.png" />
     <None Remove="Images\NIR4MASTERLOGO.jpg" />
     <None Remove="Images\refresh.png" />
+    <None Remove="Images\refresh2.png" />
     <None Remove="Images\Scanning.jpg" />
     <None Remove="Images\SolidGreen.png" />
     <None Remove="Images\SolidRed.png" />
@@ -47,6 +48,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\refresh.png" />
+    <Resource Include="Images\refresh2.png" />
     <Resource Include="Images\Scanning.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
