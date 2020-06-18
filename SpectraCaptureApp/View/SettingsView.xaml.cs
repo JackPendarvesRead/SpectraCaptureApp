@@ -70,8 +70,11 @@ namespace SpectraCaptureApp.View
 
                 this.OneWayBind(ViewModel,
                     vm => vm.CurrentAutoIncrement,
-                    view => view.AutoincrementValueText.Text)
+                    view => view.AutoincrementValueText.Text,
+                    i => i.ToString("00000"))
                 .DisposeWith(disposables);
+
+                this.BindCommand(ViewModel, vm => vm.RefreshIncrementCommand, view => view.ResetIncrementButton).DisposeWith(disposables);
             });
         }
     }

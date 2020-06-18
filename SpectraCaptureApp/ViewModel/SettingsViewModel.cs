@@ -17,6 +17,7 @@ namespace SpectraCaptureApp.ViewModel
 
         public ReactiveCommand<Unit, Unit> SaveDirectoryBrowseCommand { get; set; }
         public ReactiveCommand<Unit, IRoutableViewModel> BackCommand { get; set; }
+        public ReactiveCommand<Unit, Unit> RefreshIncrementCommand { get; set; }
 
         private string saveDirectory;
         public string SaveDirectory
@@ -44,11 +45,17 @@ namespace SpectraCaptureApp.ViewModel
         }
         public Array AutoReferenceSettingsList => Enum.GetValues(typeof(AutoReferenceSettings));
 
-        public string CurrentAutoIncrement => AppSettings.CurrentAutoRefIncrement.ToString("0000");
+        private int currentAutoIncrement;
+        public int CurrentAutoIncrement
+        {
+            get => currentAutoIncrement;
+            set => this.RaiseAndSetIfChanged(ref currentAutoIncrement, value);
+        }
 
         public SettingsViewModel(IScreen screen = null)
         {
             HostScreen = screen ?? Locator.Current.GetService<IScreen>();
+            CurrentAutoIncrement = AppSettings.CurrentAutoRefIncrement;
 
             AutomaticLoop = AppSettings.AutomaticLoop;
             SaveDirectory = AppSettings.SpectrumSaveDirectory;
@@ -99,6 +106,12 @@ namespace SpectraCaptureApp.ViewModel
                     "Set sample reference method failed",                   
                     MessageBoxButton.OK,                   
                     MessageBoxImage.Error);
+            });
+
+            RefreshIncrementCommand = ReactiveCommand.Create(() => 
+            { 
+                AppSettings.CurrentAutoRefIncrement = 0;
+                CurrentAutoIncrement = 0;
             });
         }
     }
