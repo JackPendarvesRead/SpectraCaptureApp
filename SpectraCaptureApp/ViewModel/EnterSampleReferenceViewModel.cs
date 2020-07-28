@@ -17,36 +17,12 @@ namespace SpectraCaptureApp.ViewModel
         public IScreen HostScreen { get; }        
 
         public ReactiveCommand<Unit, IRoutableViewModel> SetSampleReferenceCommand { get; }
-        public ReactiveCommand<Unit, Unit> AutoReferenceCommand { get; }
+        //public ReactiveCommand<Unit, Unit> AutoReferenceCommand { get; }
 
         public EnterSampleReferenceViewModel(ScanCaptureModel model, IScreen screen = null)
         {
             Model = model;
             HostScreen = screen ?? Locator.Current.GetService<IScreen>();
-
-            AutoReferenceCommand = ReactiveCommand.Create(() =>
-            {
-                switch (AppSettings.AutoReferenceSetting)
-                {
-                    case AutoReferenceSettings.DateTime:
-                        Model.SampleReference = DateTime.UtcNow.ToString("yyyyMMdd_HHmm");
-                        break;
-
-                    case AutoReferenceSettings.Increment:
-                        Model.SampleReference = AppSettings.CurrentAutoRefIncrement.ToString("00000");
-                        AppSettings.CurrentAutoRefIncrement += 1;
-                        break;
-
-                    case AutoReferenceSettings.DateTime_Increment:
-                        Model.SampleReference = $"{DateTime.UtcNow.ToString("yyyyMMdd_HHmm")}_{AppSettings.CurrentAutoRefIncrement.ToString("00000")}";
-                        AppSettings.CurrentAutoRefIncrement += 1;
-                        break;
-
-                    default:
-                        throw new Exception("AutoReferenceSetting not recognised.");
-                }
-
-            });
 
             SetSampleReferenceCommand = ReactiveCommand.CreateFromObservable(() => 
             {
@@ -61,6 +37,35 @@ namespace SpectraCaptureApp.ViewModel
             {
                 error.HandleWorkflowException(HostScreen, Model, nameof(SetSampleReferenceCommand));
             });
+
+            SetAutoReference();
+        }
+
+        private void SetAutoReference()
+        {
+            switch (AppSettings.AutoReferenceSetting)
+            {
+                case AutoReferenceSettings.None:
+                    //Add nothing
+                    break;
+
+                case AutoReferenceSettings.DateTime:
+                    Model.SampleReference = DateTime.UtcNow.ToString("yyyyMMdd_HHmm");
+                    break;
+
+                case AutoReferenceSettings.Increment:
+                    Model.SampleReference = AppSettings.CurrentAutoRefIncrement.ToString("00000");
+                    AppSettings.CurrentAutoRefIncrement += 1;
+                    break;
+
+                case AutoReferenceSettings.DateTime_Increment:
+                    Model.SampleReference = $"{DateTime.UtcNow.ToString("yyyyMMdd_HHmm")}_{AppSettings.CurrentAutoRefIncrement.ToString("00000")}";
+                    AppSettings.CurrentAutoRefIncrement += 1;
+                    break;
+
+                default:
+                    throw new Exception("AutoReferenceSetting not recognised.");
+            }
         }
     }
 }
