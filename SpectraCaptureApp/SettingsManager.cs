@@ -7,7 +7,7 @@ using System.Text.Json;
 namespace SpectraCaptureApp
 {
     internal class SettingsManager<T>
-        where T : class
+        where T : class, new()
     {
         private readonly string filePath;
 
@@ -15,6 +15,10 @@ namespace SpectraCaptureApp
         {
             var directory = GetOrCreateDirectory("SpectraCaptureApp");
             filePath = Path.Combine(directory.FullName, fileName);
+            if (!File.Exists(filePath))
+            {
+                SaveSettings(new T());
+            }
         }
 
         private DirectoryInfo GetOrCreateDirectory(string folderName)
@@ -26,11 +30,7 @@ namespace SpectraCaptureApp
 
         public T LoadSettings()
         {
-            if (File.Exists(filePath))
-            {
-                return JsonSerializer.Deserialize<T>(File.ReadAllText(filePath));
-            }
-            return null;
+            return JsonSerializer.Deserialize<T>(File.ReadAllText(filePath));
         }
 
         public void SaveSettings(T settings)
