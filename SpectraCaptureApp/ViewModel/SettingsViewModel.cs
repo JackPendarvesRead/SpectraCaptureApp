@@ -7,6 +7,8 @@ using Serilog;
 using SpectraCaptureApp.ViewModel.Controls;
 using SpectraCaptureApp.Model;
 using SpectraCaptureApp.Infrastructure;
+using System.IO;
+using System.Diagnostics;
 
 namespace SpectraCaptureApp.ViewModel
 {
@@ -18,6 +20,7 @@ namespace SpectraCaptureApp.ViewModel
         public ReactiveCommand<Unit, Unit> SaveDirectoryBrowseCommand { get; set; }
         public ReactiveCommand<Unit, IRoutableViewModel> BackCommand { get; set; }
         public ReactiveCommand<Unit, Unit> RefreshIncrementCommand { get; set; }
+        public ReactiveCommand<Unit, Unit> ViewLogsCommand { get; set; }
 
         private string saveDirectory;
         public string SaveDirectory
@@ -113,6 +116,32 @@ namespace SpectraCaptureApp.ViewModel
                 AppSettings.CurrentAutoRefIncrement = 0;
                 CurrentAutoIncrement = 0;
             });
+
+            ViewLogsCommand = ReactiveCommand.Create(ViewLogsImpl);
+            ViewLogsCommand.ThrownExceptions.Subscribe((ex) =>
+            {
+                MessageBox.Show(ex.Message);
+            });
+        }
+
+        private void ViewLogsImpl()
+        {
+            var folderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");
+            if (Directory.Exists(folderPath))
+            {
+                ProcessStartInfo startInfo = new ProcessStartInfo
+                {
+                    Arguments = folderPath,
+                    FileName = "explorer.exe"
+                };
+                Process.Start(startInfo);
+            }
+            else
+            {
+                Log.Warning("Could not find logs folder. Path={FolderPath}", folderPath);
+                MessageBox.Show($"Could not find logs folder. Path={folderPath}");
+            }
+
         }
     }
 }

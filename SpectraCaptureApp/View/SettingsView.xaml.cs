@@ -38,6 +38,11 @@ namespace SpectraCaptureApp.View
                     view => view.BackButton)
                 .DisposeWith(disposables);
 
+                this.BindCommand(ViewModel,
+                    vm => vm.ViewLogsCommand,
+                    view => view.OpenLogLocationButton)
+                .DisposeWith(disposables);
+
                 this.Bind(ViewModel,
                     vm => vm.AutomaticLoop,
                     view => view.AutomaticLoopCheckbox.IsChecked)
