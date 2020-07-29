@@ -31,6 +31,7 @@ namespace SpectraCaptureApp.ViewModel
 
             ScanReferenceCommand = ReactiveCommand.Create(() =>
             {
+                Log.Debug("Executing ScanReferenceCommand");
                 UIServices.SetBusyState();
                 var result = Model.ScanningWorkflow.ScanReference();
                 if (result.IsValid)
@@ -56,6 +57,7 @@ namespace SpectraCaptureApp.ViewModel
 
             SubSambleScanNavigateCommand = ReactiveCommand.CreateFromObservable(() =>
             {
+                Log.Debug("Executing SubSambleScanNavigateCommand, navigating to ScanSubsampleViewModel");
                 return HostScreen.Router.Navigate.Execute(new ScanSubsampleViewModel(Model, HostScreen));
             });
             SubSambleScanNavigateCommand.ThrownExceptions.Subscribe((error) =>

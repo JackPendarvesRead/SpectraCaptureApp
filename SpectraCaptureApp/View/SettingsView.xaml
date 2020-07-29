@@ -12,19 +12,28 @@
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0"       
-                    VerticalAlignment="Top"        
-                    HorizontalAlignment="Left">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left">
             <Label Style="{StaticResource Title}" Content="Save Settings" />
+            <TextBlock Text="Spectra save directory" />
             <control:FileBrowse x:Name="SaveDirectoryFileBrowse"  />
-            <Label Style="{StaticResource Title}" Content="Error Settings" /> 
+
+            <Label Style="{StaticResource Title}" Content="Error Settings" />
             <control:NumberInput x:Name="RetryAttempts" />
-            <Label Style="{StaticResource Title}" Content="Workflow Settings" /> 
+
+            <Label Style="{StaticResource Title}" Content="Workflow Settings" />
             <CheckBox x:Name="AutomaticLoopCheckbox" Content="Automatic Loop Scans" />
             <control:NumberInput x:Name="LoopDelay" />
+        </StackPanel>
+        <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left">
             <Label Style="{StaticResource Title}" Content="Autoreference Settings" />
             <ComboBox x:Name="AutoreferenceSettingsComboBox" Text="AutoReferenceSettings">
                 <ComboBox.ItemTemplate>
@@ -38,14 +47,17 @@
                         <Run Text="Current AutoIncrement = " />
                         <Run x:Name="AutoincrementValueText" />
                 </TextBlock>
-                <Button x:Name="ResetIncrementButton" Style="{StaticResource NumberButton}">                    
+                <Button x:Name="ResetIncrementButton" Style="{StaticResource NumberButton}">
                     <Button.Background>
                         <ImageBrush ImageSource="pack://application:,,,/Images/refresh.png" Stretch="Fill" TileMode="None" />
                     </Button.Background>
                 </Button>
             </StackPanel>
+
+            <Label Style="{StaticResource Title}" Content="Application Logs" />
+            <Button x:Name="OpenLogLocationButton" Content="View Logs" />
         </StackPanel>
-        <Button Grid.Row="1" x:Name="BackButton" Content="Back" HorizontalAlignment="Right" />
+        <Button Grid.Row="1" Grid.Column="1" x:Name="BackButton" Content="Back" />
     </Grid>
-    
+
 </rxui:ReactiveUserControl>

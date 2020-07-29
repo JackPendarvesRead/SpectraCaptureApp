@@ -1,4 +1,5 @@
 ﻿using ReactiveUI;
+using Serilog;
 using SpectraCaptureApp.Infrastructure;
 using SpectraCaptureApp.Model;
 using System;
@@ -84,10 +85,16 @@ namespace SpectraCaptureApp.ViewModel.Controls
             BaselineOkImageUri = ImagePaths.SolidGreen;
             SpectrometerConnectedImageUri = ImagePaths.SolidRed;
 
-            SettingsNavigateCommand = ReactiveCommand.CreateFromObservable(()
-                => HostScreen.Router.NavigateAndReset.Execute(new SettingsViewModel(HostScreen)));
-            AbortCommand = ReactiveCommand.CreateFromObservable(()
-                => HostScreen.Router.NavigateAndReset.Execute(new EnterSampleReferenceViewModel(new ScanCaptureModel(), HostScreen)));
+            SettingsNavigateCommand = ReactiveCommand.CreateFromObservable(() =>
+            {
+                Log.Debug("SettingsNavigateCommand executing. Navigating to SettingsViewModel");
+                return HostScreen.Router.NavigateAndReset.Execute(new SettingsViewModel(HostScreen)); 
+            });
+            AbortCommand = ReactiveCommand.CreateFromObservable(() =>
+            {
+                Log.Debug("AbortCommand executing. Navigating to EnterSampleReferenceViewModel");
+                return HostScreen.Router.NavigateAndReset.Execute(new EnterSampleReferenceViewModel(new ScanCaptureModel(), HostScreen));                 
+            });
 
             this.WhenAnyValue(vm => vm.SpectrometerIsConnected)
                 .Subscribe(connected =>
@@ -117,7 +124,9 @@ namespace SpectraCaptureApp.ViewModel.Controls
 
             HostScreen.Router.NavigationChanged.Subscribe(x =>
             {
-                this.SetVisibilities(Observable.Latest(HostScreen.Router.CurrentViewModel).First());
+                var viewModel = Observable.Latest(HostScreen.Router.CurrentViewModel).First();
+                Log.Debug("Host screen navigated to {ViewModel}", viewModel.GetType());
+                this.SetVisibilities(viewModel);
             });
         }
 
@@ -130,6 +139,7 @@ namespace SpectraCaptureApp.ViewModel.Controls
                     SettingsButtonVisible = Visibility.Visible;
                     BaselineOkImageVisible = Visibility.Collapsed;
                     SpectrometerConnectedImageVisible = Visibility.Visible;
+                    Log.Debug("Visibilities set - default");
                     break;
 
                 case ScanReferenceViewModel _:
@@ -137,6 +147,7 @@ namespace SpectraCaptureApp.ViewModel.Controls
                     SettingsButtonVisible = Visibility.Collapsed;
                     BaselineOkImageVisible = Visibility.Collapsed;
                     SpectrometerConnectedImageVisible = Visibility.Visible;
+                    Log.Debug("Visibilities set - ScanReferenceViewModel");
                     break;
 
                 case ScanSubsampleViewModel _:
@@ -144,6 +155,7 @@ namespace SpectraCaptureApp.ViewModel.Controls
                     SettingsButtonVisible = Visibility.Collapsed;
                     BaselineOkImageVisible = Visibility.Visible;
                     SpectrometerConnectedImageVisible = Visibility.Visible;
+                    Log.Debug("Visibilities set - ScanSubsampleViewModel");
                     break;
 
                 case SettingsViewModel _:
@@ -151,6 +163,7 @@ namespace SpectraCaptureApp.ViewModel.Controls
                     SettingsButtonVisible = Visibility.Collapsed;
                     BaselineOkImageVisible = Visibility.Collapsed;
                     SpectrometerConnectedImageVisible = Visibility.Visible;
+                    Log.Debug("Visibilities set - SettingsViewModel");
                     break;
 
                 case ErrorContactViewModel _:
@@ -158,6 +171,7 @@ namespace SpectraCaptureApp.ViewModel.Controls
                     SettingsButtonVisible = Visibility.Collapsed;
                     BaselineOkImageVisible = Visibility.Collapsed;
                     SpectrometerConnectedImageVisible = Visibility.Collapsed;
+                    Log.Debug("Visibilities set - ErrorContactViewModel");
                     break;
             }
         }

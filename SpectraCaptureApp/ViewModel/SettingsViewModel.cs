@@ -7,6 +7,8 @@ using Serilog;
 using SpectraCaptureApp.ViewModel.Controls;
 using SpectraCaptureApp.Model;
 using SpectraCaptureApp.Infrastructure;
+using System.IO;
+using System.Diagnostics;
 
 namespace SpectraCaptureApp.ViewModel
 {
@@ -18,6 +20,7 @@ namespace SpectraCaptureApp.ViewModel
         public ReactiveCommand<Unit, Unit> SaveDirectoryBrowseCommand { get; set; }
         public ReactiveCommand<Unit, IRoutableViewModel> BackCommand { get; set; }
         public ReactiveCommand<Unit, Unit> RefreshIncrementCommand { get; set; }
+        public ReactiveCommand<Unit, Unit> ViewLogsCommand { get; set; }
 
         private string saveDirectory;
         public string SaveDirectory
@@ -67,29 +70,37 @@ namespace SpectraCaptureApp.ViewModel
                 .Subscribe(newValue =>
                 {
                     AppSettings.RetryAttempts = newValue;
+                    Log.Debug("RetryAttempts set to {NewValue}", newValue);
                 });
             this.WhenAnyValue(vm => vm.LoopDelayViewModel.CurrentValue)
                 .Subscribe(newValue =>
                 {
                     AppSettings.LoopPauseTime = newValue;
+                    Log.Debug("LoopPauseTime set to {NewValue}", newValue);
                 });
             this.WhenAnyValue(vm => vm.AutoReferenceSetting)
                 .Subscribe((newValue) =>
                 {
                     AppSettings.AutoReferenceSetting = newValue;
+                    Log.Debug("AutoReferenceSetting set to {NewValue}", newValue);
                 });
             this.WhenAnyValue(vm => vm.AutomaticLoop)
                 .Subscribe((newValue) =>
                 {
                     AppSettings.AutomaticLoop = newValue;
+                    Log.Debug("AutomaticLoop set to {NewValue}", newValue);
                 });
 
 
-            BackCommand = ReactiveCommand.CreateFromObservable(()
-                => HostScreen.Router.NavigateAndReset.Execute(new EnterSampleReferenceViewModel(new ScanCaptureModel(), HostScreen)));
+            BackCommand = ReactiveCommand.CreateFromObservable(() =>
+            {
+                Log.Debug("Settings BackCommand executing, navigating back to EnterSampleReferenceViewModel");
+                return HostScreen.Router.NavigateAndReset.Execute(new EnterSampleReferenceViewModel(new ScanCaptureModel(), HostScreen));
+            });
             
             SaveDirectoryBrowseCommand = ReactiveCommand.Create(() => 
             {
+                Log.Debug("SaveDirectoryBrowseCommand executing");
                 using var fbd = new System.Windows.Forms.FolderBrowserDialog();
                 if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
@@ -109,10 +120,41 @@ namespace SpectraCaptureApp.ViewModel
             });
 
             RefreshIncrementCommand = ReactiveCommand.Create(() => 
-            { 
+            {
+                Log.Debug("RefreshIncrementCommand executing");
                 AppSettings.CurrentAutoRefIncrement = 0;
                 CurrentAutoIncrement = 0;
+                Log.Debug("CurrentAutoIncrement set to 0");
             });
+
+            ViewLogsCommand = ReactiveCommand.Create(ViewLogsImpl);
+            ViewLogsCommand.ThrownExceptions.Subscribe((ex) =>
+            {
+                MessageBox.Show(ex.Message);
+            });
+        }
+
+        private void ViewLogsImpl()
+        {
+            Log.Debug("ViewLogsCommand executing");
+            var folderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");
+            Log.Debug("Logs folder = {FolderPath}", folderPath);
+            if (Directory.Exists(folderPath))
+            {
+                ProcessStartInfo startInfo = new ProcessStartInfo
+                {
+                    Arguments = folderPath,
+                    FileName = "explorer.exe"
+                };
+                Log.Debug("Folder found. Attempting to open in file explorer");
+                Process.Start(startInfo);
+            }
+            else
+            {
+                Log.Warning("Could not find logs folder. Path={FolderPath}", folderPath);
+                MessageBox.Show($"Could not find logs folder. Path={folderPath}");
+            }
+
         }
     }
 }

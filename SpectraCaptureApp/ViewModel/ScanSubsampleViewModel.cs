@@ -56,7 +56,6 @@ namespace SpectraCaptureApp.ViewModel
 
             PauseCommand.IsExecuting.ToProperty(this, vm => vm.Paused, out paused);
 
-
             StartSubSampleScan = ReactiveCommand.CreateFromObservable(StartSubSampleScanImpl, this.WhenAnyValue(x => x.ScansCompleted, x => x < MaximumScans));
             StartSubSampleScan.IsExecuting.ToProperty(this, vm => vm.ScanInProgress, out scanInProgress);
             StartSubSampleScan.ThrownExceptions.Subscribe((ex) =>
@@ -65,9 +64,11 @@ namespace SpectraCaptureApp.ViewModel
             });
             StartSubSampleScan.Subscribe(x =>
             {
+                Log.Debug("Scan completed. Incrementing ScansCompleted {ScansCompletedBefore}->{ScansCompletedAfter}", ScansCompleted, ScansCompleted + 1);
                 ScansCompleted += 1;
                 if (AppSettings.AutomaticLoop && ScansCompleted < MaximumScans)
                 {
+                    Log.Debug("Automatic loop is enabled. Executing next subsample scan");
                     StartSubSampleScan.Execute().Subscribe();
                 }
             });
@@ -120,9 +121,9 @@ namespace SpectraCaptureApp.ViewModel
             return Observable.Start(() =>
             {
                 PauseCommand.Execute().Subscribe();
-                Log.Debug("StartingSubSampleScan");
+                Log.Debug("StartingSubSampleScan {ScanNumber}/{MaxiumScans}", ScansCompleted + 1, MaximumScans);
                 CaptureSubSampleScan();
-                Log.Debug("Taken subsamplescan");
+                Log.Debug("Taken subsamplescan successfully");
 
             }).ObserveOn(RxApp.MainThreadScheduler)
             .TakeUntil(HostScreen.Router.NavigateAndReset);
@@ -138,12 +139,13 @@ namespace SpectraCaptureApp.ViewModel
             }
             else
             {
-                failedAttempts++;
-                Log.Warning("Invalid subsample scan.");
-                if (failedAttempts < AppSettings.RetryAttempts)
-                {
-                    //Navtigate to error view
-                }
+                throw new Exception($"Subsample scan {ScansCompleted + 1}/{MaximumScans} was invalid.");
+                //failedAttempts++;
+                //Log.Warning("Invalid subsample scan.");
+                //if (failedAttempts < AppSettings.RetryAttempts)
+                //{
+                //    //Navtigate to error view
+                //}
             }
         }
     }   

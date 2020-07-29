@@ -25,6 +25,7 @@ namespace SpectraCaptureApp
         {
             InitialiseConfiguration();
             RegisterDependencies();
+            Log.Debug("Initialising main window");
             InitialiseMainWindow();
             base.OnStartup(e);
         }
@@ -54,7 +55,7 @@ namespace SpectraCaptureApp
             //Locator.CurrentMutable.UseSerilogFullLogger();
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
-                .WriteTo.RollingFile(@"Logs\MyLogs.log")
+                .WriteTo.RollingFile(@"Logs\SpectraCaptureAppLogs.log")
                 .CreateLogger();
         }
 
@@ -68,13 +69,13 @@ namespace SpectraCaptureApp
         private void RegisterMisc()
         {
             Locator.CurrentMutable.Register(() => new MainWindowViewModel(), typeof(IScreen));
-            //Locator.CurrentMutable.Register(() => new MyWrappedViaviScanningWorkflow(AppSettings.SpectrumSaveDirectory), typeof(IScanningWorkflow));
+            Locator.CurrentMutable.Register(() => new MyWrappedViaviScanningWorkflow(AppSettings.SpectrumSaveDirectory), typeof(IScanningWorkflow));
 
-#if DEBUG
-            Locator.CurrentMutable.Register(() => new MockScanningWorkflow(AppSettings.SpectrumSaveDirectory), typeof(IScanningWorkflow));
-#else
-            Locator.CurrentMutable.Register(() => new MyWrappedViaviScanningWorkflow(AppSettings.SpectrumSaveDirectory), typeof(IScanningWorkflow));                                
-#endif
+//#if DEBUG
+//            Locator.CurrentMutable.Register(() => new MockScanningWorkflow(AppSettings.SpectrumSaveDirectory), typeof(IScanningWorkflow));
+//#else
+//            Locator.CurrentMutable.Register(() => new MyWrappedViaviScanningWorkflow(AppSettings.SpectrumSaveDirectory), typeof(IScanningWorkflow));                                
+//#endif
 
         }
     }
