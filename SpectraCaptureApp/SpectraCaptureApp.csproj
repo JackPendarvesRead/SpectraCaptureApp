@@ -25,7 +25,7 @@
 
   <ItemGroup>
     <PackageReference Include="Aunir.SpectrumAnalysis2.DotNetStandard" Version="5.0.4" />
-    <PackageReference Include="NIR4.ViaviCapture.MicroNir" Version="1.1.1" />
+    <PackageReference Include="NIR4.ViaviCapture.MicroNir" Version="1.1.2" />
     <PackageReference Include="ReactiveUI" Version="11.5.1" />
     <PackageReference Include="ReactiveUI.WPF" Version="11.5.1" />
     <PackageReference Include="Serilog" Version="2.9.0" />

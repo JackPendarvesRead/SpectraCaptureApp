@@ -11,37 +11,53 @@
     mc:Ignorable="d">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="0">
-            <Label Style="{StaticResource Title}" Content="Error" />
-            <TextBlock>
-            <Run Text="There was an error in running the scanning workflow." />
-            <LineBreak />
-            <Run Text="Please try again or contact Aunir if you need further assisstance." />
-            <LineBreak />
-            <LineBreak />
-            <Run Text="e: support@aunir.com"  FontStyle="Italic"/>
-            <LineBreak />
-            <Run Text="t: 01327 810910" FontStyle="Italic" />
+        <StackPanel Grid.Column="0">
+            <Label Style="{StaticResource Title}" Content="Scanning Application Error" />
+            <TextBlock TextWrapping="Wrap">
+                <Run Text="There was an error in running the scanning workflow." />
+                <LineBreak />
+                <LineBreak />
+                <Run Text="Please try again or contact Aunir if you need further assisstance." />
+                <LineBreak />
+                <LineBreak />
+                <Run Text="If you need further assistance please fill in the report form and export the report to send to the support email below." /> 
+                <LineBreak />
+                <LineBreak />
+                <Run Text="e: support@aunir.com"  FontStyle="Italic"/>
+                <LineBreak />
+                <Run Text="t: 01327 810910" FontStyle="Italic" />
             </TextBlock>
+            <Image Width="200">
+                <Image.Source>
+                    <BitmapImage DecodePixelWidth="200" UriSource="/Images/AunirLogo.jpg" />
+                </Image.Source>
+            </Image>
         </StackPanel>
-        <StackPanel Grid.Row="1">
+        <StackPanel Grid.Column="1">
             <Label Style="{StaticResource Title}" Content="Report Form" />
             <TextBlock>
                 <Run Text="Sample Reference = " />
                 <Run x:Name="SampleReferenceText" />
             </TextBlock>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Sample Type = " />
-                <TextBox Width="158" />
+                <TextBlock Width="80" Text="User Name" />
+                <TextBox x:Name="UserNameTextBox" Width="250" />
             </StackPanel>
-            <TextBlock Text="Comments" />
-            <TextBox Width="250" Height="100" TextWrapping="Wrap" />
-            <Button x:Name="ExportErrorReportButton" HorizontalAlignment="Left" Content="Export Error Report" />
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Width="80" Text="Sample Type" />
+                <TextBox x:Name="SampleTypeTextBox" Width="250" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Width="80" Text="Comments" />
+                <TextBox x:Name="CommentsTextBox" Width="250" Height="100" TextWrapping="Wrap" />
+            </StackPanel>            
+            <Button x:Name="ExportErrorReportButton" Content="Export Error Report" />
         </StackPanel>
     </Grid>
 </rxui:ReactiveUserControl>

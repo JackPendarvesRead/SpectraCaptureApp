@@ -138,12 +138,13 @@ namespace SpectraCaptureApp.ViewModel
             }
             else
             {
-                failedAttempts++;
-                Log.Warning("Invalid subsample scan.");
-                if (failedAttempts < AppSettings.RetryAttempts)
-                {
-                    //Navtigate to error view
-                }
+                throw new Exception($"Subsample scan {ScansCompleted + 1}/{MaximumScans} was invalid.");
+                //failedAttempts++;
+                //Log.Warning("Invalid subsample scan.");
+                //if (failedAttempts < AppSettings.RetryAttempts)
+                //{
+                //    //Navtigate to error view
+                //}
             }
         }
     }   
