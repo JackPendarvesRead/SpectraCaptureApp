@@ -27,22 +27,22 @@ namespace SpectraCaptureApp.Model
         {
             //TODO: add validation
             return ValidationResult.Valid();
-            if (darkReferenceScan.Where(x => x > TestSettings.MaximumDarkCount).Any())
-            {
-                return ValidationResult.NotValid();
-            }
-            return ValidationResult.Valid();
+            //if (darkReferenceScan.Where(x => x > TestSettings.MaximumDarkCount).Any())
+            //{
+            //    return ValidationResult.NotValid();
+            //}
+            //return ValidationResult.Valid();
         }
 
         protected override ValidationResult ValidateLightReferenceScan(List<float> lightReferenceScan)
         {
             //TODO: add validation
             return ValidationResult.Valid();
-            if (lightReferenceScan.Where(x => x < TestSettings.MinimumLightCount).Any())
-            {
-                return ValidationResult.NotValid();
-            }
-            return ValidationResult.Valid();
+            //if (lightReferenceScan.Where(x => x < TestSettings.MinimumLightCount).Any())
+            //{
+            //    return ValidationResult.NotValid();
+            //}
+            //return ValidationResult.Valid();
         }
 
         protected override ValidationResult ValidateCumulativeSubSampeScans(
