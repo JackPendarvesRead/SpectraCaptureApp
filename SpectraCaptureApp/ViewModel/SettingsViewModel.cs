@@ -70,29 +70,37 @@ namespace SpectraCaptureApp.ViewModel
                 .Subscribe(newValue =>
                 {
                     AppSettings.RetryAttempts = newValue;
+                    Log.Debug("RetryAttempts set to {NewValue}", newValue);
                 });
             this.WhenAnyValue(vm => vm.LoopDelayViewModel.CurrentValue)
                 .Subscribe(newValue =>
                 {
                     AppSettings.LoopPauseTime = newValue;
+                    Log.Debug("LoopPauseTime set to {NewValue}", newValue);
                 });
             this.WhenAnyValue(vm => vm.AutoReferenceSetting)
                 .Subscribe((newValue) =>
                 {
                     AppSettings.AutoReferenceSetting = newValue;
+                    Log.Debug("AutoReferenceSetting set to {NewValue}", newValue);
                 });
             this.WhenAnyValue(vm => vm.AutomaticLoop)
                 .Subscribe((newValue) =>
                 {
                     AppSettings.AutomaticLoop = newValue;
+                    Log.Debug("AutomaticLoop set to {NewValue}", newValue);
                 });
 
 
-            BackCommand = ReactiveCommand.CreateFromObservable(()
-                => HostScreen.Router.NavigateAndReset.Execute(new EnterSampleReferenceViewModel(new ScanCaptureModel(), HostScreen)));
+            BackCommand = ReactiveCommand.CreateFromObservable(() =>
+            {
+                Log.Debug("Settings BackCommand executing, navigating back to EnterSampleReferenceViewModel");
+                return HostScreen.Router.NavigateAndReset.Execute(new EnterSampleReferenceViewModel(new ScanCaptureModel(), HostScreen));
+            });
             
             SaveDirectoryBrowseCommand = ReactiveCommand.Create(() => 
             {
+                Log.Debug("SaveDirectoryBrowseCommand executing");
                 using var fbd = new System.Windows.Forms.FolderBrowserDialog();
                 if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
@@ -112,9 +120,11 @@ namespace SpectraCaptureApp.ViewModel
             });
 
             RefreshIncrementCommand = ReactiveCommand.Create(() => 
-            { 
+            {
+                Log.Debug("RefreshIncrementCommand executing");
                 AppSettings.CurrentAutoRefIncrement = 0;
                 CurrentAutoIncrement = 0;
+                Log.Debug("CurrentAutoIncrement set to 0");
             });
 
             ViewLogsCommand = ReactiveCommand.Create(ViewLogsImpl);
@@ -126,7 +136,9 @@ namespace SpectraCaptureApp.ViewModel
 
         private void ViewLogsImpl()
         {
+            Log.Debug("ViewLogsCommand executing");
             var folderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");
+            Log.Debug("Logs folder = {FolderPath}", folderPath);
             if (Directory.Exists(folderPath))
             {
                 ProcessStartInfo startInfo = new ProcessStartInfo
@@ -134,6 +146,7 @@ namespace SpectraCaptureApp.ViewModel
                     Arguments = folderPath,
                     FileName = "explorer.exe"
                 };
+                Log.Debug("Folder found. Attempting to open in file explorer");
                 Process.Start(startInfo);
             }
             else

@@ -25,6 +25,7 @@ namespace SpectraCaptureApp
         {
             InitialiseConfiguration();
             RegisterDependencies();
+            Log.Debug("Initialising main window");
             InitialiseMainWindow();
             base.OnStartup(e);
         }
@@ -54,7 +55,7 @@ namespace SpectraCaptureApp
             //Locator.CurrentMutable.UseSerilogFullLogger();
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
-                .WriteTo.RollingFile(@"Logs\MyLogs.log")
+                .WriteTo.RollingFile(@"Logs\SpectraCaptureAppLogs.log")
                 .CreateLogger();
         }
 

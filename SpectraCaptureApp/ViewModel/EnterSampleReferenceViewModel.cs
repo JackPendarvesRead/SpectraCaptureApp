@@ -26,6 +26,7 @@ namespace SpectraCaptureApp.ViewModel
 
             SetSampleReferenceCommand = ReactiveCommand.CreateFromObservable(() => 
             {
+                Log.Debug("Executing SetSampleReferenceCommand");
                 UIServices.SetBusyState();
                 Model.ScanningWorkflow.SetSampleReference(Model.SampleReference);
                 Log.Debug("Sample reference set to: {SampleReference}", Model.SampleReference);
@@ -43,6 +44,7 @@ namespace SpectraCaptureApp.ViewModel
 
         private void SetAutoReference()
         {
+            Log.Debug("Setting autoreference with setting = {AutoReferenceSetting}", AppSettings.AutoReferenceSetting);
             switch (AppSettings.AutoReferenceSetting)
             {
                 case AutoReferenceSettings.None:

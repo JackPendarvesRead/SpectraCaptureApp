@@ -1,5 +1,6 @@
 ﻿using NIR4.ViaviCapture.Model;
 using ReactiveUI;
+using Serilog;
 using SpectraCaptureApp.Logic;
 using SpectraCaptureApp.Model;
 using Splat;
@@ -58,7 +59,9 @@ namespace SpectraCaptureApp.ViewModel
 
         private void ExportErrorReportImpl()
         {
+            Log.Debug("ExportErrorReportCommand executing");
             var scanContext = Model.ScanningWorkflow.GetViaviScanContext();
+            Log.Debug("ScanContext retrieved successfully");
             var report = new ErrorReport
             {
                 Comments = this.Comments,
@@ -74,8 +77,14 @@ namespace SpectraCaptureApp.ViewModel
                 sfd.FileName = Model.SampleReference;
                 if(sfd.ShowDialog() == DialogResult.OK)
                 {
+                    Log.Debug("Attempting to export to {FilePath}", sfd.FileName);
                     var json = JsonSerializer.Serialize(report, new JsonSerializerOptions { WriteIndented = true });
                     File.WriteAllText(sfd.FileName, json);
+                    Log.Debug("File exported successfully");
+                }
+                else
+                {
+                    Log.Debug("Export cancelled in SaveFileDialog");
                 }
             }
         }
