@@ -32,16 +32,16 @@
         <StackPanel Grid.Row="1">
             <Label Style="{StaticResource Title}" Content="Report Form" />
             <TextBlock>
-                <Run Text="SampleReference = " />
+                <Run Text="Sample Reference = " />
                 <Run x:Name="SampleReferenceText" />
             </TextBlock>
-            <TextBlock>
-                <Run Text="Can't remember what else to put here..." />
-            </TextBlock>
-            <Button Content="Send Error Report" />
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Sample Type = " />
+                <TextBox Width="158" />
+            </StackPanel>
+            <TextBlock Text="Comments" />
+            <TextBox Width="250" Height="100" TextWrapping="Wrap" />
+            <Button x:Name="ExportErrorReportButton" HorizontalAlignment="Left" Content="Export Error Report" />
         </StackPanel>
     </Grid>
-    
-    
-
 </rxui:ReactiveUserControl>

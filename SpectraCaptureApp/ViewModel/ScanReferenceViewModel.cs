@@ -40,11 +40,12 @@ namespace SpectraCaptureApp.ViewModel
                 }
                 else
                 {
-                    var ignoreWarning = MessageBox.Show("Baseline scan was invalid. Continue?", "Baseline was invalid", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                    if (ignoreWarning == MessageBoxResult.Yes)
-                    {
-                        SubSambleScanNavigateCommand.Execute();
-                    }
+                    throw new Exception("Baseline scan was invalid. Please ensure both the spectrometer and the reference cap are clean and try again.");
+                    //MessageBox.Show(
+                    //    "Baseline scan was invalid. Please ensure both the spectrometer and the reference cap are clean and try again.", 
+                    //    "Baseline was invalid", 
+                    //    MessageBoxButton.OK, 
+                    //    MessageBoxImage.Warning);
                 }
 
             });
