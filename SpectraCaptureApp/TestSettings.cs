@@ -10,7 +10,7 @@ namespace SpectraCaptureApp
         public static bool SpectrometerConnected { get; set; }
         public static bool BaselineOk { get; set; }
 
-        public static int MaximumDarkCount => 100;
-        public static int MinimumLightCount => 10000;
+        public static int MaximumDarkCount => 1000;
+        public static int MinimumLightCount => 30000;
     }
 }
