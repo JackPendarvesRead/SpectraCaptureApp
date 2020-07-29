@@ -32,7 +32,8 @@ namespace SpectraCaptureApp.ViewModel
             ScanReferenceCommand = ReactiveCommand.Create(() =>
             {
                 UIServices.SetBusyState();
-                if (Model.ScanningWorkflow.ScanReference().IsValid)
+                var result = Model.ScanningWorkflow.ScanReference();
+                if (result.IsValid)
                 {
                     Log.Debug("Reference scan taken successfully");
                     SubSambleScanNavigateCommand.Execute();

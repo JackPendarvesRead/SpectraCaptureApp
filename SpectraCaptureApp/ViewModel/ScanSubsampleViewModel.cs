@@ -131,7 +131,8 @@ namespace SpectraCaptureApp.ViewModel
         private int failedAttempts = 0;
         private void CaptureSubSampleScan()
         {
-            if (Model.ScanningWorkflow.ScanSubSample().IsValid)
+            var result = Model.ScanningWorkflow.ScanSubSample();
+            if (result.IsValid)
             {
                 Log.Debug("Successfully scanned subsample. Scan number = {ScanNumber}/{MaximumScansScan}", this.ScansCompleted + 1, MaximumScans);
             }
