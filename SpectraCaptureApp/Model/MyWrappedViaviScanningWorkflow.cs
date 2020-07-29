@@ -25,6 +25,8 @@ namespace SpectraCaptureApp.Model
 
         protected override ValidationResult ValidateDarkReferenceScan(List<float> darkReferenceScan)
         {
+            //TODO: add validation
+            return ValidationResult.Valid();
             if (darkReferenceScan.Where(x => x > TestSettings.MaximumDarkCount).Any())
             {
                 return ValidationResult.NotValid();
@@ -34,6 +36,8 @@ namespace SpectraCaptureApp.Model
 
         protected override ValidationResult ValidateLightReferenceScan(List<float> lightReferenceScan)
         {
+            //TODO: add validation
+            return ValidationResult.Valid();
             if (lightReferenceScan.Where(x => x < TestSettings.MinimumLightCount).Any())
             {
                 return ValidationResult.NotValid();
@@ -61,6 +65,7 @@ namespace SpectraCaptureApp.Model
 
         private bool ValidateSpectrumData(ISpectrumData data)
         {
+            //TODO: add validation
             return true;
         }
     }
