@@ -125,8 +125,11 @@ namespace SpectraCaptureApp.ViewModel.Controls
             HostScreen.Router.NavigationChanged.Subscribe(x =>
             {
                 var viewModel = Observable.Latest(HostScreen.Router.CurrentViewModel).First();
-                Log.Debug("Host screen navigated to {ViewModel}", viewModel.GetType());
-                this.SetVisibilities(viewModel);
+                if(viewModel != null)
+                {
+                    Log.Debug("Host screen navigated to {ViewModel}", viewModel.GetType());
+                    this.SetVisibilities(viewModel);
+                }
             });
         }
 
