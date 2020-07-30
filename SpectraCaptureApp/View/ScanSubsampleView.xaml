@@ -28,9 +28,12 @@
                 <LineBreak />
                 <Run Text="3) Click 'Scan' to capture a spectrum. Keep spectrometer in place until scan is finished." />
                 <LineBreak />
-                <Run Text="4) Move spectrometer to another part of your sample and repeat step 3 to capture second spectrum." />
+                <Run Text="4) Move spectrometer to another part of your sample and repeat step 3 to capture next spectrum." />
                 <LineBreak />
-                <Run Text="5) Repeat step 5 until you have captured five spectra. Once finished click 'Save' to save your spectra." />
+                <Run Text="5) Repeat step 4 until you have captured five spectra. Once finished click 'Save' to save your spectra." />
+                <LineBreak />
+                <LineBreak />
+                <Run Text="Note: if you make a mistake you can click 'Clear Subsamples' to start start again from step 1" />
             </TextBlock>            
             <Image Width="200">
                 <Image.Source>
@@ -55,8 +58,8 @@
                 <TextBlock x:Name="Status"/>
             </StackPanel>
             <Button x:Name="ScanButton" Content="Scan Sample" />
-            <Button x:Name="SaveButton" Content="Save" />
-            
+            <!--<Button x:Name="ResetButton" Content="Clear Subsamples" />-->
+            <Button x:Name="SaveButton" Content="Save" />            
         </StackPanel>
     </Grid>
 </rxui:ReactiveUserControl>

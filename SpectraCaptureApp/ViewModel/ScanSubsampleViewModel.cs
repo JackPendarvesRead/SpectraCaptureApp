@@ -38,6 +38,7 @@ namespace SpectraCaptureApp.ViewModel
         public bool Paused => paused.Value;
 
         public ReactiveCommand<Unit, Unit> PauseCommand { get; }
+        public ReactiveCommand<Unit, Unit> ResetCommand { get; }
         public ReactiveCommand<Unit, Unit> StartSubSampleScan { get; }
         public ReactiveCommand<Unit, IRoutableViewModel> SaveCommand { get; }
         
@@ -82,6 +83,10 @@ namespace SpectraCaptureApp.ViewModel
                     Log.Debug("Lamp turned off");
                     Model.ScanningWorkflow.StoreSpectrum();
                     Log.Debug("Spectrum stored");
+                    if(AppSettings.AutoReferenceSetting == AutoReferenceSettings.Increment || AppSettings.AutoReferenceSetting == AutoReferenceSettings.DateTime_Increment)
+                    {
+                        AppSettings.CurrentAutoRefIncrement += 1;
+                    }
                     return HostScreen.ResetWorkflow();
                 },
                 this.WhenAnyValue(
@@ -114,6 +119,17 @@ namespace SpectraCaptureApp.ViewModel
                     }
                     return ScanState.Ready;
                 }).ToProperty(this, vm => vm.ScanStatus, out scanState);
+
+            ResetCommand = ReactiveCommand.Create(ResetImpl);
+            ResetCommand.ThrownExceptions.Subscribe((ex) =>
+            {
+                ex.HandleWorkflowException(HostScreen, Model, nameof(ResetCommand));
+            });
+        }
+
+        private void ResetImpl()
+        {
+            ScansCompleted = 0;
         }
 
         private IObservable<Unit> StartSubSampleScanImpl()
