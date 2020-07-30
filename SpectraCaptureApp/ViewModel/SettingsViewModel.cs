@@ -9,6 +9,7 @@ using SpectraCaptureApp.Model;
 using SpectraCaptureApp.Infrastructure;
 using System.IO;
 using System.Diagnostics;
+using SpectraCaptureApp.Extension;
 
 namespace SpectraCaptureApp.ViewModel
 {
@@ -95,7 +96,7 @@ namespace SpectraCaptureApp.ViewModel
             BackCommand = ReactiveCommand.CreateFromObservable(() =>
             {
                 Log.Debug("Settings BackCommand executing, navigating back to EnterSampleReferenceViewModel");
-                return HostScreen.Router.NavigateAndReset.Execute(new EnterSampleReferenceViewModel(new ScanCaptureModel(), HostScreen));
+                return HostScreen.ResetWorkflow();
             });
             
             SaveDirectoryBrowseCommand = ReactiveCommand.Create(() => 

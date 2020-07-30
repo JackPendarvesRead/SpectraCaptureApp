@@ -1,5 +1,6 @@
 ﻿using ReactiveUI;
 using Serilog;
+using SpectraCaptureApp.Extension;
 using SpectraCaptureApp.Infrastructure;
 using SpectraCaptureApp.Model;
 using System;
@@ -93,7 +94,7 @@ namespace SpectraCaptureApp.ViewModel.Controls
             AbortCommand = ReactiveCommand.CreateFromObservable(() =>
             {
                 Log.Debug("AbortCommand executing. Navigating to EnterSampleReferenceViewModel");
-                return HostScreen.Router.NavigateAndReset.Execute(new EnterSampleReferenceViewModel(new ScanCaptureModel(), HostScreen));                 
+                return HostScreen.ResetWorkflow();                 
             });
 
             this.WhenAnyValue(vm => vm.SpectrometerIsConnected)

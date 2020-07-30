@@ -82,7 +82,7 @@ namespace SpectraCaptureApp.ViewModel
                     Log.Debug("Lamp turned off");
                     Model.ScanningWorkflow.StoreSpectrum();
                     Log.Debug("Spectrum stored");
-                    return HostScreen.Router.NavigateAndReset.Execute(new EnterSampleReferenceViewModel(new ScanCaptureModel(), HostScreen));
+                    return HostScreen.ResetWorkflow();
                 },
                 this.WhenAnyValue(
                     x => x.ScansCompleted,
