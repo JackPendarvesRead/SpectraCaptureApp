@@ -18,11 +18,11 @@ namespace SpectraCaptureApp.Model
 
         public IScanningWorkflow ScanningWorkflow { get; }
 
-        private string _sampleReference;
+        private string sampleReference;
         public string SampleReference
         {
-            get => _sampleReference;
-            set => this.RaiseAndSetIfChanged(ref _sampleReference, value);
+            get => sampleReference;
+            set => this.RaiseAndSetIfChanged(ref sampleReference, value);
         }
 
         public List<Exception> WorkflowExceptions = new List<Exception>();

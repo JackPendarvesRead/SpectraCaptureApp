@@ -14,7 +14,7 @@ namespace SpectraCaptureApp.Model
         public List<ISpectrumData> InvalidSpectra { get; set; } = new List<ISpectrumData>();
 
         public MyWrappedViaviScanningWorkflow(string storageDirectory) 
-            : base(new MicroNirUsbDeviceConnectionFactory(), storageDirectory)
+            : base(new MyNirDeviceConnectionFactory(), storageDirectory)
         {
         }
 
@@ -51,6 +51,8 @@ namespace SpectraCaptureApp.Model
             List<ISpectrumData> previousSubSampleScans, 
             ISpectrumData newSubSampleScan)
         {
+            //check 5 subsamples within accerptable SD
+            //check sample looks like an nir spectrum within DB
             if (ValidateSpectrumData(newSubSampleScan))
             {
                 ValidSpectra.Add(newSubSampleScan);

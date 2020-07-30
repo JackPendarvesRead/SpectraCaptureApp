@@ -10,6 +10,15 @@
     Background="WhiteSmoke"
     mc:Ignorable="d">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        
         <StackPanel>
             <Label Style="{StaticResource Title}">Capture Spectrum Reference</Label>
             <StackPanel Orientation="Horizontal">

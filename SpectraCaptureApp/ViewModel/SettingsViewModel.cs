@@ -9,6 +9,7 @@ using SpectraCaptureApp.Model;
 using SpectraCaptureApp.Infrastructure;
 using System.IO;
 using System.Diagnostics;
+using SpectraCaptureApp.Extension;
 
 namespace SpectraCaptureApp.ViewModel
 {
@@ -95,8 +96,23 @@ namespace SpectraCaptureApp.ViewModel
             BackCommand = ReactiveCommand.CreateFromObservable(() =>
             {
                 Log.Debug("Settings BackCommand executing, navigating back to EnterSampleReferenceViewModel");
-                return HostScreen.Router.NavigateAndReset.Execute(new EnterSampleReferenceViewModel(new ScanCaptureModel(), HostScreen));
-            });
+                return HostScreen.ResetWorkflow();
+                //if (AppSettings.SpectrumSaveDirectory == AppSettings.NoDirectorySetString || string.IsNullOrWhiteSpace(AppSettings.SpectrumSaveDirectory))
+                //{
+                //    Log.Debug("Navigation cancelled. Must set SpectrumSaveDirectory before continuing. Current SpectrumSaveDirectory = {SpectrumSaveDirectory}", this.SaveDirectory);
+                //    MessageBox.Show("Please set spectrum save directory before continuing");
+                //    return HostScreen.Router.CurrentViewModel;
+                //}
+                //else
+                //{
+                //}
+            }, 
+            this.WhenAnyValue(
+                vm => vm.SaveDirectory, 
+                dir => 
+                {
+                    return !string.IsNullOrWhiteSpace(dir) && dir != AppSettings.NoDirectorySetString;
+                }));
             
             SaveDirectoryBrowseCommand = ReactiveCommand.Create(() => 
             {

@@ -57,12 +57,12 @@ namespace SpectraCaptureApp.ViewModel
 
                 case AutoReferenceSettings.Increment:
                     Model.SampleReference = AppSettings.CurrentAutoRefIncrement.ToString("00000");
-                    AppSettings.CurrentAutoRefIncrement += 1;
+                    //AppSettings.CurrentAutoRefIncrement += 1;
                     break;
 
                 case AutoReferenceSettings.DateTime_Increment:
                     Model.SampleReference = $"{DateTime.UtcNow.ToString("yyyyMMdd_HHmm")}_{AppSettings.CurrentAutoRefIncrement.ToString("00000")}";
-                    AppSettings.CurrentAutoRefIncrement += 1;
+                    //AppSettings.CurrentAutoRefIncrement += 1;
                     break;
 
                 default:

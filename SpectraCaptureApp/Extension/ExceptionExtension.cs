@@ -1,4 +1,5 @@
-﻿using ReactiveUI;
+﻿using Aunir.InstrumentControl.Interfaces;
+using ReactiveUI;
 using Serilog;
 using SpectraCaptureApp.Model;
 using SpectraCaptureApp.ViewModel;
@@ -13,17 +14,27 @@ namespace SpectraCaptureApp.Extension
     {
         public static void HandleWorkflowException(this Exception ex, IScreen hostScreen, ScanCaptureModel model, string methodName)
         {
-            string message = $"{methodName} method failed";
-            Log.Error(ex, message);
-            model.WorkflowExceptions.Add(ex);
-            if(model.WorkflowExceptions.Count >= AppSettings.RetryAttempts)
+            if(ex is HardwareException hwex)
             {
-                hostScreen.Router.Navigate.Execute(new ErrorContactViewModel(model, hostScreen));
+                Log.Error(hwex, hwex.Message);
+                MessageBox.Show("There was a problem connecting to the spectrometer. Please ensure that spectrometer is connected and restart scan process.", "Hardware Exception", MessageBoxButton.OK, MessageBoxImage.Error);
+                hostScreen.ResetWorkflow();
             }
             else
-            {                
-                MessageBox.Show(ex.Message, message, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            {
+                string message = $"{methodName} method failed";
+                Log.Error(ex, message);
+                model.WorkflowExceptions.Add(ex);
+                if (model.WorkflowExceptions.Count >= AppSettings.RetryAttempts)
+                {
+                    hostScreen.Router.Navigate.Execute(new ErrorContactViewModel(model, hostScreen));
+                }
+                else
+                {
+                    MessageBox.Show(ex.Message, message, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }           
+           
         }
     }
 }

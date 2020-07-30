@@ -22,8 +22,12 @@
             <Button x:Name="AbortButton" Content="Abort" />
             <Button x:Name="SettingsButton" Content="Settings" />
         </StackPanel>
-
-        <StackPanel Grid.Column="1" 
+        <Image Grid.Column="1" Width="200" HorizontalAlignment="Right">
+            <Image.Source>
+                <BitmapImage DecodePixelWidth="200" UriSource="/Images/AunirLogo.jpg" />
+            </Image.Source>
+        </Image>
+        <!--<StackPanel Grid.Column="1" 
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
 
@@ -39,7 +43,7 @@
                 <LineBreak />
                 <Run Text="Connected"/>
             </TextBlock>
-        </StackPanel>
+        </StackPanel>-->
     </Grid>
     
 </rxui:ReactiveUserControl>

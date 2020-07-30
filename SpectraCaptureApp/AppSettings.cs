@@ -18,11 +18,12 @@ namespace SpectraCaptureApp
         private static readonly SettingsManager<UserSettings> SettingsManager = Locator.Current.GetService<SettingsManager<UserSettings>>();
         private static readonly UserSettings Settings = SettingsManager.LoadSettings();
 
+        public static string NoDirectorySetString = "<No Directory Set>";
         public static string SpectrumSaveDirectory
         {
             get
             {
-                return Settings.SpectrumSaveDirectory ?? "<No Directory Set>";
+                return Settings.SpectrumSaveDirectory ?? NoDirectorySetString;
             }
             set
             {
