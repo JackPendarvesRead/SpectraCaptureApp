@@ -1,7 +1,6 @@
 ﻿using NIR4.ViaviCapture.Model;
 using ReactiveUI;
 using Serilog;
-using SpectraCaptureApp.Logic;
 using SpectraCaptureApp.Model;
 using Splat;
 using System;
