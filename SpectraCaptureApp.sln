@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpectraCaptureApp", "Spectr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NIR4.ViaviCapture.Model", "..\Nir4WindowsViaviScanningApi\NIR4WindowsViaviScanningApp\NIR4.ViaviCapture.Model\NIR4.ViaviCapture.Model.csproj", "{6333445C-349C-4383-82F8-907A2870E33B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NIR4.ViaviCapture.MicroNIRControl", "..\Nir4WindowsViaviScanningApi\NIR4WindowsViaviScanningApp\NIR4.ViaviCapture.MicroNIRControl\NIR4.ViaviCapture.MicroNIRControl.csproj", "{A1CBD3EE-4184-4AD0-9E82-014ABE765AB0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{6333445C-349C-4383-82F8-907A2870E33B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6333445C-349C-4383-82F8-907A2870E33B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6333445C-349C-4383-82F8-907A2870E33B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1CBD3EE-4184-4AD0-9E82-014ABE765AB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1CBD3EE-4184-4AD0-9E82-014ABE765AB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1CBD3EE-4184-4AD0-9E82-014ABE765AB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1CBD3EE-4184-4AD0-9E82-014ABE765AB0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
