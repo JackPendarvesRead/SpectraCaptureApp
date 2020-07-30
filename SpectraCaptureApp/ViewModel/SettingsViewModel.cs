@@ -97,7 +97,22 @@ namespace SpectraCaptureApp.ViewModel
             {
                 Log.Debug("Settings BackCommand executing, navigating back to EnterSampleReferenceViewModel");
                 return HostScreen.ResetWorkflow();
-            });
+                //if (AppSettings.SpectrumSaveDirectory == AppSettings.NoDirectorySetString || string.IsNullOrWhiteSpace(AppSettings.SpectrumSaveDirectory))
+                //{
+                //    Log.Debug("Navigation cancelled. Must set SpectrumSaveDirectory before continuing. Current SpectrumSaveDirectory = {SpectrumSaveDirectory}", this.SaveDirectory);
+                //    MessageBox.Show("Please set spectrum save directory before continuing");
+                //    return HostScreen.Router.CurrentViewModel;
+                //}
+                //else
+                //{
+                //}
+            }, 
+            this.WhenAnyValue(
+                vm => vm.SaveDirectory, 
+                dir => 
+                {
+                    return !string.IsNullOrWhiteSpace(dir) && dir != AppSettings.NoDirectorySetString;
+                }));
             
             SaveDirectoryBrowseCommand = ReactiveCommand.Create(() => 
             {

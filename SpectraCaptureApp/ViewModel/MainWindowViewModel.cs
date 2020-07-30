@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using SpectraCaptureApp.ViewModel.Controls;
 using System.Reactive.Linq;
+using SpectraCaptureApp.Extension;
 
 namespace SpectraCaptureApp.ViewModel
 {
@@ -34,7 +35,6 @@ namespace SpectraCaptureApp.ViewModel
 
             TopBarViewModel.SpectrometerIsConnected = true;
 
-            TopBarViewModel.AbortCommand.Execute();
 
             this.WhenAnyValue(vm => vm.ThrowErrors).Subscribe((throwError) => TestSettings.ThrowErrors = throwError);
             this.WhenAnyValue(vm => vm.TopBarViewModel.BaselineIsOk).Subscribe((baselineOk) => TestSettings.BaselineOk = baselineOk);
@@ -52,6 +52,20 @@ namespace SpectraCaptureApp.ViewModel
                             MessageBoxImage.Warning);
                     }
                 });
+
+            StartWorkflow();
+        }
+
+        private void StartWorkflow()
+        {
+            if(AppSettings.SpectrumSaveDirectory == AppSettings.NoDirectorySetString || string.IsNullOrWhiteSpace(AppSettings.SpectrumSaveDirectory))
+            {
+                this.TopBarViewModel.SettingsNavigateCommand.Execute();
+            }
+            else
+            {
+                this.ResetWorkflow();
+            }
         }
     }
 }
