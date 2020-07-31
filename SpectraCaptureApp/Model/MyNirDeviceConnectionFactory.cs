@@ -11,7 +11,7 @@ namespace SpectraCaptureApp.Model
     {
         private readonly JdsuDeviceController controller = new JdsuDeviceController();
         private static INirDeviceConnection connection;
-        private static string ConnectedDeviceSerial;
+        private static string currentFtHandle;
 
         public INirDeviceConnection GetConnection()
         {
@@ -33,17 +33,11 @@ namespace SpectraCaptureApp.Model
 
         private bool CheckDeviceIsConnected()
         {
-            var serial = GetDeviceSerial();
-            return serial == ConnectedDeviceSerial;
+            var ftHandle = GetFtHandle();
+            return ftHandle == currentFtHandle;
         }
 
         private void SetConnection()
-        {
-            ConnectedDeviceSerial = GetDeviceSerial();
-            connection = controller.CreateConnection(ConnectedDeviceSerial);
-        }
-
-        private string GetDeviceSerial()
         {
             var devices = controller.GetConnectedDevices();
             if (devices.Length < 1)
@@ -52,7 +46,13 @@ namespace SpectraCaptureApp.Model
             if (devices.Length > 1)
                 throw new HardwareException("More than one device found");
 
-            return devices[0];
+            connection = controller.CreateConnection(devices[0]);
+            currentFtHandle = GetFtHandle();
+        }
+
+        private string GetFtHandle()
+        {
+            return controller.GetCurrentFtHandleString();
         }
     }
 }
